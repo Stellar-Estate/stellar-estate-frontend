@@ -3,6 +3,7 @@ import { Property, RevenueRecord, PropertyUnit, PropertyParticipation } from '..
 import { apiService } from '../services/apiService.ts';
 import { STELLAR_EXPERT_EXPLORER } from '../services/stellarService.ts';
 import { RevenueDepositModal } from '../components/RevenueDepositModal.tsx';
+import { FinancialPassportModal } from '../components/FinancialPassportModal.tsx';
 import {
   Building2,
   MapPin,
@@ -37,6 +38,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
   const [participations, setParticipations] = useState<PropertyParticipation[]>([]);
   const [financials, setFinancials] = useState<any>(null);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isPassportModalOpen, setIsPassportModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const loadPropertyData = async () => {
@@ -86,6 +88,13 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
 
           {/* Action Buttons */}
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => setIsPassportModalOpen(true)}
+              className="btn-secondary"
+              style={{ padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <FileText size={18} /> Financial Passport
+            </button>
             {onNavigateToAgreements && (
               <button
                 onClick={onNavigateToAgreements}
@@ -412,6 +421,13 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
         isOpen={isDepositModalOpen}
         onClose={() => setIsDepositModalOpen(false)}
         onRevenueConfirmed={loadPropertyData}
+      />
+
+      {/* Financial Passport Modal */}
+      <FinancialPassportModal
+        propertyId={property.id}
+        isOpen={isPassportModalOpen}
+        onClose={() => setIsPassportModalOpen(false)}
       />
     </div>
   );

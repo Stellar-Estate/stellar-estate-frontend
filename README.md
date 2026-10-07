@@ -1,160 +1,115 @@
 # 🏠 Stellar Estate Frontend (`stellar-estate-frontend`)
 
-> **Programmable Real-Estate Financial Infrastructure — Web Application & Settlement Explorer**
+> **Programmable Property-Revenue Settlement Platform — Web Application, Interactive Trace & Financial Passport**
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bc5fc4fd-0dfb-4954-8a2d-f4fabc7e3402/deploy-status)](https://stellar-estate-app.netlify.app)
-**🌐 Live Production Deployment:** [https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)
+**🌐 Live Production Platform:** [https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)
 
 Part of the **Stellar Estate** architecture in organization [`Stellar-Estate`](https://github.com/Stellar-Estate).
 
 ```text
 Stellar-Estate/
-├── stellar-estate-frontend   (Web application & user experience)
-└── stellar-estate-core       (Backend API, Soroban contracts, database, reconciliation)
+├── stellar-estate-frontend   (Web Application, Settlement Execution, Interactive Trace & Financial Passport)
+└── stellar-estate-core       (Backend API, Soroban Contracts, Settlement Engine & Reconciliation Service)
 ```
 
 ---
 
-## 1. Product Vision
+## 1. Product Thesis
 
-Stellar Estate makes property revenue transparent, traceable, and ready for programmable settlement on the Stellar network.
+Stellar Estate transforms property revenue into programmable, traceable, and settleable financial flows on the Stellar network.
 
-$$\text{Property} \longrightarrow \text{Revenue} \quad [\longrightarrow \text{Financial Rules} \longrightarrow \text{Settlement}]$$
+$$\text{Property} \longrightarrow \text{Revenue} \longrightarrow \text{Vault} \longrightarrow \text{Locked Agreement} \longrightarrow \text{Waterfall} \longrightarrow \text{Multi-Recipient Settlement} \longrightarrow \text{Proof}$$
 
 > **“Every property has a story. We make its money programmable.”**
 
-Level 1 establishes the **Property → Revenue** foundation:
-* Discover verified properties and inspect institutional capital structures.
-* Connect a Stellar Testnet wallet (Freighter or instant Friendbot-funded developer account).
-* Deposit live property revenue transactions directly to dedicated property vaults.
-* Independently verify transactions on-chain via Stellar Horizon.
-* Trace immutable financial records and inspect on Stellar.Expert Explorer.
+The user experience empowers property owners, operators, and investors to answer:
+> **“Property revenue came in. According to the locked agreement, where exactly did the money go?”**
 
 ---
 
-## 2. Architecture & Design Principles
+## 2. Key Modules & User Experience
 
-* **Real Transactions Only:** Zero fake blockchain transactions, fake balances, or simulated confirmations.
-* **Separation of Concerns:** Frontend presents and orchestrates the experience. Backend independently verifies transactions and manages accounting state. Soroban contracts enforce financial vault rules.
-* **Non-Custodial Architecture:** Private keys and secrets are never requested or stored.
-* **Future-Ready Roadmap:** Clearly displays planned Level 2 (Distribution Agreements & Waterfall Tranches) and Level 3 (Atomic Settlement Engine) modules without premature simulation.
+### 1. "Where Did My Rent Go?" Interactive Trace (`/settlements`)
+* Complete step-by-step audit trail showing how verified tenant revenue progresses through deterministic waterfall rules into multi-recipient payouts:
+  $$\$10,000 \text{ Rent} \longrightarrow -\$1,000 \text{ OpEx} \longrightarrow -\$1,000 \text{ Reserve} \longrightarrow -\$400 \text{ Mgmt Fee} \longrightarrow \$7,600 \text{ Distributable}$$
+* Direct links to:
+  * Tenant revenue transaction on Stellar.Expert Explorer
+  * Locked distribution agreement version and canonical SHA-256 hash
+  * Individual recipient payments (Alice: 40%, Bob: 35%, Charlie: 25%) with transaction hashes
+  * On-chain mathematical invariant verification badge
 
-```text
-                    STELLAR ESTATE
-                          │
-             ┌────────────┴────────────┐
-             │                         │
-        FRONTEND                  CORE REPOSITORY
-             │                         │
-             │                 ┌───────┴────────┐
-             │                 │                │
-             │             BACKEND          SOROBAN
-             │                 │                │
-             │                 │          Property Vault
-             │                 │                │
-             │                 └───────┬────────┘
-             │                         │
-             └─────────────────────────┘
-                          │
-                     STELLAR TESTNET
-```
+### 2. Multi-Recipient Settlement Execution
+* Preview deterministic waterfall before money moves.
+* Non-custodial execution flow: `PREVIEW` $\rightarrow$ `SIGNING` $\rightarrow$ `SUBMITTING` $\rightarrow$ `CONFIRMING` $\rightarrow$ `SETTLED` $\rightarrow$ `RECONCILED`.
+* Double-spending protection: Revenue records are consumed once and cannot be settled twice.
 
----
+### 3. Property Financial Passport
+* Permanent verifiable financial history tracking lifetime statistics:
+  * Total Lifetime Revenue
+  * Total Operating Expenses Deducted
+  * Total Maintenance Reserves Held in Vault
+  * Total Management Fees Paid
+  * Total Distributed to Stakeholders
+  * Total Settlements Executed
+  * Active Agreement Version & Canonical Hash
+  * Reconciliation Health (`✓ CURRENT • 100% Balanced`)
 
-## 3. Key Features
+### 4. Stakeholder Earnings
+* Granular stakeholder dashboard for equity participants (Alice, Bob, Charlie).
+* Displays current basis points allocation, lifetime revenue allocated, lifetime settled, pending funds, and individual payout receipts with Explorer links.
 
-### Level 1 Foundation
-1. **Property Discovery (`/properties`):**
-   * Filterable directory of commercial and residential assets.
-   * Real metrics: Valuation, Units, Occupancy rate, Monthly revenue, and Vault address.
-2. **Property Financial Profile (`/detail`):**
-   * Physical specs (Year built, GFA, Energy rating).
-   * Capital structure (Valuation, Reserve provisions, Distributable revenue).
-   * Registered ownership/operator participation records.
-   * On-chain revenue activity table with Stellar.Expert Explorer links.
-3. **Property Revenue Deposit Flow:**
-   * Explicit 9-stage lifecycle: `READY` $\rightarrow$ `WALLET_REQUIRED` $\rightarrow$ `REVIEW` $\rightarrow$ `SIGNING` $\rightarrow$ `SUBMITTING` $\rightarrow$ `CONFIRMING` $\rightarrow$ `CONFIRMED`.
-   * Real Stellar Testnet payment execution verified against Horizon validators.
-4. **Revenue & Settlement Dashboard (`/dashboard`):**
-   * Portfolio-wide metrics, revenue trend chart, and reconciliation status.
-5. **Cryptographic Revenue Provenance (`/audit`):**
-   * 5-stage interactive pipeline: Property $\rightarrow$ Revenue Event $\rightarrow$ Stellar Transaction $\rightarrow$ Verification $\rightarrow$ Financial Record.
+### 5. Distribution Agreements & Governance (`/agreements`)
+* Propose agreement versions with waterfall deductions and stakeholder basis points ($10,000 \text{ bps} = 100\%$).
+* Multi-stakeholder cryptographic approvals against the exact canonical SHA-256 agreement hash.
+* Immutable locking on Soroban smart contract once all approvals are received.
 
-### Level 2 Programmable Distribution Agreements
-6. **Property Distribution Agreements Dashboard (`/agreements`):**
-   * View property agreements with version badges (`v1 LOCKED`, `v2 PARTIALLY_APPROVED`).
-   * Displays canonical agreement SHA-256 hash, authoritative Soroban contract reference, and lock timestamps.
-   * Strictly enforces immutability: locked agreements are read-only and cannot be altered.
-7. **Interactive Waterfall Builder:**
-   * Visual drag-and-order cascade: Gross Property Revenue $\rightarrow$ Operating Expenses $\rightarrow$ Maintenance Reserve $\rightarrow$ Management Fee $\rightarrow$ Net Distributable Revenue $\rightarrow$ Stakeholder Allocations.
-   * Deterministic financial validation: strict basis-point invariants ($10,000 \text{ bps} = 100.00\%$) with zero floating-point math.
-8. **Multi-Party Stellar Wallet Approval Flow:**
-   * Material terms review modal displaying exact rules and SHA-256 canonical hash.
-   * Non-custodial signature recording using connected Freighter or testnet wallet.
-   * Progressively updates status: `PENDING_APPROVALS` $\rightarrow$ `PARTIALLY_APPROVED` $\rightarrow$ `READY_TO_LOCK`.
-9. **On-Chain Agreement Locking:**
-   * Disables any term mutation on backend and enforces immutability via Soroban.
-   * Any change requires proposing a new deterministic agreement version.
-10. **Deterministic Settlement Preview:**
-    * Interactive simulation calculating safe-integer waterfall cascades against custom revenue amounts.
-    * Explicitly labeled as: *"Settlement Preview — Calculated from Locked Agreement Rules (Level 3 Execution Target)"*.
-11. **Agreement Version Comparison:**
-    * Side-by-side diff comparing allocations, expense tranches, and effective dates across versions.
+### 6. Property Profiles & Vault Ingestion (`/properties`, `/detail`)
+* Physical property specs (Valuation, Units, Occupancy rate, Location).
+* Dedicated Stellar Testnet vault addresses.
+* Live revenue deposit modal supporting real payments via Freighter wallet or instant developer test accounts.
 
 ---
 
-## 4. Wallet Support (Stellar Testnet)
+## 3. Technology Stack
 
-* **Freighter Extension:** Connects to the official Stellar non-custodial browser extension. Verifies that the network is set to Stellar Testnet.
-* **Instant Testnet Account:** For reviewers or developers without the extension installed, 1-click generation and funding of 10,000 Testnet XLM via Stellar Friendbot.
+* **Framework:** React 18, TypeScript, Vite
+* **Styling:** Vanilla CSS design system with custom HSL dark mode, glassmorphism, and micro-animations
+* **Icons & UI:** Lucide React
+* **Stellar Integration:** `@stellar/stellar-sdk` (Testnet Horizon & Soroban RPC)
+* **Testing:** Vitest automated test suite (16/16 passing)
+* **Hosting:** Netlify with automated SPA routing (`_redirects`)
 
 ---
 
-## 5. Local Setup & Development
+## 4. Local Development & Testing
 
-### Prerequisites
-* Node.js $\ge$ 20
-* npm $\ge$ 10
-
-### Installation
 ```bash
-git clone https://github.com/Stellar-Estate/stellar-estate-frontend.git
-cd stellar-estate-frontend
+# Install dependencies
 npm install
-```
 
-### Run Locally
-```bash
-npm run dev
-# Starts local development server on http://localhost:3000
-```
-
-### Run Tests
-```bash
+# Run automated unit and integration tests (16/16 passing)
 npm test
-# Runs automated Vitest test suite
-```
 
-### Production Build
-```bash
+# Typecheck and build production bundle
+npm run lint
 npm run build
+
+# Start local development server
+npm run dev
 ```
 
 ---
 
-## 6. Environment Variables
+## 5. Live Production Deployment
 
-Create a `.env` file in the root if custom API routing is needed:
+The frontend is live and accessible at:
+👉 **[https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)**
 
-```env
-VITE_API_BASE_URL=http://localhost:4000/api
-```
-
-*(Note: The frontend includes a standalone fallback client with identical prototype data so it remains fully functional and reviewer-ready even before the backend server is launched).*
+Netlify Site ID: `bc5fc4fd-0dfb-4954-8a2d-f4fabc7e3402`
 
 ---
 
-## 7. Legal & Technical Disclaimer
+## 6. Legal & Prototype Boundary
 
-> **IMPORTANT DISCLAIMER:**
-> This prototype demonstrates programmable real-estate financial infrastructure on the Stellar network. It does **not** constitute a transfer of legal title to physical property, an offer of securities, financial advice, or an investment solicitation. Legal title remains governed exclusively by jurisdiction-specific real-estate registries and applicable law.
+> **System Notice:** Stellar Estate is a prototype programmable real-estate financial infrastructure. It records financial agreements, waterfall allocations, and cash flows on Stellar Testnet. It does **not** transfer legal title to physical property, represent a regulated securities offering, or constitute financial/investment advice. Physical property title remains governed by jurisdiction-specific real-estate registries.

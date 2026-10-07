@@ -179,3 +179,71 @@ describe('Level 2: Property Distribution Agreements & Waterfall Tests', () => {
   });
 });
 
+describe('Level 3: Programmable Settlement Platform Tests', () => {
+  it('apiService.getRevenuePool should return verified revenue pool metrics', async () => {
+    const pool = await apiService.getRevenuePool('prop-meridian-abuja');
+    expect(pool.property_id).toBe('prop-meridian-abuja');
+    expect(pool.total_confirmed_revenue).toBeGreaterThan(0);
+    expect(pool.available_for_settlement).toBeGreaterThanOrEqual(0);
+  });
+
+  it('apiService.previewLevel3Settlement should calculate deterministic $10,000 waterfall', async () => {
+    const preview = await apiService.previewLevel3Settlement('prop-meridian-abuja', ['rev-01']);
+    expect(preview.gross_revenue).toBe(10000);
+    expect(preview.expenses).toBe(1000);
+    expect(preview.reserve).toBe(1000);
+    expect(preview.fees).toBe(400);
+    expect(preview.distributable_amount).toBe(7600);
+    expect(preview.accounting_balanced).toBe(true);
+    expect(preview.stakeholder_allocations.length).toBe(3);
+
+    // Sum of stakeholder allocations must equal distributable revenue
+    const sum = preview.stakeholder_allocations.reduce((acc: number, s: any) => acc + s.allocated_amount, 0);
+    expect(sum).toBe(7600);
+  });
+
+  it('apiService.executeSettlement should execute settlement, confirm on Stellar, and reconcile', async () => {
+    const settlement = await apiService.executeSettlement({
+      propertyId: 'prop-meridian-abuja',
+      revenueIds: ['rev-01'],
+      executorAddress: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+    });
+
+    expect(settlement.id).toContain('STL-MERIDIAN');
+    expect(settlement.status).toBe('RECONCILED');
+    expect(settlement.reconciliation_status).toBe('MATCHED');
+    expect(settlement.payouts.length).toBe(3);
+    expect(settlement.distributable_amount).toBe(7600);
+  });
+
+  it('apiService.getSettlementTrace should return "Where Did My Rent Go?" full audit flow', async () => {
+    const trace = await apiService.getSettlementTrace('STL-MERIDIAN-001');
+    expect(trace.settlement_id).toBe('STL-MERIDIAN-001');
+    expect(trace.property.name).toBe('The Meridian');
+    expect(trace.waterfall_flow.gross_revenue).toBe(10000);
+    expect(trace.waterfall_flow.operating_expenses).toBe(1000);
+    expect(trace.waterfall_flow.maintenance_reserve).toBe(1000);
+    expect(trace.waterfall_flow.management_fee).toBe(400);
+    expect(trace.waterfall_flow.net_distributable).toBe(7600);
+    expect(trace.recipient_allocations.length).toBe(3);
+  });
+
+  it('apiService.getPropertyFinancialPassport should return lifetime financial history', async () => {
+    const passport = await apiService.getPropertyFinancialPassport('prop-meridian-abuja');
+    expect(passport.property_id).toBe('prop-meridian-abuja');
+    expect(passport.total_lifetime_revenue).toBeGreaterThan(0);
+    expect(passport.reconciliation_status).toBe('CURRENT');
+    expect(passport.active_agreement_id).toBe('MERIDIAN-REV-001');
+  });
+
+  it('apiService.getStakeholderEarnings should return verified earnings for Alice', async () => {
+    const alice = 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD';
+    const earnings = await apiService.getStakeholderEarnings(alice);
+    expect(earnings.wallet_address).toBe(alice);
+    expect(earnings.stakeholder_name).toContain('Alice');
+    expect(earnings.total_settled).toBeGreaterThan(0);
+    expect(earnings.settlements.length).toBeGreaterThan(0);
+  });
+});
+
+

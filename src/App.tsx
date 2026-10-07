@@ -8,6 +8,7 @@ import { PropertyDetailPage } from './pages/PropertyDetailPage.tsx';
 import { DashboardPage } from './pages/DashboardPage.tsx';
 import { AuditPage } from './pages/AuditPage.tsx';
 import { AgreementsPage } from './pages/AgreementsPage.tsx';
+import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { Property } from './types/index.ts';
 import { apiService } from './services/apiService.ts';
 
@@ -69,6 +70,13 @@ export const AppContent: React.FC = () => {
 
         {currentTab === 'agreements' && (
           <AgreementsPage
+            properties={properties}
+            selectedProperty={selectedProperty}
+          />
+        )}
+
+        {currentTab === 'settlements' && (
+          <SettlementsPage
             properties={properties}
             selectedProperty={selectedProperty}
           />
