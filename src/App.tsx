@@ -7,6 +7,7 @@ import { PropertiesPage } from './pages/PropertiesPage.tsx';
 import { PropertyDetailPage } from './pages/PropertyDetailPage.tsx';
 import { DashboardPage } from './pages/DashboardPage.tsx';
 import { AuditPage } from './pages/AuditPage.tsx';
+import { AgreementsPage } from './pages/AgreementsPage.tsx';
 import { Property } from './types/index.ts';
 import { apiService } from './services/apiService.ts';
 
@@ -55,6 +56,7 @@ export const AppContent: React.FC = () => {
           <PropertyDetailPage
             property={selectedProperty}
             onBack={() => setCurrentTab('properties')}
+            onNavigateToAgreements={() => setCurrentTab('agreements')}
           />
         )}
 
@@ -62,6 +64,13 @@ export const AppContent: React.FC = () => {
           <DashboardPage
             properties={properties}
             onSelectProperty={handleSelectProperty}
+          />
+        )}
+
+        {currentTab === 'agreements' && (
+          <AgreementsPage
+            properties={properties}
+            selectedProperty={selectedProperty}
           />
         )}
 

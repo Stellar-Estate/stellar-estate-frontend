@@ -24,9 +24,14 @@ import {
 interface PropertyDetailPageProps {
   property: Property;
   onBack: () => void;
+  onNavigateToAgreements?: () => void;
 }
 
-export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({ property, onBack }) => {
+export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
+  property,
+  onBack,
+  onNavigateToAgreements,
+}) => {
   const [revenueHistory, setRevenueHistory] = useState<RevenueRecord[]>([]);
   const [units, setUnits] = useState<PropertyUnit[]>([]);
   const [participations, setParticipations] = useState<PropertyParticipation[]>([]);
@@ -79,8 +84,17 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({ property
             </div>
           </div>
 
-          {/* Action Button */}
-          <div>
+          {/* Action Buttons */}
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            {onNavigateToAgreements && (
+              <button
+                onClick={onNavigateToAgreements}
+                className="btn-outline-gold"
+                style={{ padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              >
+                <FileText size={18} /> Distribution Agreements
+              </button>
+            )}
             <button
               onClick={() => setIsDepositModalOpen(true)}
               className="btn-primary"
@@ -343,31 +357,42 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({ property
           background: 'rgba(24, 18, 43, 0.4)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-          <span className="badge badge-future">Architectural Roadmap</span>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Non-simulated future capabilities</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span className="badge badge-stellar">Level 2 Deployed</span>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Soroban Distribution Agreements Active</span>
+          </div>
+          {onNavigateToAgreements && (
+            <button
+              onClick={onNavigateToAgreements}
+              className="btn-outline-gold"
+              style={{ fontSize: '0.8rem', padding: '0.4rem 0.85rem' }}
+            >
+              Open Agreements & Waterfalls →
+            </button>
+          )}
         </div>
         <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#fff', marginBottom: '0.75rem' }}>
-          Future Architecture: Distribution Agreements & Programmable Settlement
+          Programmable Distribution Agreements & Waterfall Rules
         </h3>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6, maxWidth: 850, marginBottom: '2rem' }}>
-          Level 1 establishes the <strong>Property → Revenue</strong> verification core. The data models and Soroban contract foundations in `stellar-estate-core` are engineered to natively support Level 2 and Level 3 without structural redesign:
+          Level 2 transforms Stellar Estate into an immutable financial agreement system. Multi-stakeholder waterfall agreements are canonicalized, cryptographically hashed, approved via Stellar wallets, and locked on Soroban for Level 3 settlement execution.
         </p>
 
         <div className="grid-3">
           <div style={{ padding: '1.25rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ fontSize: '0.8rem', color: '#c084fc', fontWeight: 700, marginBottom: '0.35rem' }}>LEVEL 2 MODULE</div>
+            <div style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 700, marginBottom: '0.35rem' }}>LEVEL 2 (ACTIVE)</div>
             <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem' }}>Distribution Agreements</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              On-chain Soroban multi-signature agreements defining governance rules, lease clauses, and reserve requirements.
+              On-chain Soroban multi-signature agreements defining immutable basis-point rules, stakeholders, and canonical hashes.
             </p>
           </div>
 
           <div style={{ padding: '1.25rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ fontSize: '0.8rem', color: '#c084fc', fontWeight: 700, marginBottom: '0.35rem' }}>LEVEL 2 MODULE</div>
+            <div style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 700, marginBottom: '0.35rem' }}>LEVEL 2 (ACTIVE)</div>
             <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem' }}>Waterfall Tranches</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              Senior debt amortization, operating expenses, and junior equity payout cascades computed deterministically in safe integer math.
+              Deterministic sequence: Expenses → Reserves → Management Fee → Distributable Revenue → Stakeholder Allocations.
             </p>
           </div>
 

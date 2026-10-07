@@ -21,6 +21,8 @@ export interface Property {
     total_revenue_recorded: number;
     deposit_count: number;
     monthly_run_rate: number;
+    has_locked_agreement?: boolean;
+    active_agreement_version?: number | null;
   };
   created_at: string;
   updated_at: string;
@@ -102,4 +104,116 @@ export interface WalletState {
   network: 'TESTNET';
   isTestnet: boolean;
   walletType: 'FREIGHTER' | 'KEYPAIR_TESTNET' | null;
+}
+
+// ==============================================================================
+// LEVEL 2: PROPERTY DISTRIBUTION AGREEMENT TYPES
+// ==============================================================================
+
+export type AgreementStatus =
+  | 'DRAFT'
+  | 'PENDING_APPROVALS'
+  | 'PARTIALLY_APPROVED'
+  | 'READY_TO_LOCK'
+  | 'LOCKED'
+  | 'SUPERSEDED'
+  | 'REJECTED';
+
+export type WaterfallRuleType = 'FIXED_AMOUNT' | 'PERCENTAGE_BASIS_POINTS' | 'RESIDUAL_DISTRIBUTION';
+
+export interface WaterfallRule {
+  id: string;
+  agreement_version_id: string;
+  priority: number;
+  rule_type: WaterfallRuleType;
+  name: string;
+  amount_or_bps: number; // In currency units if FIXED_AMOUNT or basis points (500 = 5.00%)
+  description: string;
+}
+
+export interface AgreementStakeholder {
+  id: string;
+  agreement_version_id: string;
+  wallet_address: string;
+  name: string;
+  role: string;
+  basis_points: number; // 0 to 10,000 (10,000 = 100.00%)
+  has_approved: boolean;
+  approved_at?: string;
+  approval_signature?: string;
+}
+
+export interface AgreementApproval {
+  id: string;
+  agreement_version_id: string;
+  wallet_address: string;
+  agreement_hash: string;
+  approval_type: 'STELLAR_WALLET';
+  signature_or_proof: string;
+  timestamp: string;
+}
+
+export interface DistributionAgreementVersion {
+  id: string;
+  agreement_id: string;
+  version_number: number;
+  revenue_source: string;
+  accepted_asset: string;
+  effective_date: string;
+  expiration_date?: string;
+  canonical_representation: string;
+  agreement_hash: string;
+  status: AgreementStatus;
+  contract_reference?: string;
+  created_at: string;
+  locked_at?: string;
+  waterfall_rules: WaterfallRule[];
+  stakeholders: AgreementStakeholder[];
+  approvals: AgreementApproval[];
+}
+
+export interface DistributionAgreement {
+  id: string;
+  property_id: string;
+  agreement_identifier: string;
+  current_version: number;
+  status: AgreementStatus;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+  versions: DistributionAgreementVersion[];
+}
+
+export interface SettlementPreviewItem {
+  name: string;
+  category: 'EXPENSE' | 'RESERVE' | 'FEE' | 'DISTRIBUTION';
+  rule_type: WaterfallRuleType;
+  rate_or_amount: string;
+  deducted_amount: number;
+  recipient_or_destination: string;
+}
+
+export interface StakeholderPreviewAllocation {
+  wallet_address: string;
+  name: string;
+  role: string;
+  basis_points: number;
+  percentage: string;
+  allocated_amount: number;
+}
+
+export interface SettlementPreviewResult {
+  property_id: string;
+  agreement_id: string;
+  version: number;
+  agreement_hash: string;
+  gross_revenue_input: number;
+  asset: string;
+  total_waterfall_deductions: number;
+  net_distributable_revenue: number;
+  waterfall_breakdown: SettlementPreviewItem[];
+  stakeholder_allocations: StakeholderPreviewAllocation[];
+  accounting_balanced: boolean;
+  precision_model: string;
+  disclaimer: string;
 }

@@ -60,23 +60,43 @@ Level 1 establishes the **Property → Revenue** foundation:
 
 ## 3. Key Features
 
+### Level 1 Foundation
 1. **Property Discovery (`/properties`):**
    * Filterable directory of commercial and residential assets.
    * Real metrics: Valuation, Units, Occupancy rate, Monthly revenue, and Vault address.
 2. **Property Financial Profile (`/detail`):**
    * Physical specs (Year built, GFA, Energy rating).
-   * Capital structure (Valuation, Reserve provisions, Pre-L2 distributable revenue).
-   * Registered Level 1 ownership/operator participation records.
+   * Capital structure (Valuation, Reserve provisions, Distributable revenue).
+   * Registered ownership/operator participation records.
    * On-chain revenue activity table with Stellar.Expert Explorer links.
 3. **Property Revenue Deposit Flow:**
-   * Explicit 9-stage lifecycle: `READY` $\rightarrow$ `WALLET_REQUIRED` $\rightarrow$ `REVIEW` $\rightarrow$ `SIGNING` $\rightarrow$ `SUBMITTING` $\rightarrow$ `CONFIRMING` $\rightarrow$ `CONFIRMED` (or `FAILED`).
-   * Real Stellar Testnet payment execution.
-   * Direct backend verification against Horizon Testnet validators.
+   * Explicit 9-stage lifecycle: `READY` $\rightarrow$ `WALLET_REQUIRED` $\rightarrow$ `REVIEW` $\rightarrow$ `SIGNING` $\rightarrow$ `SUBMITTING` $\rightarrow$ `CONFIRMING` $\rightarrow$ `CONFIRMED`.
+   * Real Stellar Testnet payment execution verified against Horizon validators.
 4. **Revenue & Settlement Dashboard (`/dashboard`):**
-   * Portfolio-wide metrics and performance tracking.
-   * Revenue trend chart and reconciliation status.
+   * Portfolio-wide metrics, revenue trend chart, and reconciliation status.
 5. **Cryptographic Revenue Provenance (`/audit`):**
    * 5-stage interactive pipeline: Property $\rightarrow$ Revenue Event $\rightarrow$ Stellar Transaction $\rightarrow$ Verification $\rightarrow$ Financial Record.
+
+### Level 2 Programmable Distribution Agreements
+6. **Property Distribution Agreements Dashboard (`/agreements`):**
+   * View property agreements with version badges (`v1 LOCKED`, `v2 PARTIALLY_APPROVED`).
+   * Displays canonical agreement SHA-256 hash, authoritative Soroban contract reference, and lock timestamps.
+   * Strictly enforces immutability: locked agreements are read-only and cannot be altered.
+7. **Interactive Waterfall Builder:**
+   * Visual drag-and-order cascade: Gross Property Revenue $\rightarrow$ Operating Expenses $\rightarrow$ Maintenance Reserve $\rightarrow$ Management Fee $\rightarrow$ Net Distributable Revenue $\rightarrow$ Stakeholder Allocations.
+   * Deterministic financial validation: strict basis-point invariants ($10,000 \text{ bps} = 100.00\%$) with zero floating-point math.
+8. **Multi-Party Stellar Wallet Approval Flow:**
+   * Material terms review modal displaying exact rules and SHA-256 canonical hash.
+   * Non-custodial signature recording using connected Freighter or testnet wallet.
+   * Progressively updates status: `PENDING_APPROVALS` $\rightarrow$ `PARTIALLY_APPROVED` $\rightarrow$ `READY_TO_LOCK`.
+9. **On-Chain Agreement Locking:**
+   * Disables any term mutation on backend and enforces immutability via Soroban.
+   * Any change requires proposing a new deterministic agreement version.
+10. **Deterministic Settlement Preview:**
+    * Interactive simulation calculating safe-integer waterfall cascades against custom revenue amounts.
+    * Explicitly labeled as: *"Settlement Preview — Calculated from Locked Agreement Rules (Level 3 Execution Target)"*.
+11. **Agreement Version Comparison:**
+    * Side-by-side diff comparing allocations, expense tranches, and effective dates across versions.
 
 ---
 

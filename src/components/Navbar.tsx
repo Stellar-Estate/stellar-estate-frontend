@@ -98,6 +98,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
               Revenue Dashboard
             </button>
             <button
+              onClick={() => setCurrentTab('agreements')}
+              className={currentTab === 'agreements' ? 'btn-outline-gold' : 'btn-secondary'}
+              style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}
+            >
+              Agreements
+            </button>
+            <button
               onClick={() => setCurrentTab('audit')}
               className={currentTab === 'audit' ? 'btn-outline-gold' : 'btn-secondary'}
               style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}
