@@ -120,5 +120,6 @@ Netlify Site ID: `bc5fc4fd-0dfb-4954-8a2d-f4fabc7e3402`
 
 * **Contributing:** We welcome contributions! Please review our [Contributing Guidelines](CONTRIBUTING.md) and check out our [Good First Issues](https://github.com/Stellar-Estate/stellar-estate-frontend/issues).
 * **Code of Conduct:** All community participants are expected to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
+* **Security Policy:** For reporting vulnerabilities and non-custodial key safety practices, please consult [SECURITY.md](SECURITY.md).
 * **License:** This project is licensed under the **Apache License 2.0** — see the [LICENSE](LICENSE) file for details.
 
