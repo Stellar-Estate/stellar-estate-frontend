@@ -28,7 +28,7 @@ export const WhereDidMyRentGo: React.FC<WhereDidMyRentGoProps> = ({ trace }) => 
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.35rem' }}>
             <span className="badge badge-stellar" style={{ fontSize: '0.75rem', padding: '0.25rem 0.6rem' }}>
-              LEVEL 3 PROVABLE FLOW
+              PROGRAMMABLE SETTLEMENT FLOW
             </span>
             <span className="badge badge-verified" style={{ fontSize: '0.75rem' }}>
               <CheckCircle2 size={12} style={{ marginRight: 4 }} />

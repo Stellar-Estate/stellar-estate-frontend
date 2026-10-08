@@ -170,8 +170,8 @@ export const WaterfallBuilder: React.FC<WaterfallBuilderProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span className="badge badge-stellar">Level 2 Agreement Builder</span>
-              <span className="badge badge-future">Multi-Party Waterfall</span>
+              <span className="badge badge-stellar">Agreement Waterfall Builder</span>
+              <span className="badge badge-gold">Multi-Party Governance</span>
             </div>
             <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '0.35rem' }}>
               {existingAgreementId ? 'Propose New Agreement Version' : 'Create Property Distribution Agreement'}

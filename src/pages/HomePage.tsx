@@ -37,7 +37,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       >
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
           <span className="badge badge-stellar" style={{ padding: '0.35rem 0.85rem' }}>
-            <Sparkles size={14} /> Level 1 Live Prototype — Stellar Testnet
+            <Sparkles size={14} /> Live Platform — Stellar Testnet
           </span>
         </div>
 

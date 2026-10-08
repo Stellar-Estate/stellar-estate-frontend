@@ -63,7 +63,7 @@ export const SettlementPreviewModal: React.FC<SettlementPreviewModalProps> = ({
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span className="badge badge-stellar">Deterministic Preview</span>
-              <span className="badge badge-future">Level 3 Execution Target</span>
+              <span className="badge badge-verified">Automated Settlement Engine</span>
             </div>
             <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '0.35rem' }}>
               Waterfall Settlement Preview

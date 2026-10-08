@@ -143,7 +143,7 @@ class ApiService {
       },
     ]);
 
-    // Pre-seed Level 2 Agreements for The Meridian
+    // Pre-seed Distribution Agreements for The Meridian
     const v1Rules: WaterfallRule[] = [
       { id: 'r1', agreement_version_id: 'v1', priority: 1, rule_type: 'FIXED_AMOUNT', name: 'Operating Expenses', amount_or_bps: 1000, description: 'Facility maintenance & utilities' },
       { id: 'r2', agreement_version_id: 'v1', priority: 2, rule_type: 'FIXED_AMOUNT', name: 'Maintenance Reserve', amount_or_bps: 1000, description: 'CapEx reserve account' },
@@ -422,7 +422,7 @@ class ApiService {
   }
 
   // ============================================================================
-  // LEVEL 2: DISTRIBUTION AGREEMENT SERVICES
+  // DISTRIBUTION AGREEMENT SERVICES
   // ============================================================================
 
   async getPropertyAgreements(propertyId: string): Promise<DistributionAgreement[]> {
@@ -625,7 +625,7 @@ class ApiService {
         ],
         accounting_balanced: true,
         precision_model: 'Safe Integer (Basis Points / Cents Arithmetic)',
-        disclaimer: 'Settlement Preview only. Calculated from locked Level 2 agreement rules. Level 3 will automate payouts.',
+        disclaimer: 'Settlement Preview only. Calculated from locked agreement rules. Executable on Stellar network.',
       };
     }
   }
@@ -649,7 +649,7 @@ class ApiService {
   }
 
   // ==============================================================================
-  // LEVEL 3: SETTLEMENT, PASSPORT & STAKEHOLDER EARNINGS METHODS
+  // SETTLEMENT, PASSPORT & STAKEHOLDER EARNINGS METHODS
   // ==============================================================================
 
   private fallbackSettlements: Settlement[] = [

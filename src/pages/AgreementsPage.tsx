@@ -80,11 +80,11 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
         <div>
           <div className="section-tag">
-            <Layers size={16} /> Level 2 Governance Core
+            <Layers size={16} /> Agreement Governance Core
           </div>
           <h1 className="section-title">Property Distribution Agreements</h1>
           <p className="section-subtitle">
-            Authoritative, multi-party approved financial waterfall rules enforced on Soroban. Immutable rules govern future Level 3 settlements.
+            Authoritative, multi-party approved financial waterfall rules enforced on Soroban. Immutable rules govern automated Stellar settlements.
           </p>
         </div>
 

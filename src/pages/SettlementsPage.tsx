@@ -110,7 +110,7 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
             <span className="badge badge-stellar" style={{ fontSize: '0.75rem' }}>
-              LEVEL 3 SETTLEMENT ENGINE
+              STELLAR SETTLEMENT ENGINE
             </span>
             <span className="badge badge-gold" style={{ fontSize: '0.75rem' }}>
               <Lock size={12} style={{ marginRight: 3 }} />
@@ -241,7 +241,7 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
 
           {settlements.length === 0 ? (
             <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-              No settlements executed yet. Click "Execute Settlement" to initiate your first Level 3 payout.
+              No settlements executed yet. Click "Execute Settlement" to initiate an automated payout.
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>

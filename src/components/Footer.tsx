@@ -80,8 +80,7 @@ export const Footer: React.FC = () => {
             <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
               <div><strong>Network:</strong> Stellar Testnet</div>
               <div><strong>Passphrase:</strong> <span className="mono-text" style={{ fontSize: '0.75rem' }}>Test SDF Network ; September 2015</span></div>
-              <div><strong>Smart Contracts:</strong> Soroban (Rust 2021)</div>
-              <div><strong>State Phase:</strong> Level 1 (Property → Revenue)</div>
+              <div><strong>Protocol Engine:</strong> Stellar Core &amp; Soroban Smart Contracts</div>
             </div>
           </div>
         </div>

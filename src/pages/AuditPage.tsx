@@ -146,7 +146,7 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
                 State Persisted
               </p>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                Ready for Level 2 Waterfall
+                Ready for Waterfall Allocation
               </div>
             </div>
           </div>

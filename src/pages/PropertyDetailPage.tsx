@@ -145,7 +145,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
         <div className="glass-card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ fontSize: '0.8rem', color: 'var(--accent-gold)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-              Financial Summary (Level 1)
+              Financial Summary
             </div>
             <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '1.25rem' }}>Core Capital Structure</h3>
 
@@ -173,7 +173,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
                 </span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-secondary)' }}>Net Distributable (Pre-L2):</span>
+                <span style={{ color: 'var(--text-secondary)' }}>Net Distributable:</span>
                 <span style={{ fontWeight: 700, color: 'var(--accent-cyan)' }}>
                   ${((financials?.total_revenue_confirmed || 16000) * 0.85).toLocaleString()}
                 </span>
@@ -191,7 +191,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
               marginTop: '1rem',
             }}
           >
-            * Level 1 captures live verified revenue. Waterfalls and multi-party distributions will execute in Level 2/3.
+            * Verified on Stellar ledger. Waterfalls and multi-party distributions execute according to locked distribution agreements.
           </div>
         </div>
       </div>
@@ -227,7 +227,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
           </div>
         </div>
 
-        {/* Ownership & Participation (Level 1 Model) */}
+        {/* Ownership & Participation */}
         <div className="glass-card" style={{ padding: '1.75rem' }}>
           <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <UserCheck size={20} color="var(--accent-cyan)" /> Participation & Stakeholders
@@ -357,7 +357,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
         )}
       </div>
 
-      {/* FUTURE ARCHITECTURE BLUEPRINT (LEVEL 2 & LEVEL 3) */}
+      {/* PROGRAMMABLE AGREEMENT & SETTLEMENT ENGINE */}
       <div
         className="glass-card"
         style={{
@@ -368,7 +368,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '0.75rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span className="badge badge-stellar">Level 2 Deployed</span>
+            <span className="badge badge-stellar">Live Protocol Component</span>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Soroban Distribution Agreements Active</span>
           </div>
           {onNavigateToAgreements && (
@@ -385,12 +385,12 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
           Programmable Distribution Agreements & Waterfall Rules
         </h3>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6, maxWidth: 850, marginBottom: '2rem' }}>
-          Level 2 transforms Stellar Estate into an immutable financial agreement system. Multi-stakeholder waterfall agreements are canonicalized, cryptographically hashed, approved via Stellar wallets, and locked on Soroban for Level 3 settlement execution.
+          Stellar Estate transforms real-estate cash flows into an immutable financial agreement system. Multi-stakeholder waterfall agreements are canonicalized, cryptographically hashed, approved via Stellar wallets, and locked on Soroban for automated settlement execution.
         </p>
 
         <div className="grid-3">
           <div style={{ padding: '1.25rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 700, marginBottom: '0.35rem' }}>LEVEL 2 (ACTIVE)</div>
+            <div style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 700, marginBottom: '0.35rem' }}>GOVERNANCE & CONSENSUS</div>
             <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem' }}>Distribution Agreements</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               On-chain Soroban multi-signature agreements defining immutable basis-point rules, stakeholders, and canonical hashes.
@@ -398,16 +398,16 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
           </div>
 
           <div style={{ padding: '1.25rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 700, marginBottom: '0.35rem' }}>LEVEL 2 (ACTIVE)</div>
-            <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem' }}>Waterfall Tranches</h4>
+            <div style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 700, marginBottom: '0.35rem' }}>DETERMINISTIC WATERFALL</div>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem' }}>Tranche Engine</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               Deterministic sequence: Expenses → Reserves → Management Fee → Distributable Revenue → Stakeholder Allocations.
             </p>
           </div>
 
           <div style={{ padding: '1.25rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ fontSize: '0.8rem', color: '#c084fc', fontWeight: 700, marginBottom: '0.35rem' }}>LEVEL 3 MODULE</div>
-            <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem' }}>Atomic Settlement Engine</h4>
+            <div style={{ fontSize: '0.8rem', color: '#c084fc', fontWeight: 700, marginBottom: '0.35rem' }}>SETTLEMENT ENGINE</div>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem' }}>Atomic Multi-Disbursement</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               Automated multi-recipient disbursements executed atomically on Stellar with instantaneous cryptographic settlement receipts.
             </p>

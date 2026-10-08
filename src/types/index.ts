@@ -107,7 +107,7 @@ export interface WalletState {
 }
 
 // ==============================================================================
-// LEVEL 2: PROPERTY DISTRIBUTION AGREEMENT TYPES
+// PROPERTY DISTRIBUTION AGREEMENT TYPES
 // ==============================================================================
 
 export type AgreementStatus =
@@ -219,7 +219,7 @@ export interface SettlementPreviewResult {
 }
 
 // ==============================================================================
-// LEVEL 3: SETTLEMENT, PASSPORT & TRACE TYPES
+// SETTLEMENT, PASSPORT & TRACE TYPES
 // ==============================================================================
 
 export type SettlementExecutionStatus =

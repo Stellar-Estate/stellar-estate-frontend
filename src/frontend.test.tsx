@@ -61,7 +61,7 @@ describe('Stellar Estate Frontend Logic & Data Tests', () => {
   });
 });
 
-describe('Level 2: Property Distribution Agreements & Waterfall Tests', () => {
+describe('Property Distribution Agreements & Waterfall Tests', () => {
   it('apiService.getPropertyAgreements should return agreement versions with canonical hashes', async () => {
     const agreements = await apiService.getPropertyAgreements('prop-meridian-abuja');
     expect(agreements.length).toBeGreaterThan(0);
@@ -179,7 +179,7 @@ describe('Level 2: Property Distribution Agreements & Waterfall Tests', () => {
   });
 });
 
-describe('Level 3: Programmable Settlement Platform Tests', () => {
+describe('Programmable Settlement Platform Tests', () => {
   it('apiService.getRevenuePool should return verified revenue pool metrics', async () => {
     const pool = await apiService.getRevenuePool('prop-meridian-abuja');
     expect(pool.property_id).toBe('prop-meridian-abuja');

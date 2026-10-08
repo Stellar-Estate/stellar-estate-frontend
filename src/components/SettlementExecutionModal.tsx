@@ -137,7 +137,7 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
             <span className="badge badge-stellar" style={{ fontSize: '0.7rem' }}>
-              LEVEL 3 STELLAR SETTLEMENT
+              STELLAR MULTI-RECIPIENT SETTLEMENT
             </span>
             <span className="badge badge-gold" style={{ fontSize: '0.7rem' }}>
               <Lock size={10} style={{ marginRight: 3 }} />
