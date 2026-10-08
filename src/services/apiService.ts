@@ -36,7 +36,7 @@ const FALLBACK_PROPERTIES: Property[] = [
       gross_floor_area_sqm: 1850,
       energy_rating: 'A',
       accepted_revenue_assets: ['XLM', 'USDC'],
-      soroban_vault_contract: 'CCTFHRIL6UDR5Z3D2YCPRTZD5AA5FBHGXLBVCMYYHC6XIOS3H4UBL57M',
+      soroban_vault_contract: 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL',
     },
     financial_summary: {
       total_revenue_recorded: 16000.0,
