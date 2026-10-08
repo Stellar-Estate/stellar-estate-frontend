@@ -101,12 +101,13 @@ npm run dev
 
 ---
 
-## 5. Live Production Deployment
+## 5. Live Production Deployment & Smart Contracts
 
-The frontend is live and accessible at:
-👉 **[https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)**
-
-Netlify Site ID: `bc5fc4fd-0dfb-4954-8a2d-f4fabc7e3402`
+* **Live Web Application:** [https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)
+* **Deployed Soroban Property Vault:** [`CCTFHRIL6UDR5Z3D2YCPRTZD5AA5FBHGXLBVCMYYHC6XIOS3H4UBL57M`](https://stellar.expert/explorer/testnet/contract/CCTFHRIL6UDR5Z3D2YCPRTZD5AA5FBHGXLBVCMYYHC6XIOS3H4UBL57M)
+* **Contract Deployment Tx:** [`9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939`](https://stellar.expert/explorer/testnet/tx/9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939)
+* **Deployer Account:** [`GDBPVECOODV7XMJESSY3QP7ASUBLHIN7BOVK7MSTBEJQJJPRSM3RHSYJ`](https://stellar.expert/explorer/testnet/account/GDBPVECOODV7XMJESSY3QP7ASUBLHIN7BOVK7MSTBEJQJJPRSM3RHSYJ)
+* **Netlify Site ID:** `bc5fc4fd-0dfb-4954-8a2d-f4fabc7e3402`
 
 ---
 

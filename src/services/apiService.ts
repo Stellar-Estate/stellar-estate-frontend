@@ -36,7 +36,7 @@ const FALLBACK_PROPERTIES: Property[] = [
       gross_floor_area_sqm: 1850,
       energy_rating: 'A',
       accepted_revenue_assets: ['XLM', 'USDC'],
-      soroban_vault_contract: 'CAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5VAULT',
+      soroban_vault_contract: 'CCTFHRIL6UDR5Z3D2YCPRTZD5AA5FBHGXLBVCMYYHC6XIOS3H4UBL57M',
     },
     financial_summary: {
       total_revenue_recorded: 16000.0,
@@ -955,8 +955,8 @@ class ApiService {
           source: 'Rental Revenue',
           amount: stl.gross_revenue,
           asset: stl.asset,
-          transaction_hash: '6a3f81e8435d648083818e7e163b71f92e079010467b7e211516e877c44e8c1e',
-          explorer_url: 'https://stellar.expert/explorer/testnet/tx/6a3f81e8435d648083818e7e163b71f92e079010467b7e211516e877c44e8c1e',
+          transaction_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
+          explorer_url: 'https://stellar.expert/explorer/testnet/tx/9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
         },
       ],
       waterfall_flow: {
