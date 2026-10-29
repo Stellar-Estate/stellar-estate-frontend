@@ -717,6 +717,20 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Locked &amp; Active');
     expect(html).toContain('Approvals:');
   });
+
+  it('ReconciliationAuditModal should render accounting parity and cryptographic checksum', async () => {
+    const { ReconciliationAuditModal } = await import('./components/ReconciliationAuditModal');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <ToastProvider>
+        <ReconciliationAuditModal property={props[0]} isOpen={true} onClose={() => {}} />
+      </ToastProvider>
+    );
+    expect(html).toContain('Cross-Ledger Reconciliation');
+    expect(html).toContain('Accounting Ledger Reconciled');
+    expect(html).toContain('Cryptographic Ledger Checksum');
+    expect(html).toContain('Authoritative Vault Account');
+  });
 });
 
 
