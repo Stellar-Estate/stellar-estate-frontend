@@ -5,6 +5,7 @@ import { STELLAR_EXPERT_EXPLORER } from '../services/stellarService.ts';
 import { RevenueDepositModal } from '../components/RevenueDepositModal.tsx';
 import { FinancialPassportModal } from '../components/FinancialPassportModal.tsx';
 import { UnitBreakdownModal } from '../components/UnitBreakdownModal.tsx';
+import { PropertyValuationChart } from '../components/PropertyValuationChart.tsx';
 import {
   Building2,
   MapPin,
@@ -187,6 +188,11 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
                   ${((financials?.total_revenue_confirmed || 16000) * 0.85).toLocaleString()}
                 </span>
               </div>
+            </div>
+
+            {/* Historical Valuation Trajectory */}
+            <div style={{ marginTop: '1.25rem' }}>
+              <PropertyValuationChart currentValuation={property.valuation} />
             </div>
           </div>
 
