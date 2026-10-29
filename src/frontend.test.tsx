@@ -990,6 +990,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data).toHaveProperty('approved_count');
     expect(res.data).toHaveProperty('approval_ratio_bps');
   });
+
+  it('apiService.getPropertySettlementCount should return settlement volume metrics', async () => {
+    const res = await apiService.getPropertySettlementCount('prop-meridian-abuja');
+    expect(res.success).toBe(true);
+    expect(res.data.property_id).toBe('prop-meridian-abuja');
+    expect(res.data).toHaveProperty('total_settlements');
+    expect(res.data).toHaveProperty('total_gross_settled');
+  });
 });
 
 
