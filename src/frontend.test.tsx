@@ -584,6 +584,21 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Rabet Wallet');
     expect(html).toContain('Instant Testnet Dev Account');
   });
+
+  it('SettlementsPage should render Breakdown button for audit inspection', async () => {
+    const { SettlementsPage } = await import('./pages/SettlementsPage');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <ToastProvider>
+        <WalletProvider>
+          <SettlementsPage properties={props} selectedProperty={props[0]} initialView="history" />
+        </WalletProvider>
+      </ToastProvider>
+    );
+    expect(html).toContain('Settlement History');
+    expect(html).toContain('Permanent Settlement Records');
+    expect(html).toContain('All Settlements');
+  });
 });
 
 

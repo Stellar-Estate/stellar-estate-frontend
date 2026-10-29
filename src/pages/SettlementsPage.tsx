@@ -25,16 +25,19 @@ import {
   ArrowRight,
   Activity,
   Download,
+  X,
 } from 'lucide-react';
 
 interface SettlementsPageProps {
   properties: Property[];
   selectedProperty: Property | null;
+  initialView?: 'trace' | 'history' | 'stakeholders';
 }
 
 export const SettlementsPage: React.FC<SettlementsPageProps> = ({
   properties,
   selectedProperty: initialSelectedProp,
+  initialView = 'trace',
 }) => {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(
     initialSelectedProp || properties[0] || null
@@ -46,7 +49,8 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
   const [stakeholderEarnings, setStakeholderEarnings] = useState<StakeholderEarnings | null>(null);
   const [isExecutionModalOpen, setIsExecutionModalOpen] = useState(false);
   const [isPassportModalOpen, setIsPassportModalOpen] = useState(false);
-  const [activeView, setActiveView] = useState<'trace' | 'history' | 'stakeholders'>('trace');
+  const [activeDetailSettlement, setActiveDetailSettlement] = useState<Settlement | null>(null);
+  const [activeView, setActiveView] = useState<'trace' | 'history' | 'stakeholders'>(initialView);
   const [settlementFilter, setSettlementFilter] = useState<'ALL' | 'RECONCILED' | 'SETTLED' | 'IN_PROGRESS'>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -488,6 +492,21 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <button
+                        onClick={() => setActiveDetailSettlement(stl)}
+                        className="btn-outline-gold"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          fontSize: '0.75rem',
+                          padding: '0.25rem 0.55rem',
+                        }}
+                        data-testid={`view-breakdown-${stl.id}`}
+                      >
+                        <FileText size={12} />
+                        <span>Breakdown</span>
+                      </button>
+                      <button
                         onClick={async (e) => {
                           e.stopPropagation();
                           await apiService.downloadSettlementCsv(stl.id);
@@ -677,6 +696,95 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
           isOpen={isPassportModalOpen}
           onClose={() => setIsPassportModalOpen(false)}
         />
+      )}
+
+      {/* Settlement Details Breakdown Modal */}
+      {activeDetailSettlement && (
+        <div className="modal-backdrop" onClick={() => setActiveDetailSettlement(null)} data-testid="settlement-breakdown-modal">
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 680, padding: '2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+              <div>
+                <span className="badge badge-stellar" style={{ marginBottom: '0.35rem' }}>Automated Settlement Breakdown</span>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#fff' }}>
+                  {activeDetailSettlement.id}
+                </h3>
+              </div>
+              <button
+                onClick={() => setActiveDetailSettlement(null)}
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '0.5rem' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.5rem', background: 'rgba(255, 255, 255, 0.02)', padding: '1rem', borderRadius: 'var(--radius-sm)' }}>
+              <div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Gross Revenue</div>
+                <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#fff' }}>${activeDetailSettlement.gross_revenue.toLocaleString()}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Deductions</div>
+                <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f87171' }}>${(activeDetailSettlement.expenses + activeDetailSettlement.reserve + activeDetailSettlement.fees).toLocaleString()}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Net Distributable</div>
+                <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#10b981' }}>${activeDetailSettlement.distributable_amount.toLocaleString()}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Agreement Version</div>
+                <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#38bdf8' }}>v{activeDetailSettlement.agreement_version}</div>
+              </div>
+            </div>
+
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Stakeholder Disbursed Payouts ({activeDetailSettlement.payouts?.length || 0})
+            </h4>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: 300, overflowY: 'auto' }}>
+              {(activeDetailSettlement.payouts || []).map((payout, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: '0.75rem 1rem',
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: 'var(--radius-xs)',
+                    border: '1px solid var(--border-subtle)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div>
+                    <div style={{ fontWeight: 600, color: '#fff', fontSize: '0.85rem' }}>
+                      {payout.recipient_name} <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>({payout.role})</span>
+                    </div>
+                    <div className="mono-text" style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                      {payout.recipient_address}
+                    </div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontWeight: 800, color: 'var(--accent-gold)', fontSize: '0.95rem' }}>
+                      ${payout.actual_amount.toLocaleString()} {activeDetailSettlement.asset || 'USDC'}
+                    </div>
+                    <span className="badge badge-verified" style={{ fontSize: '0.65rem' }}>
+                      {(payout.basis_points / 100).toFixed(2)}%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+              <button
+                onClick={() => setActiveDetailSettlement(null)}
+                className="btn-secondary"
+                style={{ padding: '0.5rem 1.25rem' }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
