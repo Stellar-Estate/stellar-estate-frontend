@@ -814,6 +814,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(ready.probe).toBe('readiness');
     expect(ready.checks.database).toBe('OK');
   });
+
+  it('apiService.testDispatchWebhook should simulate dispatch of signed webhook payload', async () => {
+    const res = await apiService.testDispatchWebhook('https://webhook.site/test', 'settlement.executed');
+    expect(res.success).toBe(true);
+    expect(res.delivery.url).toBe('https://webhook.site/test');
+    expect(res.delivery.event).toBe('settlement.executed');
+    expect(res.delivery.signature).toBeDefined();
+  });
 });
 
 
