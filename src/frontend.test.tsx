@@ -7,11 +7,13 @@ import { QrCodeModal } from './components/QrCodeModal.tsx';
 import { UnitBreakdownModal } from './components/UnitBreakdownModal.tsx';
 import { VersionCompareModal } from './components/VersionCompareModal.tsx';
 import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
+import { SettlementExecutionModal } from './components/SettlementExecutionModal.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { AgreementsPage } from './pages/AgreementsPage.tsx';
 import { AppContent } from './App.tsx';
 import { pollTransactionConfirmation } from './utils/transactionPoller.ts';
 import { WalletProvider } from './context/WalletContext.tsx';
+import { ToastProvider } from './context/ToastContext.tsx';
 import { CurrencyProvider, useCurrency } from './context/CurrencyContext.tsx';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.ts';
 
@@ -504,6 +506,24 @@ describe('Programmable Settlement Platform Tests', () => {
     );
     expect(html).toContain('Historical Settlements Counter');
     expect(html).toContain('Stellar Horizon Latency');
+  });
+
+  it('SettlementExecutionModal should render settlement execution modal structure', () => {
+    const html = renderToStaticMarkup(
+      <ToastProvider>
+        <WalletProvider>
+          <SettlementExecutionModal
+            propertyId="prop-meridian-abuja"
+            revenueIds={['rev-meridian-001']}
+            grossRevenue={5000}
+            isOpen={true}
+            onClose={() => {}}
+            onSuccess={() => {}}
+          />
+        </WalletProvider>
+      </ToastProvider>
+    );
+    expect(html).toContain('Execute Multi-Recipient Settlement');
   });
 });
 

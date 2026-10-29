@@ -186,6 +186,29 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
         {/* STEP: PREVIEW */}
         {step === 'PREVIEW' && preview && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            {/* Double Spending Prevention Banner */}
+            <div
+              style={{
+                padding: '0.85rem 1rem',
+                background: 'rgba(59, 130, 246, 0.08)',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+                borderRadius: 'var(--radius-sm)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '0.75rem',
+              }}
+            >
+              <ShieldCheck size={18} style={{ color: '#60a5fa', flexShrink: 0, marginTop: 2 }} />
+              <div>
+                <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#93c5fd' }}>
+                  Cryptographic Nonce & Double-Spend Protection Active
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.2rem', lineHeight: 1.4 }}>
+                  Selected revenue entries will be atomically marked as consumed in on-chain instance storage. Replaying transactions or double-allocating revenue is rejected at the Soroban consensus layer.
+                </div>
+              </div>
+            </div>
+
             {/* Agreement Bound Details */}
             <div
               style={{
