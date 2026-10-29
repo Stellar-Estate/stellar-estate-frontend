@@ -985,6 +985,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Distribution Agreements');
   });
 
+  it('AgreementsPage should embed StakeholderConsensusCard component', async () => {
+    const { AgreementsPage } = await import('./pages/AgreementsPage');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <WalletProvider>
+        <AgreementsPage properties={props} selectedProperty={props[0]} />
+      </WalletProvider>
+    );
+    expect(html).toContain('Distribution Agreements');
+  });
+
   it('apiService.getAgreementStakeholderCount should return stakeholder quorum metrics', async () => {
     const res = await apiService.getAgreementStakeholderCount('agr-meridian-001', 2);
     expect(res.success).toBe(true);

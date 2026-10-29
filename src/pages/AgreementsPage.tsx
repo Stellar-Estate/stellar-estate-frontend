@@ -12,6 +12,7 @@ import { SettlementPreviewModal } from '../components/SettlementPreviewModal.tsx
 import { VersionCompareModal } from '../components/VersionCompareModal.tsx';
 import { AgreementTimeline } from '../components/AgreementTimeline.tsx';
 import { AgreementTimelineCard } from '../components/AgreementTimelineCard.tsx';
+import { StakeholderConsensusCard } from '../components/StakeholderConsensusCard.tsx';
 import {
   FileText,
   Lock,
@@ -393,6 +394,14 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
                 lockedAt={selectedVersion.locked_at}
                 approvalCount={(selectedVersion.stakeholders || []).filter((s) => s.has_approved).length}
                 totalStakeholders={(selectedVersion.stakeholders || []).length || 3}
+              />
+            )}
+
+            {selectedVersion && (
+              <StakeholderConsensusCard
+                stakeholders={selectedVersion.stakeholders || []}
+                versionNumber={selectedVersion.version_number}
+                status={selectedVersion.status}
               />
             )}
 
