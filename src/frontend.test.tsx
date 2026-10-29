@@ -734,6 +734,23 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Cryptographic Ledger Checksum');
     expect(html).toContain('Authoritative Vault Account');
   });
+
+  it('Footer should render Horizon network health and System Diagnostics modal trigger', async () => {
+    const { Footer } = await import('./components/Footer');
+    const html = renderToStaticMarkup(<Footer />);
+    expect(html).toContain('STELLAR ESTATE');
+    expect(html).toContain('System Diagnostics');
+    expect(html).toContain('Test SDF Network');
+  });
+
+  it('SystemDiagnosticsModal should render live subsystem telemetry', async () => {
+    const { SystemDiagnosticsModal } = await import('./components/SystemDiagnosticsModal');
+    const html = renderToStaticMarkup(<SystemDiagnosticsModal isOpen={true} onClose={() => {}} />);
+    expect(html).toContain('System Diagnostics &amp; Telemetry');
+    expect(html).toContain('Stellar Horizon RPC');
+    expect(html).toContain('Database Inventory');
+    expect(html).toContain('Memory Footprint');
+  });
 });
 
 

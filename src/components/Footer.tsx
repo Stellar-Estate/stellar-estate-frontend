@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldAlert, ExternalLink, Code2, Activity, CheckCircle2, AlertCircle } from 'lucide-react';
 import { stellarService } from '../services/stellarService';
+import { SystemDiagnosticsModal } from './SystemDiagnosticsModal.tsx';
 
 export const Footer: React.FC = () => {
+  const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
   const [networkHealth, setNetworkHealth] = useState<{
     operational: boolean;
     latencyMs: number;
@@ -131,6 +133,26 @@ export const Footer: React.FC = () => {
                   {networkHealth.operational ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
                   {networkHealth.operational ? `Live (${networkHealth.latencyMs}ms)` : 'Offline'}
                 </span>
+                <button
+                  onClick={() => setIsDiagnosticsOpen(true)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    padding: '0.2rem 0.6rem',
+                    borderRadius: '8px',
+                    fontSize: '0.72rem',
+                    fontWeight: 600,
+                    background: 'rgba(59, 130, 246, 0.15)',
+                    color: '#60a5fa',
+                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                    cursor: 'pointer',
+                    marginLeft: '0.5rem',
+                  }}
+                  title="View live system diagnostics and telemetry"
+                >
+                  <Activity size={12} /> System Diagnostics
+                </button>
               </div>
               {networkHealth.latestLedger > 0 && (
                 <div><strong>Latest Ledger:</strong> <span className="mono-text" style={{ fontSize: '0.75rem' }}>#{networkHealth.latestLedger.toLocaleString()}</span></div>
@@ -163,6 +185,11 @@ export const Footer: React.FC = () => {
           © 2026 Stellar Estate Organization. Licensed under Apache 2.0. Built for transparent, programmable property finance.
         </div>
       </div>
+
+      <SystemDiagnosticsModal
+        isOpen={isDiagnosticsOpen}
+        onClose={() => setIsDiagnosticsOpen(false)}
+      />
     </footer>
   );
 };
