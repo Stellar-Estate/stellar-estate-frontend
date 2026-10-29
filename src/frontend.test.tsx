@@ -5,6 +5,7 @@ import { apiService } from './services/apiService.ts';
 import { SkeletonLoader } from './components/SkeletonLoader.tsx';
 import { QrCodeModal } from './components/QrCodeModal.tsx';
 import { UnitBreakdownModal } from './components/UnitBreakdownModal.tsx';
+import { SettlementsPage } from './pages/SettlementsPage.tsx';
 
 describe('Stellar Estate Frontend Logic & Data Tests', () => {
   it('apiService.getProperties should return populated property list with vaults', async () => {
@@ -317,6 +318,18 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(markup).toContain('OCCUPIED');
     expect(markup).toContain('VACANT');
     expect(markup).toContain('$2,500 XLM');
+  });
+
+  it('SettlementsPage should render settlement platform and status filter indicators', () => {
+    const mockProperty: any = {
+      id: 'prop-meridian-abuja',
+      name: 'The Meridian',
+    };
+    const markup = renderToStaticMarkup(
+      <SettlementsPage properties={[mockProperty]} selectedProperty={mockProperty} />
+    );
+    expect(markup).toContain('Programmable Settlement Platform');
+    expect(markup).toContain('DETERMINISTIC WATERFALL');
   });
 });
 

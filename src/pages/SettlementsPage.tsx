@@ -46,6 +46,7 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
   const [isExecutionModalOpen, setIsExecutionModalOpen] = useState(false);
   const [isPassportModalOpen, setIsPassportModalOpen] = useState(false);
   const [activeView, setActiveView] = useState<'trace' | 'history' | 'stakeholders'>('trace');
+  const [settlementFilter, setSettlementFilter] = useState<'ALL' | 'RECONCILED' | 'SETTLED' | 'IN_PROGRESS'>('ALL');
 
   const STAKEHOLDER_ADDRESSES = {
     alice: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
@@ -239,13 +240,62 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
             </span>
           </div>
 
+          {/* Status Filter Tabs */}
+          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
+            {(['ALL', 'RECONCILED', 'SETTLED', 'IN_PROGRESS'] as const).map((filter) => {
+              const count = settlements.filter((s) => {
+                if (filter === 'ALL') return true;
+                if (filter === 'RECONCILED') return s.status === 'RECONCILED' || (s as any).reconciliation_status === 'RECONCILED';
+                if (filter === 'SETTLED') return s.status === 'SETTLED' || s.status === 'CONFIRMED';
+                if (filter === 'IN_PROGRESS') return ['CREATED', 'VALIDATING', 'CALCULATING', 'READY', 'SUBMITTING', 'CONFIRMING'].includes(s.status);
+                return true;
+              }).length;
+              return (
+                <button
+                  key={filter}
+                  onClick={() => setSettlementFilter(filter)}
+                  className={settlementFilter === filter ? 'btn-outline-gold' : 'btn-secondary'}
+                  style={{ fontSize: '0.75rem', padding: '0.35rem 0.75rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+                >
+                  <span>{filter === 'ALL' ? 'All Settlements' : filter.replace('_', ' ')}</span>
+                  <span style={{
+                    fontSize: '0.65rem',
+                    background: settlementFilter === filter ? 'var(--accent-gold)' : 'rgba(255, 255, 255, 0.1)',
+                    color: settlementFilter === filter ? '#000' : 'var(--text-secondary)',
+                    padding: '0.1rem 0.35rem',
+                    borderRadius: '10px',
+                    fontWeight: 700
+                  }}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
           {settlements.length === 0 ? (
             <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-muted)' }}>
               No settlements executed yet. Click "Execute Settlement" to initiate an automated payout.
             </div>
+          ) : settlements.filter((s) => {
+              if (settlementFilter === 'ALL') return true;
+              if (settlementFilter === 'RECONCILED') return s.status === 'RECONCILED' || (s as any).reconciliation_status === 'RECONCILED';
+              if (settlementFilter === 'SETTLED') return s.status === 'SETTLED' || s.status === 'CONFIRMED';
+              if (settlementFilter === 'IN_PROGRESS') return ['CREATED', 'VALIDATING', 'CALCULATING', 'READY', 'SUBMITTING', 'CONFIRMING'].includes(s.status);
+              return true;
+            }).length === 0 ? (
+            <div style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+              No settlements match the selected filter <strong>"{settlementFilter.replace('_', ' ')}"</strong>.
+            </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {settlements.map((stl) => (
+              {settlements.filter((s) => {
+                if (settlementFilter === 'ALL') return true;
+                if (settlementFilter === 'RECONCILED') return s.status === 'RECONCILED' || (s as any).reconciliation_status === 'RECONCILED';
+                if (settlementFilter === 'SETTLED') return s.status === 'SETTLED' || s.status === 'CONFIRMED';
+                if (settlementFilter === 'IN_PROGRESS') return ['CREATED', 'VALIDATING', 'CALCULATING', 'READY', 'SUBMITTING', 'CONFIRMING'].includes(s.status);
+                return true;
+              }).map((stl) => (
                 <div
                   key={stl.id}
                   style={{

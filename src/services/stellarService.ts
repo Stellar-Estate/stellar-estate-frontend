@@ -95,24 +95,12 @@ export class StellarService {
   }
 
   /**
-   * Fund a Testnet account via Stellar Friendbot
-   */
-  async fundWithFriendbot(publicKey: string): Promise<boolean> {
-    try {
-      const res = await fetch(`https://friendbot.stellar.org?addr=${encodeURIComponent(publicKey)}`);
-      return res.ok;
-    } catch {
-      return false;
-    }
-  }
-
-  /**
    * Generate a fresh Testnet Demo Keypair funded by Friendbot
    */
   async createAndFundTestnetKeypair(): Promise<{ keypair: Keypair; publicKey: string; secretKey: string }> {
     const keypair = Keypair.random();
     const funded = await this.fundWithFriendbot(keypair.publicKey());
-    if (!funded) {
+    if (!funded.success) {
       // Retry once
       await new Promise((r) => setTimeout(r, 1500));
       await this.fundWithFriendbot(keypair.publicKey());
