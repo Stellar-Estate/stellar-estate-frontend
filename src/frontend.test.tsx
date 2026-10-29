@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { apiService } from './services/apiService.ts';
 import { SkeletonLoader } from './components/SkeletonLoader.tsx';
+import { QrCodeModal } from './components/QrCodeModal.tsx';
 
 describe('Stellar Estate Frontend Logic & Data Tests', () => {
   it('apiService.getProperties should return populated property list with vaults', async () => {
@@ -261,6 +262,33 @@ describe('Programmable Settlement Platform Tests', () => {
 
     const lineMarkup = renderToStaticMarkup(<SkeletonLoader variant="line" width={120} height={20} />);
     expect(lineMarkup).toContain('skeletonPulse');
+  });
+
+  it('QrCodeModal should render SEP-0007 modal with qr image and raw uri', () => {
+    const testUri = 'web+stellar:pay?destination=GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD&amount=250.00';
+    const markup = renderToStaticMarkup(
+      <QrCodeModal
+        isOpen={true}
+        onClose={() => {}}
+        title="Deposit Rental Revenue"
+        uri={testUri}
+      />
+    );
+    expect(markup).toContain('SEP-0007 URI');
+    expect(markup).toContain('Deposit Rental Revenue');
+    expect(markup).toContain('web+stellar:pay?destination=GBTY42VFL');
+    expect(markup).toContain('amount=250.00');
+    expect(markup).toContain('api.qrserver.com');
+
+    const closedMarkup = renderToStaticMarkup(
+      <QrCodeModal
+        isOpen={false}
+        onClose={() => {}}
+        title="Closed Modal"
+        uri={testUri}
+      />
+    );
+    expect(closedMarkup).toBe('');
   });
 });
 
