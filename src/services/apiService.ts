@@ -1050,6 +1050,72 @@ class ApiService {
       ],
     };
   }
+
+  getSettlementCsvDownloadUrl(settlementId: string): string {
+    return `${API_BASE_URL}/settlements/${encodeURIComponent(settlementId)}/export.csv`;
+  }
+
+  async downloadSettlementCsv(settlementId: string): Promise<boolean> {
+    try {
+      const url = this.getSettlementCsvDownloadUrl(settlementId);
+      const res = await fetch(url);
+      if (res.ok) {
+        const blob = await res.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', `settlement_${settlementId}_audit.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(downloadUrl);
+        return true;
+      }
+    } catch {
+      // Backend fetch failed; fall through to client-side fallback
+    }
+
+    try {
+      const stl = this.fallbackSettlements.find((s) => s.id === settlementId) || this.fallbackSettlements[0];
+      const rows = [
+        ['Settlement ID', stl.id],
+        ['Property ID', stl.property_id],
+        ['Agreement ID', stl.agreement_id],
+        ['Agreement Version', String(stl.agreement_version)],
+        ['Gross Revenue', String(stl.gross_revenue)],
+        ['Distributable Amount', String(stl.distributable_amount)],
+        ['Asset', stl.asset],
+        ['Status', stl.status],
+        ['Executed At', stl.executed_at || stl.created_at],
+        [],
+        ['Recipient Name', 'Role', 'Address', 'Basis Points', 'Expected Amount', 'Actual Amount', 'Status', 'Transaction Hash'],
+        ...stl.payouts.map((p) => [
+          p.recipient_name,
+          p.role,
+          p.recipient_address,
+          String(p.basis_points),
+          String(p.expected_amount),
+          String(p.actual_amount),
+          p.status,
+          p.transaction_hash || '',
+        ]),
+      ];
+      const csvContent = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.setAttribute('download', `settlement_${settlementId}_audit.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+      return true;
+    } catch (e) {
+      console.error('Failed to export settlement CSV fallback:', e);
+      return false;
+    }
+  }
 }
 
 export const apiService = new ApiService();

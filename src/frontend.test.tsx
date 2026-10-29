@@ -331,6 +331,11 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(markup).toContain('Programmable Settlement Platform');
     expect(markup).toContain('DETERMINISTIC WATERFALL');
   });
+
+  it('apiService should provide settlement CSV export URL and export capability', async () => {
+    const url = apiService.getSettlementCsvDownloadUrl('STL-TEST-001');
+    expect(url).toContain('/settlements/STL-TEST-001/export.csv');
+  });
 });
 
 

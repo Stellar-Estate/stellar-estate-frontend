@@ -24,6 +24,7 @@ import {
   Lock,
   ArrowRight,
   Activity,
+  Download,
 } from 'lucide-react';
 
 interface SettlementsPageProps {
@@ -332,21 +333,41 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
                     </div>
                   </div>
 
-                  <div style={{ textAlign: 'right' }}>
+                  <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.4rem' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                       {new Date(stl.executed_at || stl.created_at).toLocaleString()}
                     </div>
-                    {stl.transaction_hashes.length > 0 && (
-                      <a
-                        href={`https://stellar.expert/explorer/testnet/tx/${stl.transaction_hashes[0]}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--accent-gold)', fontSize: '0.8rem', textDecoration: 'none', marginTop: '0.35rem' }}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <button
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          await apiService.downloadSettlementCsv(stl.id);
+                        }}
+                        className="btn-secondary"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          fontSize: '0.75rem',
+                          padding: '0.25rem 0.55rem',
+                        }}
+                        title="Download comprehensive audit CSV receipt"
                       >
-                        <span>Stellar Explorer</span>
-                        <ExternalLink size={12} />
-                      </a>
-                    )}
+                        <Download size={12} />
+                        <span>Audit CSV</span>
+                      </button>
+                      {stl.transaction_hashes.length > 0 && (
+                        <a
+                          href={`https://stellar.expert/explorer/testnet/tx/${stl.transaction_hashes[0]}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--accent-gold)', fontSize: '0.8rem', textDecoration: 'none' }}
+                        >
+                          <span>Stellar Explorer</span>
+                          <ExternalLink size={12} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
