@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext.tsx';
 import { WalletModal } from './WalletModal.tsx';
-import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2 } from 'lucide-react';
+import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2, ExternalLink } from 'lucide-react';
+import { getStellarExpertUrl } from '../utils/stellarExpert.ts';
 
 interface NavbarProps {
   currentTab: string;
@@ -196,6 +197,26 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
                     >
                       <RefreshCw size={14} /> Refresh Balance
                     </button>
+                    {wallet.address && (
+                      <a
+                        href={getStellarExpertUrl('account', wallet.address)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setShowDropdown(false)}
+                        style={{
+                          width: '100%',
+                          padding: '0.5rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          fontSize: '0.85rem',
+                          color: 'var(--accent-cyan)',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        <ExternalLink size={14} /> View on StellarExpert
+                      </a>
+                    )}
                     <button
                       onClick={() => {
                         disconnect();

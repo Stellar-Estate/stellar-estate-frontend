@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Property, RevenueRecord } from '../types/index.ts';
 import { apiService } from '../services/apiService.ts';
 import { STELLAR_EXPERT_EXPLORER } from '../services/stellarService.ts';
+import { getStellarExpertUrl, formatStellarAddress, getStellarAddressType } from '../utils/stellarExpert.ts';
 import {
   TrendingUp,
   DollarSign,
@@ -203,9 +204,24 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ properties, onSele
                     ${(p.financial_summary?.total_revenue_recorded || 8000).toLocaleString()} XLM
                   </td>
                   <td style={{ padding: '1rem' }}>
-                    <span className="mono-text" style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)' }}>
-                      {p.vault_stellar_address.substring(0, 8)}...{p.vault_stellar_address.substring(p.vault_stellar_address.length - 4)}
-                    </span>
+                    <a
+                      href={getStellarExpertUrl(getStellarAddressType(p.vault_stellar_address) === 'contract' ? 'contract' : 'account', p.vault_stellar_address)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        color: 'var(--accent-cyan)',
+                        textDecoration: 'none',
+                      }}
+                      title="View Vault Contract on StellarExpert"
+                    >
+                      <span className="mono-text" style={{ fontSize: '0.75rem' }}>
+                        {formatStellarAddress(p.vault_stellar_address, 6)}
+                      </span>
+                      <ExternalLink size={12} />
+                    </a>
                   </td>
                   <td style={{ padding: '1rem' }}>
                     <button
