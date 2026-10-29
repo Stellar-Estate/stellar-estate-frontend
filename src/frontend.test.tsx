@@ -835,6 +835,16 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.property_vault.version).toBe('1.0.0');
     expect(res.data.distribution_agreement.standards).toContain('SEP-0001');
   });
+
+  it('WebhookManagerModal should render active webhook list and test dispatch controls', async () => {
+    const { WebhookManagerModal } = await import('./components/WebhookManagerModal');
+    const html = renderToStaticMarkup(
+      <WebhookManagerModal isOpen={true} onClose={() => {}} />
+    );
+    expect(html).toContain('Webhook Event Subscriptions &amp; Dispatcher');
+    expect(html).toContain('Register New Event Webhook');
+    expect(html).toContain('HMAC-SHA256 Cryptographic Payload Signing Enabled');
+  });
 });
 
 
