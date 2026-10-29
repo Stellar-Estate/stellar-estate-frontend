@@ -525,6 +525,12 @@ describe('Programmable Settlement Platform Tests', () => {
     );
     expect(html).toContain('Execute Multi-Recipient Settlement');
   });
+
+  it('apiService.getFeeStats should return base fee stats for gas calculation', async () => {
+    const fees = await apiService.getFeeStats();
+    expect(fees).toBeDefined();
+    expect(fees.recommended_base_fee || fees.last_ledger_base_fee).toBeGreaterThanOrEqual(100);
+  });
 });
 
 

@@ -38,6 +38,7 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
   const [step, setStep] = useState<'PREVIEW' | 'SIGNING' | 'SUBMITTING' | 'CONFIRMING' | 'SUCCESS'>('PREVIEW');
   const [preview, setPreview] = useState<any>(null);
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
+  const [feeStats, setFeeStats] = useState<any>(null);
   const [settlementResult, setSettlementResult] = useState<Settlement | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -51,8 +52,12 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
     setIsLoadingPreview(true);
     setErrorMessage(null);
     try {
-      const data = await apiService.previewLevel3Settlement(propertyId, revenueIds.length > 0 ? revenueIds : ['rev-meridian-001']);
+      const [data, fees] = await Promise.all([
+        apiService.previewLevel3Settlement(propertyId, revenueIds.length > 0 ? revenueIds : ['rev-meridian-001']),
+        apiService.getFeeStats(),
+      ]);
       setPreview(data);
+      setFeeStats(fees);
     } catch (err: any) {
       setErrorMessage(err.message || 'Failed to load settlement preview');
     } finally {
@@ -259,6 +264,12 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', borderBottom: '1px solid var(--border-subtle)', fontSize: '0.85rem' }}>
                 <span style={{ color: 'var(--text-secondary)' }}>Management Fee</span>
                 <span style={{ color: '#c084fc', fontWeight: 600 }}>-${preview.fees?.toLocaleString()}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', borderBottom: '1px solid var(--border-subtle)', fontSize: '0.85rem' }}>
+                <span style={{ color: 'var(--text-secondary)' }}>Stellar Gas Fee (Base Fee)</span>
+                <span style={{ color: '#60a5fa', fontWeight: 600 }}>
+                  {feeStats?.recommended_base_fee || feeStats?.last_ledger_base_fee || 100} stroops (~0.00001 XLM)
+                </span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0 0.2rem', fontSize: '0.95rem' }}>
                 <span style={{ fontWeight: 700, color: 'var(--accent-emerald)' }}>Net Distributable</span>

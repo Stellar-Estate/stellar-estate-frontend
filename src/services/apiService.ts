@@ -1116,6 +1116,23 @@ class ApiService {
       return false;
     }
   }
+
+  async getFeeStats(): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/blockchain/fee-stats`);
+      if (res.ok) {
+        const body = await res.json();
+        return body.data;
+      }
+    } catch {
+      // Fallback
+    }
+    return {
+      last_ledger_base_fee: 100,
+      fee_charged: { min: 100, mode: 100, p90: 100, max: 1000 },
+      recommended_base_fee: 100,
+    };
+  }
 }
 
 export const apiService = new ApiService();
