@@ -104,6 +104,47 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
     }
   };
 
+  const exportStakeholderCsv = () => {
+    if (!stakeholderEarnings || typeof window === 'undefined') return;
+    try {
+      const rows = [
+        ['Stakeholder Statement - Stellar Estate Settlement Engine'],
+        ['Name', stakeholderEarnings.stakeholder_name],
+        ['Role', stakeholderEarnings.role],
+        ['Wallet', stakeholderEarnings.wallet_address],
+        ['Allocation', `${(stakeholderEarnings.current_allocation_bps / 100).toFixed(2)}%`],
+        ['Total Allocated', String(stakeholderEarnings.total_allocated)],
+        ['Total Settled', String(stakeholderEarnings.total_settled)],
+        ['Pending', String(stakeholderEarnings.pending_amount)],
+        [],
+        ['Settlement ID', 'Property', 'Date', 'Amount', 'Status', 'Transaction Hash'],
+        ...stakeholderEarnings.settlements.map((s) => [
+          s.settlement_id,
+          s.property_id,
+          s.date,
+          String(s.amount),
+          s.status,
+          s.tx_hash,
+        ]),
+      ];
+
+      const csvContent = rows
+        .map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(','))
+        .join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `stakeholder_${stakeholderTab}_earnings.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Failed to export stakeholder CSV:', err);
+    }
+  };
+
   const filteredSettlements = settlements.filter((s) => {
     if (settlementFilter === 'RECONCILED' && !(s.status === 'RECONCILED' || (s as any).reconciliation_status === 'RECONCILED')) return false;
     if (settlementFilter === 'SETTLED' && !(s.status === 'SETTLED' || s.status === 'CONFIRMED')) return false;
@@ -542,11 +583,21 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
                   </div>
                 </div>
 
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Total Settled To Date</div>
-                  <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
-                    ${stakeholderEarnings.total_settled.toLocaleString()} USDC
+                <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Total Settled To Date</div>
+                    <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
+                      ${stakeholderEarnings.total_settled.toLocaleString()} USDC
+                    </div>
                   </div>
+                  <button
+                    onClick={exportStakeholderCsv}
+                    className="btn-secondary"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', padding: '0.3rem 0.7rem' }}
+                  >
+                    <Download size={13} />
+                    <span>Export Statement CSV</span>
+                  </button>
                 </div>
               </div>
 
