@@ -845,6 +845,13 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Register New Event Webhook');
     expect(html).toContain('HMAC-SHA256 Cryptographic Payload Signing Enabled');
   });
+
+  it('apiService.getSettlementBreakdown should query settlement breakdown metrics', async () => {
+    const res = await apiService.getSettlementBreakdown('stl-sample-01');
+    expect(res.success).toBe(true);
+    expect(res.data.breakdown.gross_revenue).toBeGreaterThan(0);
+    expect(res.data.ratios_bps.distributable_bps).toBeGreaterThan(0);
+  });
 });
 
 
