@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext.tsx';
 import { useCurrency } from '../context/CurrencyContext.tsx';
 import { WalletModal } from './WalletModal.tsx';
-import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2, ExternalLink, AlertTriangle, Coins } from 'lucide-react';
+import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2, ExternalLink, AlertTriangle, Coins, PieChart } from 'lucide-react';
 import { getStellarExpertUrl } from '../utils/stellarExpert.ts';
+import { StakeholderPortfolioModal } from './StakeholderPortfolioModal.tsx';
 
 interface NavbarProps {
   currentTab: string;
@@ -14,6 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
   const { wallet, disconnect, refreshBalance, fundCurrentAccountWithFriendbot, isLoading } = useWallet();
   const { currency, setCurrency } = useCurrency();
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+  const [isPortfolioModalOpen, setIsPortfolioModalOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFunding, setIsFunding] = useState(false);
 
@@ -338,6 +340,27 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
                     >
                       <RefreshCw size={14} /> Refresh Balance
                     </button>
+                    <button
+                      onClick={() => {
+                        setIsPortfolioModalOpen(true);
+                        setShowDropdown(false);
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '0.5rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        fontSize: '0.85rem',
+                        color: '#c084fc',
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <PieChart size={14} /> My Portfolio & Equity
+                    </button>
                     {wallet.address && (
                       <a
                         href={getStellarExpertUrl('account', wallet.address)}
@@ -393,6 +416,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
       </header>
 
       <WalletModal isOpen={isWalletModalOpen} onClose={() => setIsWalletModalOpen(false)} />
+      <StakeholderPortfolioModal
+        isOpen={isPortfolioModalOpen}
+        onClose={() => setIsPortfolioModalOpen(false)}
+        walletAddress={wallet.address || undefined}
+      />
     </>
   );
 };
