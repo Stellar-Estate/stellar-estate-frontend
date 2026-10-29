@@ -1,0 +1,41 @@
+# Stellar Estate Platform — SEP-0001 stellar.toml
+# Specification: https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md
+
+VERSION = "2.0.0"
+NETWORK_PASSPHRASE = "Test SDF Network ; September 2015"
+HORIZON_URL = "https://horizon-testnet.stellar.org"
+
+[DOCUMENTATION]
+ORG_NAME = "Stellar Estate"
+ORG_DBA = "Stellar Estate Financial Infrastructure"
+ORG_URL = "https://stellar-estate.netlify.app"
+ORG_LOGO = "https://stellar-estate.netlify.app/favicon.svg"
+ORG_DESCRIPTION = "Programmable real-estate settlement platform, Soroban smart contracts, deterministic waterfall distributions, and Property Financial Passport on Stellar."
+ORG_OFFICIAL_EMAIL = "contact@stellar-estate.network"
+ORG_GITHUB = "https://github.com/Stellar-Estate"
+
+[PRINCIPALS]
+name = "Dev3DPrint"
+email = "322404527+Dev3DPrint@users.noreply.github.com"
+github = "Dev3DPrint"
+
+# Authoritative Soroban Property Vault Contract on Stellar Testnet
+[[CONTRACTS]]
+ID = "CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL"
+NAME = "Property Vault Contract"
+DESCRIPTION = "Autonomous financial vault executing deterministic waterfall settlements and recording immutable property revenue streams."
+
+# Accepted Settlement Currencies
+[[CURRENCIES]]
+code = "USDC"
+issuer = "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5"
+display_decimals = 2
+name = "USD Coin"
+desc = "Circle USD Coin on Stellar Testnet"
+
+[[CURRENCIES]]
+code = "XLM"
+native = true
+display_decimals = 7
+name = "Stellar Lumens"
+desc = "Native asset of the Stellar Network"
