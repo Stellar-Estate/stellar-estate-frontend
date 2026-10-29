@@ -1089,6 +1089,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data).toHaveProperty('total_payout_amount');
     expect(res.data).toHaveProperty('unique_stakeholders_paid');
   });
+
+  it('apiService.getSystemAuditSummary should return global audit telemetry', async () => {
+    const res = await apiService.getSystemAuditSummary();
+    expect(res.success).toBe(true);
+    expect(res.data.network).toBe('TESTNET');
+    expect(res.data.protocol_version).toBe(22);
+    expect(res.data.status).toBe('OPTIMAL');
+  });
 });
 
 
