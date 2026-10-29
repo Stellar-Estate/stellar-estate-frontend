@@ -450,6 +450,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(markup).toContain('app-container');
     expect(markup).toContain('Stellar Estate');
   });
+
+  it('Web App Manifest should be valid JSON containing application metadata', async () => {
+    const fs = await import('fs');
+    const path = await import('path');
+    const manifestPath = path.resolve(__dirname, '../public/manifest.json');
+    const raw = fs.readFileSync(manifestPath, 'utf8');
+    const manifest = JSON.parse(raw);
+    expect(manifest.short_name).toBe('StellarEstate');
+    expect(manifest.display).toBe('standalone');
+    expect(manifest.theme_color).toBe('#070a13');
+  });
 });
 
 
