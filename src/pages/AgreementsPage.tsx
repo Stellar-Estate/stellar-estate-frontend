@@ -24,6 +24,7 @@ import {
   ExternalLink,
   Coins,
   Layers,
+  Download,
 } from 'lucide-react';
 
 interface AgreementsPageProps {
@@ -338,6 +339,23 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
 
               {/* Action Buttons */}
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => {
+                    const dataStr = JSON.stringify(selectedVersion, null, 2);
+                    const blob = new Blob([dataStr], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `agreement_${selectedVersion.agreement_id}_v${selectedVersion.version_number}.json`;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.85rem' }}
+                  title="Download agreement specification as formatted JSON"
+                >
+                  <Download size={15} /> Export JSON
+                </button>
                 <button
                   onClick={() => setIsPreviewOpen(true)}
                   className="btn-secondary"
