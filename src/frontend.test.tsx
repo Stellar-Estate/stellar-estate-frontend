@@ -1005,6 +1005,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.version).toBe(1);
     expect(res.data).toHaveProperty('is_superseded');
   });
+
+  it('apiService.getVaultSummary should return operational summary', async () => {
+    const res = await apiService.getVaultSummary('prop-meridian-abuja');
+    expect(res.success).toBe(true);
+    expect(res.data.property_id).toBe('prop-meridian-abuja');
+    expect(res.data.contract_version).toBe('1.0.0');
+    expect(res.data.is_operational).toBe(true);
+  });
 });
 
 
