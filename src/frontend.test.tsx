@@ -547,6 +547,8 @@ describe('Programmable Settlement Platform Tests', () => {
     );
     expect(html).toContain('Cryptographic Revenue Provenance');
     expect(html).toContain('Vault Reconciliation');
+    expect(html).toContain('protocol-uptime-card');
+    expect(html).toContain('Stellar Protocol Telemetry');
   });
 
   it('PropertyValuationChart should render SVG curve and valuation trajectory metrics', async () => {

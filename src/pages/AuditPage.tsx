@@ -4,6 +4,7 @@ import { apiService } from '../services/apiService.ts';
 import { STELLAR_EXPERT_EXPLORER } from '../services/stellarService.ts';
 import { ReconciliationAuditModal } from '../components/ReconciliationAuditModal.tsx';
 import { WebhookManagerModal } from '../components/WebhookManagerModal.tsx';
+import { ProtocolUptimeCard } from '../components/ProtocolUptimeCard.tsx';
 import {
   ShieldCheck,
   Search,
@@ -99,6 +100,9 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
           </button>
         </div>
       </div>
+
+      {/* Live Stellar Protocol Telemetry */}
+      <ProtocolUptimeCard />
 
       {/* 5-STAGE PIPELINE VISUALIZER */}
       {selectedRevenue && (
