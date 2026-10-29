@@ -953,6 +953,24 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('CAQCFV...4KLCPH');
     expect(html).toContain('StellarExpert');
   });
+
+  it('AgreementTimelineCard should render lifecycle stages and multi-sig progress', async () => {
+    const { AgreementTimelineCard } = await import('./components/AgreementTimelineCard');
+    const html = renderToStaticMarkup(
+      <AgreementTimelineCard
+        agreementId="agr-meridian-001"
+        versionNumber={2}
+        status="LOCKED"
+        approvalCount={3}
+        totalStakeholders={3}
+      />
+    );
+    expect(html).toContain('Lifecycle Stages — Agreement v2');
+    expect(html).toContain('Canonical Inception');
+    expect(html).toContain('Multi-Sig Consensus');
+    expect(html).toContain('Soroban Vault Locking');
+    expect(html).toContain('Active &amp; Enforced');
+  });
 });
 
 
