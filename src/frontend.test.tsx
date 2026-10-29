@@ -494,6 +494,17 @@ describe('Programmable Settlement Platform Tests', () => {
       global.fetch = originalFetch;
     }
   });
+
+  it('SettlementsPage should render historical settlements counter ticker', async () => {
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <WalletProvider>
+        <SettlementsPage properties={props} selectedProperty={props[0]} />
+      </WalletProvider>
+    );
+    expect(html).toContain('Historical Settlements Counter');
+    expect(html).toContain('Stellar Horizon Latency');
+  });
 });
 
 
