@@ -12,7 +12,8 @@
     "lint": "tsc --noEmit",
     "check:env": "node scripts/check-env.mjs",
     "verify:all": "node ../stellar-estate-core/scripts/run-all-checks.mjs",
-    "audit:bundle": "node ../stellar-estate-core/scripts/generate-audit-bundle.mjs"
+    "audit:bundle": "node ../stellar-estate-core/scripts/generate-audit-bundle.mjs",
+    "verify:submission": "node ../stellar-estate-core/scripts/pre-submission-check.mjs"
   },
   "dependencies": {
     "@stellar/freighter-api": "^3.0.0",
