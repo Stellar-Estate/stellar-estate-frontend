@@ -5,6 +5,7 @@ import { WalletModal } from './WalletModal.tsx';
 import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2, ExternalLink, AlertTriangle, Coins, PieChart } from 'lucide-react';
 import { getStellarExpertUrl } from '../utils/stellarExpert.ts';
 import { StakeholderPortfolioModal } from './StakeholderPortfolioModal.tsx';
+import { NetworkMetricsBanner } from './NetworkMetricsBanner.tsx';
 
 interface NavbarProps {
   currentTab: string;
@@ -41,6 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
           zIndex: 100,
         }}
       >
+        <NetworkMetricsBanner />
         {isWrongNetwork && (
           <div
             style={{
