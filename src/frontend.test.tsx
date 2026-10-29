@@ -544,6 +544,16 @@ describe('Programmable Settlement Platform Tests', () => {
     );
     expect(html).toContain('Cryptographic Revenue Provenance');
   });
+
+  it('PropertyValuationChart should render SVG curve and valuation trajectory metrics', async () => {
+    const { PropertyValuationChart } = await import('./components/PropertyValuationChart');
+    const html = renderToStaticMarkup(
+      <PropertyValuationChart currentValuation={1250000} initialValuation={1000000} />
+    );
+    expect(html).toContain('Property Valuation Trajectory');
+    expect(html).toContain('$1,250,000');
+    expect(html).toContain('+25.00%');
+  });
 });
 
 
