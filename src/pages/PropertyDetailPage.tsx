@@ -7,6 +7,7 @@ import { FinancialPassportModal } from '../components/FinancialPassportModal.tsx
 import { UnitBreakdownModal } from '../components/UnitBreakdownModal.tsx';
 import { PropertyValuationChart } from '../components/PropertyValuationChart.tsx';
 import { BatchRevenueModal } from '../components/BatchRevenueModal.tsx';
+import { PropertyAuditTrailModal } from '../components/PropertyAuditTrailModal.tsx';
 import {
   Building2,
   MapPin,
@@ -14,6 +15,7 @@ import {
   ShieldCheck,
   TrendingUp,
   Layers,
+  History,
   ExternalLink,
   PlusCircle,
   Clock,
@@ -44,6 +46,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
   const [copiedVault, setCopiedVault] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [isBatchModalOpen, setIsBatchModalOpen] = useState(false);
+  const [isAuditTrailModalOpen, setIsAuditTrailModalOpen] = useState(false);
   const [isPassportModalOpen, setIsPassportModalOpen] = useState(false);
   const [isUnitModalOpen, setIsUnitModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -118,6 +121,14 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
                 <FileText size={18} /> Distribution Agreements
               </button>
             )}
+            <button
+              onClick={() => setIsAuditTrailModalOpen(true)}
+              className="btn-secondary"
+              style={{ padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              title="View Chronological Ledger Events"
+            >
+              <History size={18} /> Audit Trail
+            </button>
             <button
               onClick={() => setIsBatchModalOpen(true)}
               className="btn-outline-gold"
@@ -493,6 +504,13 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
         isOpen={isBatchModalOpen}
         onClose={() => setIsBatchModalOpen(false)}
         onSuccess={loadPropertyData}
+      />
+
+      {/* Property Audit Trail Modal */}
+      <PropertyAuditTrailModal
+        property={property}
+        isOpen={isAuditTrailModalOpen}
+        onClose={() => setIsAuditTrailModalOpen(false)}
       />
 
       {/* Financial Passport Modal */}
