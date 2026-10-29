@@ -897,6 +897,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Current Reserve');
     expect(html).toContain('Buffer Funded Ratio');
   });
+
+  it('NetworkMetricsBanner should render live ledger telemetry and protocol version', async () => {
+    const { NetworkMetricsBanner } = await import('./components/NetworkMetricsBanner');
+    const html = renderToStaticMarkup(<NetworkMetricsBanner />);
+    expect(html).toContain('Stellar TESTNET');
+    expect(html).toContain('Protocol 22');
+    expect(html).toContain('StellarExpert');
+  });
 });
 
 
