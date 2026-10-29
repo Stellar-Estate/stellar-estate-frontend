@@ -115,6 +115,17 @@ export const WaterfallBuilder: React.FC<WaterfallBuilderProps> = ({
     setStakeholders(stakeholders.filter((_, i) => i !== index));
   };
 
+  const handleAutoBalance = () => {
+    if (stakeholders.length === 0) return;
+    const currentSumWithoutLast = stakeholders
+      .slice(0, stakeholders.length - 1)
+      .reduce((sum, s) => sum + s.basis_points, 0);
+    const needed = Math.max(0, 10000 - currentSumWithoutLast);
+    const updated = [...stakeholders];
+    updated[updated.length - 1].basis_points = needed;
+    setStakeholders(updated);
+  };
+
   const handleSubmit = async () => {
     setErrorMessage(null);
     if (!isBpsBalanced) {
@@ -431,13 +442,24 @@ export const WaterfallBuilder: React.FC<WaterfallBuilderProps> = ({
                   Must sum to exactly 10,000 basis points (100.00%).
                 </div>
               </div>
-              <button
-                onClick={handleAddStakeholder}
-                className="btn-secondary"
-                style={{ fontSize: '0.75rem', padding: '0.3rem 0.65rem' }}
-              >
-                <Plus size={14} /> Add Stakeholder
-              </button>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <button
+                  type="button"
+                  onClick={handleAutoBalance}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.75rem', padding: '0.3rem 0.65rem', borderColor: 'var(--accent-gold)', color: 'var(--accent-gold)' }}
+                  title="Automatically adjust last stakeholder to satisfy 10,000 bps invariant"
+                >
+                  Auto-Balance (10k bps)
+                </button>
+                <button
+                  onClick={handleAddStakeholder}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.75rem', padding: '0.3rem 0.65rem' }}
+                >
+                  <Plus size={14} /> Add Stakeholder
+                </button>
+              </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -543,6 +565,44 @@ export const WaterfallBuilder: React.FC<WaterfallBuilderProps> = ({
                   </button>
                 </div>
               ))}
+            </div>
+
+            {/* Visual Multi-Segment BPS Progress Gauge */}
+            <div style={{ marginTop: '1.25rem', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', marginBottom: '0.4rem', color: 'var(--text-secondary)' }}>
+                <span>Stakeholder Allocation Distribution</span>
+                <span style={{ fontWeight: 700, color: isBpsBalanced ? 'var(--accent-emerald)' : 'var(--accent-gold)' }}>
+                  {totalBps} / 10,000 bps ({((totalBps / 10000) * 100).toFixed(1)}%)
+                </span>
+              </div>
+              <div
+                style={{
+                  height: 10,
+                  width: '100%',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  borderRadius: 5,
+                  overflow: 'hidden',
+                  display: 'flex',
+                  border: `1px solid ${isBpsBalanced ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255, 255, 255, 0.15)'}`,
+                }}
+              >
+                {stakeholders.map((st, idx) => {
+                  const palette = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#06b6d4', '#ec4899', '#14b8a6'];
+                  const widthPercent = Math.max(0, (st.basis_points / 10000) * 100);
+                  if (widthPercent === 0) return null;
+                  return (
+                    <div
+                      key={idx}
+                      title={`${st.name || `Stakeholder ${idx + 1}`}: ${st.basis_points} bps (${(st.basis_points / 100).toFixed(2)}%)`}
+                      style={{
+                        width: `${widthPercent}%`,
+                        backgroundColor: palette[idx % palette.length],
+                        height: '100%',
+                      }}
+                    />
+                  );
+                })}
+              </div>
             </div>
 
             {/* Invariant Bar */}

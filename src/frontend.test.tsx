@@ -5,7 +5,9 @@ import { apiService } from './services/apiService.ts';
 import { SkeletonLoader } from './components/SkeletonLoader.tsx';
 import { QrCodeModal } from './components/QrCodeModal.tsx';
 import { UnitBreakdownModal } from './components/UnitBreakdownModal.tsx';
+import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
+import { WalletProvider } from './context/WalletContext.tsx';
 
 describe('Stellar Estate Frontend Logic & Data Tests', () => {
   it('apiService.getProperties should return populated property list with vaults', async () => {
@@ -335,6 +337,27 @@ describe('Programmable Settlement Platform Tests', () => {
   it('apiService should provide settlement CSV export URL and export capability', async () => {
     const url = apiService.getSettlementCsvDownloadUrl('STL-TEST-001');
     expect(url).toContain('/settlements/STL-TEST-001/export.csv');
+  });
+
+  it('WaterfallBuilder should render stakeholder allocation gauge and 10000 bps invariant controls', () => {
+    const mockProperty: any = {
+      id: 'prop-test',
+      name: 'Test Complex',
+    };
+    const markup = renderToStaticMarkup(
+      <WalletProvider>
+        <WaterfallBuilder
+          isOpen={true}
+          onClose={() => {}}
+          onAgreementCreated={() => {}}
+          property={mockProperty}
+        />
+      </WalletProvider>
+    );
+    expect(markup).toContain('Stakeholder Allocation Distribution');
+    expect(markup).toContain('10,000 bps');
+    expect(markup).toContain('Auto-Balance (10k bps)');
+    expect(markup).toContain('Invariant Satisfied (100.00%)');
   });
 });
 
