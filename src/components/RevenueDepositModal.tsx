@@ -15,7 +15,10 @@ import {
   Loader2,
   Send,
   Lock,
+  QrCode,
 } from 'lucide-react';
+import { buildSep0007PayUri } from '../utils/sep0007.ts';
+import { QrCodeModal } from './QrCodeModal.tsx';
 
 interface RevenueDepositModalProps {
   property: Property;
@@ -40,6 +43,16 @@ export const RevenueDepositModal: React.FC<RevenueDepositModalProps> = ({
   const [txHash, setTxHash] = useState<string | null>(null);
   const [confirmedLedger, setConfirmedLedger] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showQrModal, setShowQrModal] = useState<boolean>(false);
+
+  const sep7Uri = buildSep0007PayUri({
+    destination: property.vault_stellar_address,
+    amount: depositAmount,
+    assetCode: assetType,
+    memo: `REV-${property.id.substring(0, 10)}`,
+    memoType: 'MEMO_TEXT',
+    msg: `Deposit into ${property.name} vault`,
+  });
 
   if (!isOpen) return null;
 
@@ -332,13 +345,24 @@ export const RevenueDepositModal: React.FC<RevenueDepositModalProps> = ({
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
-              <button onClick={resetModal} className="btn-secondary">
-                Back
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'space-between', alignItems: 'center' }}>
+              <button
+                type="button"
+                onClick={() => setShowQrModal(true)}
+                className="btn-secondary"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem' }}
+                title="View SEP-0007 QR code for mobile wallets"
+              >
+                <QrCode size={16} /> QR / SEP-0007
               </button>
-              <button onClick={handleExecuteDeposit} className="btn-primary">
-                <Send size={16} /> Sign & Submit to Testnet
-              </button>
+              <div style={{ display: 'flex', gap: '0.75rem' }}>
+                <button onClick={resetModal} className="btn-secondary">
+                  Back
+                </button>
+                <button onClick={handleExecuteDeposit} className="btn-primary">
+                  <Send size={16} /> Sign & Submit to Testnet
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -462,6 +486,14 @@ export const RevenueDepositModal: React.FC<RevenueDepositModalProps> = ({
           </div>
         )}
       </div>
+
+      <QrCodeModal
+        isOpen={showQrModal}
+        onClose={() => setShowQrModal(false)}
+        title="Deposit via SEP-0007"
+        uri={sep7Uri}
+        description={`Scan this QR code with any SEP-0007 compatible Stellar wallet (such as Lobstr, Albedo, or Solar) to transfer ${depositAmount} ${assetType} to the property vault.`}
+      />
     </div>
   );
 };
