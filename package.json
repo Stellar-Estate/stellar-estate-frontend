@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "check:env": "node scripts/check-env.mjs"
   },
   "dependencies": {
     "@stellar/freighter-api": "^3.0.0",
