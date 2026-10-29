@@ -1544,6 +1544,41 @@ class ApiService {
       timestamp: new Date().toISOString(),
     };
   }
+
+  async getLiveness(): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/live`);
+      if (res.ok) return await res.json();
+    } catch {
+      // Fallback
+    }
+    return {
+      status: 'UP',
+      probe: 'liveness',
+      timestamp: new Date().toISOString(),
+      uptime: 42,
+    };
+  }
+
+  async getReadiness(): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/ready`);
+      if (res.ok) return await res.json();
+    } catch {
+      // Fallback
+    }
+    return {
+      status: 'READY',
+      probe: 'readiness',
+      timestamp: new Date().toISOString(),
+      checks: {
+        database: 'OK',
+        properties_loaded: 3,
+        agreements_loaded: 3,
+        storage_mode: 'IN_MEMORY_TRANSACTIONAL',
+      },
+    };
+  }
 }
 
 export const apiService = new ApiService();

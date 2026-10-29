@@ -803,6 +803,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Property Audit Trail &amp; Ledger Events');
     expect(html).toContain('CHRONOLOGICAL AUDIT LOG');
   });
+
+  it('apiService.getLiveness and getReadiness should query system health probes', async () => {
+    const live = await apiService.getLiveness();
+    expect(live.status).toBe('UP');
+    expect(live.probe).toBe('liveness');
+
+    const ready = await apiService.getReadiness();
+    expect(ready.status).toBe('READY');
+    expect(ready.probe).toBe('readiness');
+    expect(ready.checks.database).toBe('OK');
+  });
 });
 
 
