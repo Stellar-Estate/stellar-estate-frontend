@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Property, DepositLifecycleState } from '../types/index.ts';
 import { useWallet } from '../context/WalletContext.tsx';
+import { useToast } from '../context/ToastContext.tsx';
 import { stellarService, STELLAR_EXPERT_EXPLORER } from '../services/stellarService.ts';
 import { apiService } from '../services/apiService.ts';
 import {
@@ -34,6 +35,7 @@ export const RevenueDepositModal: React.FC<RevenueDepositModalProps> = ({
   onRevenueConfirmed,
 }) => {
   const { wallet, cachedSecretKey, refreshBalance } = useWallet();
+  const { showSuccess, showError } = useToast();
 
   const [revenueSource, setRevenueSource] = useState('RENTAL_REVENUE');
   const [depositAmount, setDepositAmount] = useState('100.00');
@@ -109,11 +111,19 @@ export const RevenueDepositModal: React.FC<RevenueDepositModalProps> = ({
       setDepositState('CONFIRMED');
       setStatusMessage('Transaction independently verified on Stellar Testnet and recorded in property financials.');
       await refreshBalance();
+      showSuccess(
+        'Revenue Settled On-Chain',
+        `${depositAmount} ${assetType} confirmed for ${property.name}`,
+        `${STELLAR_EXPERT_EXPLORER}/${result.hash}`,
+        'View on StellarExpert'
+      );
       onRevenueConfirmed();
     } catch (err: any) {
       console.error('Deposit error:', err);
       setDepositState('FAILED');
-      setErrorMessage(err.message || 'Transaction execution or verification failed.');
+      const errText = err.message || 'Transaction execution or verification failed.';
+      setErrorMessage(errText);
+      showError('Deposit Failed', errText);
     }
   };
 
