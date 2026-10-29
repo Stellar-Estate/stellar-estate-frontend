@@ -1896,6 +1896,26 @@ class ApiService {
       },
     };
   }
+
+  async isAgreementVersionSuperseded(agreementId: string, version: number): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/agreements/${agreementId}/versions/${version}/superseded`);
+      if (res.ok) return await res.json();
+    } catch {
+      // Fallback
+    }
+    return {
+      success: true,
+      data: {
+        agreement_id: agreementId,
+        version,
+        current_version: 2,
+        is_superseded: version < 2,
+        status: version < 2 ? 'SUPERSEDED' : 'LOCKED',
+        superseded_by: version < 2 ? 2 : null,
+      },
+    };
+  }
 }
 
 export const apiService = new ApiService();

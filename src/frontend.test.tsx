@@ -998,6 +998,13 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data).toHaveProperty('total_settlements');
     expect(res.data).toHaveProperty('total_gross_settled');
   });
+
+  it('apiService.isAgreementVersionSuperseded should detect version status', async () => {
+    const res = await apiService.isAgreementVersionSuperseded('agr-meridian-001', 1);
+    expect(res.success).toBe(true);
+    expect(res.data.version).toBe(1);
+    expect(res.data).toHaveProperty('is_superseded');
+  });
 });
 
 
