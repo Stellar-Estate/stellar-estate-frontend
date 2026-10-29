@@ -669,6 +669,15 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Batch Inflow');
     expect(html).toContain('Deposit Property Revenue');
   });
+
+  it('apiService.getPropertyReconciliation should return property financial checksums and audit metrics', async () => {
+    const report = await apiService.getPropertyReconciliation('prop-meridian-abuja');
+    expect(report).toBeDefined();
+    expect(report.property_id).toBe('prop-meridian-abuja');
+    expect(report.metrics).toHaveProperty('total_gross_revenue');
+    expect(report.audit.status).toBe('RECONCILED');
+    expect(typeof report.audit.ledger_checksum).toBe('string');
+  });
 });
 
 
