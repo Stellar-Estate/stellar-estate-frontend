@@ -5,6 +5,7 @@ import { apiService } from './services/apiService.ts';
 import { SkeletonLoader } from './components/SkeletonLoader.tsx';
 import { QrCodeModal } from './components/QrCodeModal.tsx';
 import { UnitBreakdownModal } from './components/UnitBreakdownModal.tsx';
+import { VersionCompareModal } from './components/VersionCompareModal.tsx';
 import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { WalletProvider } from './context/WalletContext.tsx';
@@ -383,6 +384,47 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(contextVal.convertAmount(100, 'USD')).toBe(100);
     expect(contextVal.formatAmount(500, 'USD')).toBe('$500');
     expect(contextVal.formatAmount(100, 'XLM')).toContain('XLM');
+  });
+
+  it('VersionCompareModal should render side-by-side comparison and delta calculations', () => {
+    const mockProperty: any = { id: 'prop-1', name: 'The Meridian' };
+    const verA: any = {
+      id: 'v1',
+      version_number: 1,
+      revenue_source: 'Rental',
+      accepted_asset: 'USDC',
+      effective_date: '2026-01-01',
+      agreement_hash: 'HASH_V1_AAA',
+      status: 'LOCKED',
+      waterfall_rules: [{ id: 'r1', name: 'OpEx', rule_type: 'FIXED_AMOUNT', amount_or_bps: 1000 }],
+      stakeholders: [{ id: 's1', name: 'Alice', role: 'Equity', basis_points: 6000, wallet_address: 'G_ALICE' }],
+    };
+    const verB: any = {
+      id: 'v2',
+      version_number: 2,
+      revenue_source: 'Rental',
+      accepted_asset: 'USDC',
+      effective_date: '2026-06-01',
+      agreement_hash: 'HASH_V2_BBB',
+      status: 'PROPOSED',
+      waterfall_rules: [{ id: 'r2', name: 'OpEx', rule_type: 'FIXED_AMOUNT', amount_or_bps: 1200 }],
+      stakeholders: [{ id: 's1', name: 'Alice', role: 'Equity', basis_points: 5500, wallet_address: 'G_ALICE' }],
+    };
+
+    const markup = renderToStaticMarkup(
+      <VersionCompareModal
+        isOpen={true}
+        onClose={() => {}}
+        property={mockProperty}
+        versionA={verA}
+        versionB={verB}
+      />
+    );
+
+    expect(markup).toContain('Compare Agreement Versions (v1 vs v2)');
+    expect(markup).toContain('HASH_V1_AAA');
+    expect(markup).toContain('HASH_V2_BBB');
+    expect(markup).toContain('-500 bps');
   });
 });
 

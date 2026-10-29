@@ -1,6 +1,7 @@
 import React from 'react';
 import { DistributionAgreementVersion, Property } from '../types/index.ts';
 import { X, ArrowRight, GitCompare, CheckCircle2, Clock, Lock } from 'lucide-react';
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts.ts';
 
 interface VersionCompareModalProps {
   versionA: DistributionAgreementVersion;
@@ -17,6 +18,8 @@ export const VersionCompareModal: React.FC<VersionCompareModalProps> = ({
   isOpen,
   onClose,
 }) => {
+  useKeyboardShortcuts({ onEscape: onClose, enabled: isOpen });
+
   if (!isOpen) return null;
 
   return (
@@ -155,12 +158,39 @@ export const VersionCompareModal: React.FC<VersionCompareModalProps> = ({
                 Stakeholder Allocations
               </h5>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                {versionB.stakeholders.map((s) => (
-                  <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', padding: '0.3rem', background: 'rgba(255, 255, 255, 0.02)' }}>
-                    <span>{s.name}</span>
-                    <span style={{ fontWeight: 700, color: 'var(--accent-gold)' }}>{(s.basis_points / 100).toFixed(1)}% ({s.basis_points} bps)</span>
-                  </div>
-                ))}
+                {versionB.stakeholders.map((s) => {
+                  const matchA = versionA.stakeholders.find(
+                    (sa) => sa.wallet_address === s.wallet_address || sa.name === s.name
+                  );
+                  const deltaBps = matchA ? s.basis_points - matchA.basis_points : s.basis_points;
+                  return (
+                    <div
+                      key={s.id}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        fontSize: '0.8rem',
+                        padding: '0.3rem',
+                        background: 'rgba(255, 255, 255, 0.02)',
+                      }}
+                    >
+                      <span>{s.name}</span>
+                      <span style={{ fontWeight: 700, color: 'var(--accent-gold)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <span>{(s.basis_points / 100).toFixed(1)}% ({s.basis_points} bps)</span>
+                        {deltaBps !== 0 && (
+                          <span
+                            style={{
+                              fontSize: '0.7rem',
+                              color: deltaBps > 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)',
+                            }}
+                          >
+                            ({deltaBps > 0 ? `+${deltaBps}` : deltaBps} bps)
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
