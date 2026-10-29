@@ -876,6 +876,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data).toHaveProperty('replenishment_needed');
     expect(res.data).toHaveProperty('is_reserve_healthy');
   });
+
+  it('SettlementBreakdownModal should render waterfall tranche allocations', async () => {
+    const { SettlementBreakdownModal } = await import('./components/SettlementBreakdownModal');
+    const html = renderToStaticMarkup(
+      <SettlementBreakdownModal settlementId="STL-TEST-01" isOpen={true} onClose={() => {}} />
+    );
+    expect(html).toContain('Settlement Financial Breakdown');
+    expect(html).toContain('Gross Inflow');
+    expect(html).toContain('Waterfall Distribution Flow');
+    expect(html).toContain('Cryptographically Verified on Soroban Contract');
+  });
 });
 
 
