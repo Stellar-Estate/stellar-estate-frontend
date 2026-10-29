@@ -941,6 +941,16 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(resUnknown.success).toBe(true);
     expect(resUnknown.data.is_stakeholder).toBe(false);
   });
+
+  it('VaultAssetBadge should render accepted asset and StellarExpert explorer link', async () => {
+    const { VaultAssetBadge } = await import('./components/VaultAssetBadge');
+    const html = renderToStaticMarkup(
+      <VaultAssetBadge assetCode="USDC" contractId="CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH" />
+    );
+    expect(html).toContain('Vault Asset: USDC');
+    expect(html).toContain('CAQCFV...4KLCPH');
+    expect(html).toContain('StellarExpert');
+  });
 });
 
 
