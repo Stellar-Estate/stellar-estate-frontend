@@ -641,6 +641,20 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.simulation.accounting_balanced).toBe(true);
     expect(res.simulation.stakeholder_allocations.length).toBe(3);
   });
+
+  it('BatchRevenueModal should render multi-deposit form inputs and total calculation', async () => {
+    const { BatchRevenueModal } = await import('./components/BatchRevenueModal');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <ToastProvider>
+        <BatchRevenueModal property={props[0]} isOpen={true} onClose={() => {}} />
+      </ToastProvider>
+    );
+    expect(html).toContain('Batch Revenue Ingestion');
+    expect(html).toContain('UNIT_101_RENT');
+    expect(html).toContain('Total Batch Inflow');
+    expect(html).toContain('Commit Batch');
+  });
 });
 
 
