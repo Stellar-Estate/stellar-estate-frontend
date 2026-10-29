@@ -452,6 +452,62 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
                 </span>
               </div>
 
+              {/* Approval Consensus Progress */}
+              {(() => {
+                const approvedCount = selectedVersion.stakeholders.filter((s) => s.has_approved).length;
+                const totalCount = selectedVersion.stakeholders.length;
+                const approvalPercent = totalCount > 0 ? (approvedCount / totalCount) * 100 : 0;
+                return (
+                  <div
+                    style={{
+                      marginBottom: '1rem',
+                      padding: '0.75rem 1rem',
+                      background: 'rgba(255, 255, 255, 0.02)',
+                      borderRadius: 'var(--radius-sm)',
+                      border: '1px solid var(--border-subtle)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: '0.8rem',
+                        marginBottom: '0.4rem',
+                      }}
+                    >
+                      <span style={{ color: 'var(--text-secondary)' }}>On-Chain Approval Consensus:</span>
+                      <span
+                        style={{
+                          fontWeight: 700,
+                          color: approvedCount === totalCount ? 'var(--accent-emerald)' : 'var(--accent-gold)',
+                        }}
+                      >
+                        {approvedCount} of {totalCount} Approved ({approvalPercent.toFixed(0)}%)
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        height: 6,
+                        width: '100%',
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        borderRadius: 3,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: '100%',
+                          width: `${approvalPercent}%`,
+                          background: approvedCount === totalCount ? 'var(--accent-emerald)' : 'var(--accent-gold)',
+                          transition: 'width 0.3s ease',
+                        }}
+                      />
+                    </div>
+                  </div>
+                );
+              })()}
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                 {selectedVersion.stakeholders.map((st) => (
                   <div
@@ -464,15 +520,53 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
                       background: 'rgba(255, 255, 255, 0.02)',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
+                      flexWrap: 'wrap',
+                      gap: '0.75rem',
                     }}
                   >
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                        <span style={{ fontWeight: 700, color: '#fff', fontSize: '0.95rem' }}>{st.name}</span>
-                        {getRoleBadge(st.role)}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div
+                        style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: '50%',
+                          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(16, 185, 129, 0.2))',
+                          border: '1px solid var(--border-subtle)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: 800,
+                          fontSize: '0.75rem',
+                          color: '#fff',
+                        }}
+                      >
+                        {st.name.substring(0, 2).toUpperCase()}
                       </div>
-                      <div className="mono-text" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                        {st.wallet_address.substring(0, 10)}...{st.wallet_address.substring(st.wallet_address.length - 8)}
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
+                          <span style={{ fontWeight: 700, color: '#fff', fontSize: '0.95rem' }}>{st.name}</span>
+                          {getRoleBadge(st.role)}
+                        </div>
+                        <a
+                          href={`https://stellar.expert/explorer/testnet/account/${st.wallet_address}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mono-text"
+                          style={{
+                            fontSize: '0.75rem',
+                            color: 'var(--accent-gold)',
+                            textDecoration: 'none',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.25rem',
+                          }}
+                          title="View on StellarExpert"
+                        >
+                          <span>
+                            {st.wallet_address.substring(0, 10)}...{st.wallet_address.substring(st.wallet_address.length - 8)}
+                          </span>
+                          <ExternalLink size={10} />
+                        </a>
                       </div>
                     </div>
 
@@ -486,9 +580,16 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
 
                       <div>
                         {st.has_approved ? (
-                          <span className="badge badge-success">
-                            <CheckCircle2 size={12} /> Approved
-                          </span>
+                          <div style={{ textAlign: 'right' }}>
+                            <span className="badge badge-success">
+                              <CheckCircle2 size={12} /> Approved
+                            </span>
+                            {st.approved_at && (
+                              <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                                {new Date(st.approved_at).toLocaleDateString()}
+                              </div>
+                            )}
+                          </div>
                         ) : (
                           <span className="badge badge-warning">
                             <Clock size={12} /> Awaiting
