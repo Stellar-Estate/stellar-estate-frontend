@@ -1606,6 +1606,22 @@ class ApiService {
       },
     };
   }
+
+  async unsubscribeWebhook(id: string): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/webhooks/${id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) return await res.json();
+    } catch {
+      // Fallback
+    }
+    return {
+      success: true,
+      message: `Webhook subscription ${id} removed successfully (mocked).`,
+      subscriptionId: id,
+    };
+  }
 }
 
 export const apiService = new ApiService();

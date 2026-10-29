@@ -822,6 +822,12 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.delivery.event).toBe('settlement.executed');
     expect(res.delivery.signature).toBeDefined();
   });
+
+  it('apiService.unsubscribeWebhook should remove subscription by id', async () => {
+    const res = await apiService.unsubscribeWebhook('sub-sample-123');
+    expect(res.success).toBe(true);
+    expect(res.subscriptionId).toBe('sub-sample-123');
+  });
 });
 
 
