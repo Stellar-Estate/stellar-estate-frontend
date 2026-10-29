@@ -10,6 +10,7 @@ import { WaterfallBuilder } from '../components/WaterfallBuilder.tsx';
 import { AgreementApprovalModal } from '../components/AgreementApprovalModal.tsx';
 import { SettlementPreviewModal } from '../components/SettlementPreviewModal.tsx';
 import { VersionCompareModal } from '../components/VersionCompareModal.tsx';
+import { AgreementTimeline } from '../components/AgreementTimeline.tsx';
 import {
   FileText,
   Lock,
@@ -372,6 +373,15 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
                 </button>
               </div>
             </div>
+
+            {/* Agreement Version Lineage Timeline */}
+            {primaryAgreement && primaryAgreement.versions.length > 0 && (
+              <AgreementTimeline
+                versions={primaryAgreement.versions}
+                selectedVersionId={selectedVersion.id}
+                onSelectVersion={(v) => setSelectedVersion(v)}
+              />
+            )}
 
             {/* Immutability Banner if LOCKED */}
             {selectedVersion.status === 'LOCKED' && (
