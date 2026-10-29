@@ -1013,6 +1013,24 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.contract_version).toBe('1.0.0');
     expect(res.data.is_operational).toBe(true);
   });
+
+  it('VaultSummaryCard should render treasury balances and accepted asset', async () => {
+    const { VaultSummaryCard } = await import('./components/VaultSummaryCard');
+    const html = renderToStaticMarkup(
+      <VaultSummaryCard
+        propertyId="prop-meridian-abuja"
+        totalRevenue={250000}
+        distributableBalance={175000}
+        reserveBalance={25000}
+        settlementCount={3}
+      />
+    );
+    expect(html).toContain('Soroban Treasury Vault');
+    expect(html).toContain('Total Inflow');
+    expect(html).toContain('$250,000');
+    expect(html).toContain('$175,000');
+    expect(html).toContain('3 Finalized');
+  });
 });
 
 
