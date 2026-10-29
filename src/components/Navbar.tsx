@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext.tsx';
 import { WalletModal } from './WalletModal.tsx';
-import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2, ExternalLink, AlertTriangle } from 'lucide-react';
+import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2, ExternalLink, AlertTriangle, Coins } from 'lucide-react';
 import { getStellarExpertUrl } from '../utils/stellarExpert.ts';
 
 interface NavbarProps {
@@ -10,15 +10,20 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => {
-  const { wallet, disconnect, refreshBalance, isLoading } = useWallet();
+  const { wallet, disconnect, refreshBalance, fundCurrentAccountWithFriendbot, isLoading } = useWallet();
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isFunding, setIsFunding] = useState(false);
 
   const isWrongNetwork = wallet.isConnected && (!wallet.isTestnet || (wallet.network && !wallet.network.toUpperCase().includes('TESTNET')));
 
   const truncateAddress = (addr: string) => {
     return `${addr.substring(0, 4)}...${addr.substring(addr.length - 4)}`;
   };
+
+  const formattedBalance = wallet.balanceXlm !== null
+    ? `${Number(wallet.balanceXlm).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} XLM`
+    : '...';
 
   return (
     <>
@@ -177,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
                       fontWeight: 600,
                     }}
                   >
-                    {wallet.balanceXlm !== null ? `${wallet.balanceXlm} XLM` : '...'}
+                    {formattedBalance}
                   </span>
                   <ChevronDown size={14} color="var(--text-muted)" />
                 </div>
@@ -188,7 +193,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
                       position: 'absolute',
                       right: 0,
                       top: '110%',
-                      width: 230,
+                      width: 250,
                       background: '#0f172a',
                       border: '1px solid var(--border-card)',
                       borderRadius: 'var(--radius-sm)',
@@ -203,6 +208,36 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
                         {wallet.walletType === 'FREIGHTER' ? 'Freighter Extension' : 'Testnet Account'}
                       </div>
                     </div>
+                    <div style={{ padding: '0.5rem', borderBottom: '1px solid var(--border-subtle)', marginBottom: '0.25rem' }}>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Available Balance</div>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--accent-gold)' }}>
+                        {formattedBalance}
+                      </div>
+                    </div>
+                    <button
+                      disabled={isFunding}
+                      onClick={async () => {
+                        setIsFunding(true);
+                        try {
+                          await fundCurrentAccountWithFriendbot();
+                        } catch {}
+                        setIsFunding(false);
+                        setShowDropdown(false);
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '0.5rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        fontSize: '0.85rem',
+                        color: 'var(--accent-emerald)',
+                        cursor: isFunding ? 'wait' : 'pointer',
+                        opacity: isFunding ? 0.7 : 1,
+                      }}
+                    >
+                      <Coins size={14} /> {isFunding ? 'Requesting Testnet XLM...' : 'Request Testnet XLM (Faucet)'}
+                    </button>
                     <button
                       onClick={async () => {
                         await refreshBalance();
