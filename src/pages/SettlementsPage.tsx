@@ -10,6 +10,7 @@ import {
 import { WhereDidMyRentGo } from '../components/WhereDidMyRentGo.tsx';
 import { SettlementExecutionModal } from '../components/SettlementExecutionModal.tsx';
 import { FinancialPassportModal } from '../components/FinancialPassportModal.tsx';
+import { SettlementBreakdownModal } from '../components/SettlementBreakdownModal.tsx';
 import {
   Coins,
   ShieldCheck,
@@ -26,6 +27,7 @@ import {
   Activity,
   Download,
   X,
+  Layers,
 } from 'lucide-react';
 
 interface SettlementsPageProps {
@@ -49,6 +51,7 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
   const [stakeholderEarnings, setStakeholderEarnings] = useState<StakeholderEarnings | null>(null);
   const [isExecutionModalOpen, setIsExecutionModalOpen] = useState(false);
   const [isPassportModalOpen, setIsPassportModalOpen] = useState(false);
+  const [breakdownSettlementId, setBreakdownSettlementId] = useState<string | null>(null);
   const [activeDetailSettlement, setActiveDetailSettlement] = useState<Settlement | null>(null);
   const [activeView, setActiveView] = useState<'trace' | 'history' | 'stakeholders'>(initialView);
   const [settlementFilter, setSettlementFilter] = useState<'ALL' | 'RECONCILED' | 'SETTLED' | 'IN_PROGRESS'>('ALL');
@@ -507,6 +510,21 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
                         <span>Breakdown</span>
                       </button>
                       <button
+                        onClick={() => setBreakdownSettlementId(stl.id)}
+                        className="btn-secondary"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          fontSize: '0.75rem',
+                          padding: '0.25rem 0.55rem',
+                        }}
+                        title="View deterministic waterfall tranche distribution breakdown"
+                      >
+                        <Layers size={12} />
+                        <span>Tranches</span>
+                      </button>
+                      <button
                         onClick={async (e) => {
                           e.stopPropagation();
                           await apiService.downloadSettlementCsv(stl.id);
@@ -786,6 +804,12 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
           </div>
         </div>
       )}
+
+      <SettlementBreakdownModal
+        settlementId={breakdownSettlementId || ''}
+        isOpen={!!breakdownSettlementId}
+        onClose={() => setBreakdownSettlementId(null)}
+      />
     </div>
   );
 };
