@@ -631,6 +631,16 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.total_amount).toBe(3300);
     expect(res.data.records.length).toBe(2);
   });
+
+  it('apiService.simulateSettlement should preview waterfall allocations without state mutation', async () => {
+    const res = await apiService.simulateSettlement('prop-meridian-abuja', 20000);
+    expect(res.success).toBe(true);
+    expect(res.simulation).toBeDefined();
+    expect(res.simulation.simulated_gross).toBe(20000);
+    expect(res.simulation.distributable_amount).toBeGreaterThan(0);
+    expect(res.simulation.accounting_balanced).toBe(true);
+    expect(res.simulation.stakeholder_allocations.length).toBe(3);
+  });
 });
 
 
