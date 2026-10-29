@@ -10,7 +10,8 @@
     "test": "vitest run",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "lint": "tsc --noEmit",
-    "check:env": "node scripts/check-env.mjs"
+    "check:env": "node scripts/check-env.mjs",
+    "verify:all": "node ../stellar-estate-core/scripts/run-all-checks.mjs"
   },
   "dependencies": {
     "@stellar/freighter-api": "^3.0.0",
