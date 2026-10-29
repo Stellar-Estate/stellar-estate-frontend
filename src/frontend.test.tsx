@@ -1105,6 +1105,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Judge Quickstart');
     expect(html).toContain('hackathon-judge-badge');
   });
+
+  it('ProtocolUptimeCard should render network telemetry and consensus metrics', async () => {
+    const { ProtocolUptimeCard } = await import('./components/ProtocolUptimeCard');
+    const html = renderToStaticMarkup(
+      <ProtocolUptimeCard network="TESTNET" protocolVersion={22} latestLedger={1092831} />
+    );
+    expect(html).toContain('Stellar Protocol Telemetry');
+    expect(html).toContain('Protocol 22');
+    expect(html).toContain('#1,092,831');
+    expect(html).toContain('100 stroops');
+  });
 });
 
 
