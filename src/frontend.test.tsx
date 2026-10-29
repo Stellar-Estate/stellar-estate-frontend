@@ -506,6 +506,7 @@ describe('Programmable Settlement Platform Tests', () => {
     );
     expect(html).toContain('Historical Settlements Counter');
     expect(html).toContain('Stellar Horizon Latency');
+    expect(html).toContain('Settlement History (0)');
   });
 
   it('SettlementExecutionModal should render settlement execution modal structure', () => {
