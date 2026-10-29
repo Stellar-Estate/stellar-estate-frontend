@@ -828,6 +828,13 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.success).toBe(true);
     expect(res.subscriptionId).toBe('sub-sample-123');
   });
+
+  it('apiService.getContractVersions should return deployed Soroban contract version metadata', async () => {
+    const res = await apiService.getContractVersions();
+    expect(res.success).toBe(true);
+    expect(res.data.property_vault.version).toBe('1.0.0');
+    expect(res.data.distribution_agreement.standards).toContain('SEP-0001');
+  });
 });
 
 

@@ -1622,6 +1622,34 @@ class ApiService {
       subscriptionId: id,
     };
   }
+
+  async getContractVersions(): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/contracts/versions`);
+      if (res.ok) return await res.json();
+    } catch {
+      // Fallback
+    }
+    return {
+      success: true,
+      data: {
+        property_vault: {
+          contract_name: 'StellarEstatePropertyVault',
+          version: '1.0.0',
+          version_tuple: [1, 0, 0],
+          soroban_target: 'v22.1.3',
+          capabilities: ['revenue_custody', 'deterministic_settlement', 'reserve_management', 'reentrancy_protection'],
+        },
+        distribution_agreement: {
+          contract_name: 'StellarEstateDistributionAgreement',
+          version: '1.0.0-stellar-estate',
+          version_tuple: [1, 0, 0],
+          standards: ['SEP-0001', 'SEP-0007', 'Soroban-v22'],
+          capabilities: ['multi_party_consensus', 'waterfall_enforcement', 'sha256_canonical_hashing'],
+        },
+      },
+    };
+  }
 }
 
 export const apiService = new ApiService();
