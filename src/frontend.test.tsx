@@ -10,6 +10,7 @@ import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { AgreementsPage } from './pages/AgreementsPage.tsx';
 import { AppContent } from './App.tsx';
+import { pollTransactionConfirmation } from './utils/transactionPoller.ts';
 import { WalletProvider } from './context/WalletContext.tsx';
 import { CurrencyProvider, useCurrency } from './context/CurrencyContext.tsx';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.ts';
@@ -460,6 +461,38 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(manifest.short_name).toBe('StellarEstate');
     expect(manifest.display).toBe('standalone');
     expect(manifest.theme_color).toBe('#070a13');
+  });
+
+  it('pollTransactionConfirmation should poll and resolve confirmation or handle retry', async () => {
+    // Mock global fetch
+    const originalFetch = global.fetch;
+    global.fetch = async (url: any) => {
+      if (url.toString().includes('tx-confirmed-123')) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            successful: true,
+            ledger: 104523,
+            created_at: '2026-10-29T12:00:00Z',
+            fee_charged: '100',
+          }),
+        } as any;
+      }
+      return { ok: false, status: 404 } as any;
+    };
+
+    try {
+      const res = await pollTransactionConfirmation('tx-confirmed-123', {
+        maxAttempts: 2,
+        initialDelayMs: 10,
+      });
+      expect(res.confirmed).toBe(true);
+      expect(res.ledger).toBe(104523);
+      expect(res.hash).toBe('tx-confirmed-123');
+    } finally {
+      global.fetch = originalFetch;
+    }
   });
 });
 
