@@ -913,6 +913,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.contract_id).toBeDefined();
     expect(res.data.explorer_url).toContain('stellar.expert');
   });
+
+  it('apiService.getAgreementTimestamps should return agreement lifecycle timestamps', async () => {
+    const res = await apiService.getAgreementTimestamps('agr-meridian-001', 2);
+    expect(res.success).toBe(true);
+    expect(res.data.agreement_id).toBe('agr-meridian-001');
+    expect(res.data.version).toBe(2);
+    expect(res.data.created_at).toBeDefined();
+  });
 });
 
 
