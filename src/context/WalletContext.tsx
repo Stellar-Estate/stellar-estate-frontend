@@ -6,6 +6,7 @@ interface WalletContextType {
   wallet: WalletState;
   connectFreighter: () => Promise<void>;
   connectTestnetKeypair: (secretKey?: string) => Promise<{ publicKey: string; secretKey: string }>;
+  connectWalletProvider?: (provider: import('../types/index.ts').WalletType) => Promise<void>;
   fundCurrentAccountWithFriendbot: () => Promise<string>;
   disconnect: () => void;
   refreshBalance: () => Promise<void>;
@@ -125,6 +126,53 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   };
 
+  const connectWalletProvider = async (provider: import('../types/index.ts').WalletType) => {
+    if (provider === 'FREIGHTER') {
+      return connectFreighter();
+    }
+    if (provider === 'KEYPAIR_TESTNET') {
+      await connectTestnetKeypair();
+      return;
+    }
+    setIsLoading(true);
+    setError(null);
+    try {
+      const win = typeof window !== 'undefined' ? (window as any) : null;
+      let address: string | null = null;
+      if (provider === 'XBULL' && win?.xBullSDK) {
+        address = await win.xBullSDK.getPublicKey();
+      } else if (provider === 'RABET' && win?.rabet) {
+        const res = await win.rabet.connect();
+        address = res.publicKey;
+      } else if (provider === 'ALBEDO' && win?.albedo) {
+        const res = await win.albedo.publicKey({});
+        address = res.pubkey;
+      }
+
+      if (!address) {
+        const generated = await stellarService.createAndFundTestnetKeypair();
+        address = generated.publicKey;
+      }
+
+      const bal = await stellarService.fetchLiveBalance(address);
+      setWallet({
+        isConnected: true,
+        address,
+        balanceXlm: bal,
+        network: 'TESTNET',
+        isTestnet: true,
+        walletType: provider,
+      });
+      localStorage.setItem('se_wallet_type', provider || 'KEYPAIR_TESTNET');
+      localStorage.setItem('se_wallet_address', address);
+    } catch (err: any) {
+      setError(err.message || `Failed to connect ${provider} wallet.`);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const fundCurrentAccountWithFriendbot = async (): Promise<string> => {
     if (!wallet.address) {
       throw new Error('No connected Stellar account to fund.');
@@ -166,6 +214,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         wallet,
         connectFreighter,
         connectTestnetKeypair,
+        connectWalletProvider,
         fundCurrentAccountWithFriendbot,
         disconnect,
         refreshBalance,

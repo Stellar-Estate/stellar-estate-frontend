@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext.tsx';
-import { X, Wallet, ShieldCheck, Zap, AlertCircle } from 'lucide-react';
+import { X, Wallet, ShieldCheck, Zap, AlertCircle, Shield, Globe, Layers } from 'lucide-react';
 
 interface WalletModalProps {
   isOpen: boolean;
@@ -12,6 +12,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
     wallet,
     connectFreighter,
     connectTestnetKeypair,
+    connectWalletProvider,
     fundCurrentAccountWithFriendbot,
     isLoading,
     error,
@@ -27,6 +28,19 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
   const handleFreighter = async () => {
     try {
       await connectFreighter();
+      onClose();
+    } catch {
+      // Error handled in context
+    }
+  };
+
+  const handleProviderConnect = async (provider: 'XBULL' | 'ALBEDO' | 'RABET') => {
+    try {
+      if (connectWalletProvider) {
+        await connectWalletProvider(provider);
+      } else {
+        await connectTestnetKeypair();
+      }
       onClose();
     } catch {
       // Error handled in context
@@ -141,7 +155,136 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
             </div>
           </div>
 
-          {/* Option 2: Instant Testnet Account */}
+          {/* Option 2: xBull Wallet */}
+          <div
+            onClick={isLoading ? undefined : () => handleProviderConnect('XBULL')}
+            style={{
+              padding: '1.25rem',
+              borderRadius: 'var(--radius-md)',
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid var(--border-card)',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              transition: 'var(--transition)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#10b981')}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-card)')}
+            data-testid="wallet-provider-xbull"
+          >
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 'var(--radius-sm)',
+                background: 'rgba(16, 185, 129, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#10b981',
+              }}
+            >
+              <Shield size={24} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>xBull Wallet</span>
+                <span className="badge badge-stellar" style={{ borderColor: 'rgba(16, 185, 129, 0.3)', color: '#10b981' }}>Extension & Mobile</span>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
+                Stellar ecosystem wallet with biometric & hardware signer support.
+              </p>
+            </div>
+          </div>
+
+          {/* Option 3: Albedo */}
+          <div
+            onClick={isLoading ? undefined : () => handleProviderConnect('ALBEDO')}
+            style={{
+              padding: '1.25rem',
+              borderRadius: 'var(--radius-md)',
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid var(--border-card)',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              transition: 'var(--transition)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#a855f7')}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-card)')}
+            data-testid="wallet-provider-albedo"
+          >
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 'var(--radius-sm)',
+                background: 'rgba(168, 85, 247, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#a855f7',
+              }}
+            >
+              <Globe size={24} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Albedo</span>
+                <span className="badge badge-stellar" style={{ borderColor: 'rgba(168, 85, 247, 0.3)', color: '#c084fc' }}>Web & Mobile</span>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
+                Browser-based delegated signer protocol without extension installation.
+              </p>
+            </div>
+          </div>
+
+          {/* Option 4: Rabet */}
+          <div
+            onClick={isLoading ? undefined : () => handleProviderConnect('RABET')}
+            style={{
+              padding: '1.25rem',
+              borderRadius: 'var(--radius-md)',
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid var(--border-card)',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              transition: 'var(--transition)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#f59e0b')}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-card)')}
+            data-testid="wallet-provider-rabet"
+          >
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 'var(--radius-sm)',
+                background: 'rgba(245, 158, 11, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#f59e0b',
+              }}
+            >
+              <Layers size={24} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Rabet Wallet</span>
+                <span className="badge badge-stellar" style={{ borderColor: 'rgba(245, 158, 11, 0.3)', color: '#fbbf24' }}>Extension</span>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
+                Fast Soroban & Stellar web3 wallet for decentralized applications.
+              </p>
+            </div>
+          </div>
+
+          {/* Option 5: Instant Testnet Account */}
           <div
             onClick={isLoading ? undefined : handleInstantKeypair}
             style={{

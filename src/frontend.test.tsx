@@ -570,6 +570,20 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('copy-vault-btn');
     expect(html).toContain('StellarExpert');
   });
+
+  it('WalletModal should render multi-wallet providers including Freighter, xBull, Albedo, and Rabet', async () => {
+    const { WalletModal } = await import('./components/WalletModal');
+    const html = renderToStaticMarkup(
+      <WalletProvider>
+        <WalletModal isOpen={true} onClose={() => {}} />
+      </WalletProvider>
+    );
+    expect(html).toContain('Freighter Wallet');
+    expect(html).toContain('xBull Wallet');
+    expect(html).toContain('Albedo');
+    expect(html).toContain('Rabet Wallet');
+    expect(html).toContain('Instant Testnet Dev Account');
+  });
 });
 
 

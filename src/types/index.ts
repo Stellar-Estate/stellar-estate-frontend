@@ -97,13 +97,15 @@ export type DepositLifecycleState =
   | 'FAILED'
   | 'REJECTED';
 
+export type WalletType = 'FREIGHTER' | 'KEYPAIR_TESTNET' | 'XBULL' | 'ALBEDO' | 'RABET' | null;
+
 export interface WalletState {
   isConnected: boolean;
   address: string | null;
   balanceXlm: string | null;
   network: string;
   isTestnet: boolean;
-  walletType: 'FREIGHTER' | 'KEYPAIR_TESTNET' | null;
+  walletType: WalletType;
 }
 
 // ==============================================================================
