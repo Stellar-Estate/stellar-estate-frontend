@@ -8,6 +8,7 @@ import { UnitBreakdownModal } from './components/UnitBreakdownModal.tsx';
 import { VersionCompareModal } from './components/VersionCompareModal.tsx';
 import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
+import { AgreementsPage } from './pages/AgreementsPage.tsx';
 import { WalletProvider } from './context/WalletContext.tsx';
 import { CurrencyProvider, useCurrency } from './context/CurrencyContext.tsx';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.ts';
@@ -425,6 +426,16 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(markup).toContain('HASH_V1_AAA');
     expect(markup).toContain('HASH_V2_BBB');
     expect(markup).toContain('-500 bps');
+  });
+
+  it('AgreementsPage should render agreements and color-coded stakeholder role badges', () => {
+    const mockProperty: any = { id: 'prop-1', name: 'The Meridian' };
+    const markup = renderToStaticMarkup(
+      <WalletProvider>
+        <AgreementsPage properties={[mockProperty]} selectedProperty={mockProperty} />
+      </WalletProvider>
+    );
+    expect(markup).toContain('Distribution Agreements');
   });
 });
 

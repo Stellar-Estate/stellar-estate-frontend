@@ -31,6 +31,102 @@ interface AgreementsPageProps {
   selectedProperty?: Property | null;
 }
 
+const getRoleBadge = (role: string) => {
+  const r = role.toLowerCase();
+  if (r.includes('equity') || r.includes('capital') || r.includes('majority')) {
+    return (
+      <span
+        style={{
+          background: 'rgba(16, 185, 129, 0.15)',
+          color: '#34d399',
+          border: '1px solid rgba(16, 185, 129, 0.3)',
+          padding: '0.15rem 0.5rem',
+          borderRadius: '4px',
+          fontSize: '0.68rem',
+          fontWeight: 700,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+        }}
+      >
+        Equity Partner
+      </span>
+    );
+  }
+  if (r.includes('operator') || r.includes('mgmt') || r.includes('management') || r.includes('operating')) {
+    return (
+      <span
+        style={{
+          background: 'rgba(56, 189, 248, 0.15)',
+          color: '#38bdf8',
+          border: '1px solid rgba(56, 189, 248, 0.3)',
+          padding: '0.15rem 0.5rem',
+          borderRadius: '4px',
+          fontSize: '0.68rem',
+          fontWeight: 700,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+        }}
+      >
+        Operating Partner
+      </span>
+    );
+  }
+  if (r.includes('debt') || r.includes('lender') || r.includes('senior')) {
+    return (
+      <span
+        style={{
+          background: 'rgba(245, 158, 11, 0.15)',
+          color: '#fbbf24',
+          border: '1px solid rgba(245, 158, 11, 0.3)',
+          padding: '0.15rem 0.5rem',
+          borderRadius: '4px',
+          fontSize: '0.68rem',
+          fontWeight: 700,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+        }}
+      >
+        Senior Debt
+      </span>
+    );
+  }
+  if (r.includes('mezzanine') || r.includes('junior') || r.includes('subordinated') || r.includes('investor')) {
+    return (
+      <span
+        style={{
+          background: 'rgba(168, 85, 247, 0.15)',
+          color: '#c084fc',
+          border: '1px solid rgba(168, 85, 247, 0.3)',
+          padding: '0.15rem 0.5rem',
+          borderRadius: '4px',
+          fontSize: '0.68rem',
+          fontWeight: 700,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+        }}
+      >
+        Participant / Mezzanine
+      </span>
+    );
+  }
+  return (
+    <span
+      style={{
+        background: 'rgba(255, 255, 255, 0.08)',
+        color: 'var(--text-secondary)',
+        border: '1px solid var(--border-subtle)',
+        padding: '0.15rem 0.5rem',
+        borderRadius: '4px',
+        fontSize: '0.68rem',
+        fontWeight: 600,
+        textTransform: 'uppercase',
+      }}
+    >
+      {role}
+    </span>
+  );
+};
+
 export const AgreementsPage: React.FC<AgreementsPageProps> = ({
   properties,
   selectedProperty: initialProperty,
@@ -371,8 +467,9 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
                     }}
                   >
                     <div>
-                      <div style={{ fontWeight: 600 }}>
-                        {st.name} <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>({st.role})</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                        <span style={{ fontWeight: 700, color: '#fff', fontSize: '0.95rem' }}>{st.name}</span>
+                        {getRoleBadge(st.role)}
                       </div>
                       <div className="mono-text" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                         {st.wallet_address.substring(0, 10)}...{st.wallet_address.substring(st.wallet_address.length - 8)}
