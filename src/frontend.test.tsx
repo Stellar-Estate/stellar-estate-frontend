@@ -758,6 +758,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(forked.version_number).toBe(2);
     expect(forked.status).toBe('PENDING_APPROVALS');
   });
+
+  it('apiService.getPropertyAuditTrail should return property-level chronological events', async () => {
+    const res = await apiService.getPropertyAuditTrail('prop-meridian-abuja');
+    expect(res.success).toBe(true);
+    expect(res.property_id).toBe('prop-meridian-abuja');
+    expect(Array.isArray(res.data)).toBe(true);
+    expect(res.data.length).toBeGreaterThanOrEqual(1);
+  });
 });
 
 

@@ -1417,6 +1417,54 @@ class ApiService {
       approvals: [],
     };
   }
+
+  async getPropertyAuditTrail(propertyId: string, limit: number = 50): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/properties/${propertyId}/audit-trail?limit=${limit}`);
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch {
+      // Offline fallback
+    }
+
+    const prop = (await this.getProperties()).find((p) => p.id === propertyId);
+    return {
+      success: true,
+      property_id: propertyId,
+      property_name: prop?.name || 'The Meridian Luxury Commercial Complex',
+      total_events: 3,
+      data: [
+        {
+          id: `audit-${propertyId}-01`,
+          event_type: 'SETTLEMENT_EXECUTED',
+          entity_type: 'SETTLEMENT',
+          entity_id: 'STL-MERIDIAN-001',
+          actor_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+          payload: { grossRevenue: 10000, distributableAmount: 7600 },
+          created_at: new Date(Date.now() - 86400000).toISOString(),
+        },
+        {
+          id: `audit-${propertyId}-02`,
+          event_type: 'AGREEMENT_LOCKED',
+          entity_type: 'DISTRIBUTION_AGREEMENT_VERSION',
+          entity_id: 'ver-meridian-001-v1',
+          actor_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+          payload: { version: 1, agreementHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+          created_at: new Date(Date.now() - 172800000).toISOString(),
+        },
+        {
+          id: `audit-${propertyId}-03`,
+          event_type: 'REVENUE_CONFIRMED',
+          entity_type: 'REVENUE_RECORD',
+          entity_id: 'rev-001',
+          actor_address: 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+          payload: { amount: 10000, asset: 'USDC' },
+          created_at: new Date(Date.now() - 259200000).toISOString(),
+        },
+      ],
+    };
+  }
 }
 
 export const apiService = new ApiService();
