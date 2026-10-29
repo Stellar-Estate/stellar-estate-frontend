@@ -1033,6 +1033,27 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('$175,000');
     expect(html).toContain('3 Finalized');
   });
+
+  it('StakeholderConsensusCard should render multi-sig approval progress and stakeholder list', async () => {
+    const { StakeholderConsensusCard } = await import('./components/StakeholderConsensusCard');
+    const mockStakeholders: any[] = [
+      { id: '1', name: 'Alice', role: 'Majority Equity', basis_points: 6000, has_approved: true, wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD' },
+      { id: '2', name: 'Bob', role: 'Operating Partner', basis_points: 4000, has_approved: false, wallet_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ' },
+    ];
+    const html = renderToStaticMarkup(
+      <StakeholderConsensusCard
+        stakeholders={mockStakeholders}
+        versionNumber={2}
+        status="PENDING_APPROVALS"
+      />
+    );
+    expect(html).toContain('Stakeholder Consensus Quorum (v2)');
+    expect(html).toContain('1 of 2 Stakeholders Approved (50%)');
+    expect(html).toContain('Alice');
+    expect(html).toContain('Bob');
+    expect(html).toContain('60.00%');
+    expect(html).toContain('40.00%');
+  });
 });
 
 
