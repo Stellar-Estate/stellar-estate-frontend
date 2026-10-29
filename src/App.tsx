@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WalletProvider } from './context/WalletContext.tsx';
+import { CurrencyProvider } from './context/CurrencyContext.tsx';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { HomePage } from './pages/HomePage.tsx';
@@ -95,7 +96,9 @@ export const AppContent: React.FC = () => {
 export const App: React.FC = () => {
   return (
     <WalletProvider>
-      <AppContent />
+      <CurrencyProvider>
+        <AppContent />
+      </CurrencyProvider>
     </WalletProvider>
   );
 };

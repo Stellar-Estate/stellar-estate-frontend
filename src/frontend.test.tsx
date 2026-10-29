@@ -8,6 +8,7 @@ import { UnitBreakdownModal } from './components/UnitBreakdownModal.tsx';
 import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { WalletProvider } from './context/WalletContext.tsx';
+import { CurrencyProvider, useCurrency } from './context/CurrencyContext.tsx';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.ts';
 
 describe('Stellar Estate Frontend Logic & Data Tests', () => {
@@ -363,6 +364,25 @@ describe('Programmable Settlement Platform Tests', () => {
 
   it('useKeyboardShortcuts should be exported as a functional hook', () => {
     expect(typeof useKeyboardShortcuts).toBe('function');
+  });
+
+  it('CurrencyProvider and useCurrency should support USDC, XLM, and USD currency formatting', () => {
+    let contextVal: any;
+    const TestConsumer = () => {
+      contextVal = useCurrency();
+      return <div>{contextVal.formatAmount(1000)}</div>;
+    };
+
+    const markup = renderToStaticMarkup(
+      <CurrencyProvider>
+        <TestConsumer />
+      </CurrencyProvider>
+    );
+
+    expect(markup).toContain('1,000 USDC');
+    expect(contextVal.convertAmount(100, 'USD')).toBe(100);
+    expect(contextVal.formatAmount(500, 'USD')).toBe('$500');
+    expect(contextVal.formatAmount(100, 'XLM')).toContain('XLM');
   });
 });
 
