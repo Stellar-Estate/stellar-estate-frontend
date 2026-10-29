@@ -22,6 +22,7 @@ import {
   UserCheck,
   ArrowLeft,
   Lock,
+  Copy,
 } from 'lucide-react';
 
 interface PropertyDetailPageProps {
@@ -39,6 +40,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
   const [units, setUnits] = useState<PropertyUnit[]>([]);
   const [participations, setParticipations] = useState<PropertyParticipation[]>([]);
   const [financials, setFinancials] = useState<any>(null);
+  const [copiedVault, setCopiedVault] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [isPassportModalOpen, setIsPassportModalOpen] = useState(false);
   const [isUnitModalOpen, setIsUnitModalOpen] = useState(false);
@@ -142,11 +144,39 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
               background: 'linear-gradient(to top, rgba(7, 10, 19, 0.95), transparent)',
             }}
           >
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-              Stellar Testnet Vault Identifier:
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Stellar Testnet Vault Identifier:
+              </span>
+              <a
+                href={`${STELLAR_EXPERT_EXPLORER}/contract/${property.metadata?.soroban_vault_contract || property.vault_stellar_address}`}
+                target="_blank"
+                rel="noreferrer"
+                style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}
+                title="View on StellarExpert"
+              >
+                StellarExpert <ExternalLink size={12} />
+              </a>
             </div>
-            <div className="mono-text" style={{ fontSize: '0.85rem', color: 'var(--accent-gold)', wordBreak: 'break-all' }}>
-              {property.vault_stellar_address}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginTop: '0.25rem' }}>
+              <div className="mono-text" style={{ fontSize: '0.85rem', color: 'var(--accent-gold)', wordBreak: 'break-all' }}>
+                {property.vault_stellar_address}
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard?.writeText(property.vault_stellar_address);
+                  setCopiedVault(true);
+                  setTimeout(() => setCopiedVault(false), 2000);
+                }}
+                className="btn-secondary"
+                style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem', whiteSpace: 'nowrap' }}
+                title="Copy Vault Address"
+                data-testid="copy-vault-btn"
+              >
+                {copiedVault ? <CheckCircle2 size={13} color="#10b981" /> : <Copy size={13} />}
+                {copiedVault ? 'Copied' : 'Copy'}
+              </button>
             </div>
           </div>
         </div>

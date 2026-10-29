@@ -567,6 +567,8 @@ describe('Programmable Settlement Platform Tests', () => {
     );
     expect(html).toContain('reserve-buffer-gauge');
     expect(html).toContain('Optimal (15%)');
+    expect(html).toContain('copy-vault-btn');
+    expect(html).toContain('StellarExpert');
   });
 });
 
