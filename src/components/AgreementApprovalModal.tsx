@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { DistributionAgreementVersion, Property } from '../types/index.ts';
 import { useWallet } from '../context/WalletContext.tsx';
+import { useToast } from '../context/ToastContext.tsx';
 import { apiService } from '../services/apiService.ts';
+import { getStellarExpertUrl } from '../utils/stellarExpert.ts';
 import {
   X,
   ShieldCheck,
@@ -30,6 +32,7 @@ export const AgreementApprovalModal: React.FC<AgreementApprovalModalProps> = ({
   onVersionUpdated,
 }) => {
   const { wallet } = useWallet();
+  const { showSuccess, showError } = useToast();
   const [isApproving, setIsApproving] = useState(false);
   const [isLocking, setIsLocking] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -47,6 +50,7 @@ export const AgreementApprovalModal: React.FC<AgreementApprovalModalProps> = ({
   const handleApprove = async () => {
     if (!wallet.address) {
       setErrorMessage('Please connect your Stellar Testnet wallet to approve.');
+      showError('Wallet Required', 'Please connect your Stellar Testnet wallet to approve.');
       return;
     }
 
@@ -60,10 +64,19 @@ export const AgreementApprovalModal: React.FC<AgreementApprovalModalProps> = ({
         agreementHash: version.agreement_hash,
       });
 
-      setSuccessMessage('Cryptographic approval successfully registered for this exact canonical agreement hash.');
+      const succMsg = 'Cryptographic approval successfully registered for this exact canonical agreement hash.';
+      setSuccessMessage(succMsg);
+      showSuccess(
+        'Approval Registered',
+        `Stakeholder ${wallet.address.slice(0, 4)}...${wallet.address.slice(-4)} approved agreement v${version.version_number}`,
+        getStellarExpertUrl('account', wallet.address),
+        'View on StellarExpert'
+      );
       onVersionUpdated();
     } catch (err: any) {
-      setErrorMessage(err.message || 'Approval failed.');
+      const errText = err.message || 'Approval failed.';
+      setErrorMessage(errText);
+      showError('Approval Failed', errText);
     } finally {
       setIsApproving(false);
     }
@@ -72,6 +85,7 @@ export const AgreementApprovalModal: React.FC<AgreementApprovalModalProps> = ({
   const handleLock = async () => {
     if (!wallet.address) {
       setErrorMessage('Please connect your wallet to lock the agreement.');
+      showError('Wallet Required', 'Please connect your wallet to lock the agreement.');
       return;
     }
 
@@ -79,10 +93,19 @@ export const AgreementApprovalModal: React.FC<AgreementApprovalModalProps> = ({
     setErrorMessage(null);
     try {
       await apiService.lockAgreementVersion(version.id, wallet.address);
-      setSuccessMessage('Agreement locked successfully. Rules are now authoritative and immutable on-chain.');
+      const succMsg = 'Agreement locked successfully. Rules are now authoritative and immutable on-chain.';
+      setSuccessMessage(succMsg);
+      showSuccess(
+        'Agreement Immutably Locked',
+        `Agreement v${version.version_number} is locked and authoritative for ${property.name}`,
+        getStellarExpertUrl('account', property.vault_stellar_address),
+        'View Vault on StellarExpert'
+      );
       onVersionUpdated();
     } catch (err: any) {
-      setErrorMessage(err.message || 'Locking agreement failed.');
+      const errText = err.message || 'Locking agreement failed.';
+      setErrorMessage(errText);
+      showError('Lock Failed', errText);
     } finally {
       setIsLocking(false);
     }
