@@ -655,6 +655,20 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Total Batch Inflow');
     expect(html).toContain('Commit Batch');
   });
+
+  it('PropertyDetailPage should render Batch Inflow action trigger', async () => {
+    const { PropertyDetailPage } = await import('./pages/PropertyDetailPage');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <ToastProvider>
+        <WalletProvider>
+          <PropertyDetailPage property={props[0]} onBack={() => {}} />
+        </WalletProvider>
+      </ToastProvider>
+    );
+    expect(html).toContain('Batch Inflow');
+    expect(html).toContain('Deposit Property Revenue');
+  });
 });
 
 

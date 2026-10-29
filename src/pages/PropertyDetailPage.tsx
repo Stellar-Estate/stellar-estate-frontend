@@ -6,6 +6,7 @@ import { RevenueDepositModal } from '../components/RevenueDepositModal.tsx';
 import { FinancialPassportModal } from '../components/FinancialPassportModal.tsx';
 import { UnitBreakdownModal } from '../components/UnitBreakdownModal.tsx';
 import { PropertyValuationChart } from '../components/PropertyValuationChart.tsx';
+import { BatchRevenueModal } from '../components/BatchRevenueModal.tsx';
 import {
   Building2,
   MapPin,
@@ -42,6 +43,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
   const [financials, setFinancials] = useState<any>(null);
   const [copiedVault, setCopiedVault] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isBatchModalOpen, setIsBatchModalOpen] = useState(false);
   const [isPassportModalOpen, setIsPassportModalOpen] = useState(false);
   const [isUnitModalOpen, setIsUnitModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -116,6 +118,13 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
                 <FileText size={18} /> Distribution Agreements
               </button>
             )}
+            <button
+              onClick={() => setIsBatchModalOpen(true)}
+              className="btn-outline-gold"
+              style={{ padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <Layers size={18} /> Batch Inflow
+            </button>
             <button
               onClick={() => setIsDepositModalOpen(true)}
               className="btn-primary"
@@ -476,6 +485,14 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
         isOpen={isDepositModalOpen}
         onClose={() => setIsDepositModalOpen(false)}
         onRevenueConfirmed={loadPropertyData}
+      />
+
+      {/* Batch Revenue Inflow Modal */}
+      <BatchRevenueModal
+        property={property}
+        isOpen={isBatchModalOpen}
+        onClose={() => setIsBatchModalOpen(false)}
+        onSuccess={loadPropertyData}
       />
 
       {/* Financial Passport Modal */}
