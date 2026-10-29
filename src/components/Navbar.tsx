@@ -153,6 +153,53 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
           <div style={{ position: 'relative' }}>
             {wallet.isConnected && wallet.address ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                {/* Network & Wallet Type Badges */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    background: isWrongNetwork ? 'rgba(239, 68, 68, 0.15)' : 'rgba(56, 189, 248, 0.1)',
+                    border: `1px solid ${isWrongNetwork ? 'rgba(239, 68, 68, 0.3)' : 'rgba(56, 189, 248, 0.25)'}`,
+                    padding: '0.25rem 0.55rem',
+                    borderRadius: 'var(--radius-sm)',
+                    fontSize: '0.72rem',
+                    color: isWrongNetwork ? 'var(--accent-rose)' : '#38bdf8',
+                    fontWeight: 600,
+                    letterSpacing: '0.04em',
+                  }}
+                  title={`Connected to Stellar ${wallet.network || 'TESTNET'}`}
+                >
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: '50%',
+                      background: isWrongNetwork ? 'var(--accent-rose)' : 'var(--accent-emerald)',
+                      display: 'inline-block',
+                      boxShadow: isWrongNetwork
+                        ? '0 0 6px var(--accent-rose)'
+                        : '0 0 6px var(--accent-emerald)',
+                    }}
+                  />
+                  {wallet.network || 'TESTNET'}
+                </div>
+
+                <div
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid var(--border-subtle)',
+                    padding: '0.25rem 0.55rem',
+                    borderRadius: 'var(--radius-sm)',
+                    fontSize: '0.72rem',
+                    color: 'var(--text-secondary)',
+                    fontWeight: 500,
+                  }}
+                  title={`Wallet Client: ${wallet.walletType === 'FREIGHTER' ? 'Freighter Extension' : 'Testnet Keypair'}`}
+                >
+                  {wallet.walletType === 'FREIGHTER' ? 'Freighter' : 'Keypair'}
+                </div>
+
                 <div
                   onClick={() => setShowDropdown(!showDropdown)}
                   style={{
