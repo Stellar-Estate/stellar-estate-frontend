@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext.tsx';
 import { WalletModal } from './WalletModal.tsx';
-import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Building2, Wallet, LogOut, RefreshCw, ChevronDown, CheckCircle2, ExternalLink, AlertTriangle } from 'lucide-react';
 import { getStellarExpertUrl } from '../utils/stellarExpert.ts';
 
 interface NavbarProps {
@@ -13,6 +13,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
   const { wallet, disconnect, refreshBalance, isLoading } = useWallet();
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const isWrongNetwork = wallet.isConnected && (!wallet.isTestnet || (wallet.network && !wallet.network.toUpperCase().includes('TESTNET')));
 
   const truncateAddress = (addr: string) => {
     return `${addr.substring(0, 4)}...${addr.substring(addr.length - 4)}`;
@@ -30,6 +32,27 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
           zIndex: 100,
         }}
       >
+        {isWrongNetwork && (
+          <div
+            style={{
+              background: 'rgba(239, 68, 68, 0.15)',
+              borderBottom: '1px solid rgba(239, 68, 68, 0.3)',
+              color: '#f87171',
+              padding: '0.6rem 1.5rem',
+              fontSize: '0.85rem',
+              fontWeight: 500,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            <AlertTriangle size={16} />
+            <span>
+              <strong>Wrong Stellar Network:</strong> Connected to {wallet.network}. Stellar Estate contracts operate on Stellar Testnet. Please switch your Freighter wallet to Testnet.
+            </span>
+          </div>
+        )}
         <div
           style={{
             maxWidth: 1280,

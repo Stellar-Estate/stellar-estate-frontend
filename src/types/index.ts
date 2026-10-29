@@ -101,7 +101,7 @@ export interface WalletState {
   isConnected: boolean;
   address: string | null;
   balanceXlm: string | null;
-  network: 'TESTNET';
+  network: string;
   isTestnet: boolean;
   walletType: 'FREIGHTER' | 'KEYPAIR_TESTNET' | null;
 }
