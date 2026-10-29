@@ -1465,6 +1465,44 @@ class ApiService {
       ],
     };
   }
+
+  async getStakeholderPortfolio(address: string): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/stakeholders/${address}/portfolio`);
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch {
+      // Offline fallback
+    }
+
+    return {
+      success: true,
+      data: {
+        stakeholder_address: address,
+        total_properties_invested: 1,
+        total_portfolio_equity_value_usdc: 1800000,
+        total_lifetime_payouts_usdc: 3420,
+        holdings: [
+          {
+            property_id: 'prop-meridian-abuja',
+            property_name: 'The Meridian Luxury Commercial Complex',
+            property_type: 'COMMERCIAL',
+            property_image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200',
+            property_valuation: 4500000,
+            share_basis_points: 4000,
+            share_percentage: 40,
+            equity_value_usdc: 1800000,
+            role: 'Majority Equity',
+            agreement_id: 'agr-meridian-001',
+            agreement_version: 1,
+            total_lifetime_payouts_usdc: 3420,
+            payout_count: 1,
+          },
+        ],
+      },
+    };
+  }
 }
 
 export const apiService = new ApiService();

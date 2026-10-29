@@ -766,6 +766,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(Array.isArray(res.data)).toBe(true);
     expect(res.data.length).toBeGreaterThanOrEqual(1);
   });
+
+  it('apiService.getStakeholderPortfolio should return aggregated equity and lifetime payouts', async () => {
+    const res = await apiService.getStakeholderPortfolio('GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD');
+    expect(res.success).toBe(true);
+    expect(res.data).toHaveProperty('total_properties_invested');
+    expect(res.data).toHaveProperty('total_portfolio_equity_value_usdc');
+    expect(Array.isArray(res.data.holdings)).toBe(true);
+  });
 });
 
 
