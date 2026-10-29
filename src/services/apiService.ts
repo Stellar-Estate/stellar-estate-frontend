@@ -1266,6 +1266,81 @@ class ApiService {
       },
     };
   }
+
+  async getAgreementVersions(agreementId: string): Promise<any[]> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/agreements/${agreementId}/versions`);
+      if (res.ok) {
+        const body = await res.json();
+        return body.data;
+      }
+    } catch {
+      // Fallback
+    }
+    let foundAgr: DistributionAgreement | undefined;
+    for (const list of this.fallbackAgreements.values()) {
+      const match = list.find((a) => a.id === agreementId);
+      if (match) {
+        foundAgr = match;
+        break;
+      }
+    }
+    if (foundAgr) {
+      return foundAgr.versions.map((v) => ({
+        ...v,
+        metrics: {
+          total_stakeholders: v.stakeholders.length,
+          approved_stakeholders: v.stakeholders.filter((s) => s.has_approved).length,
+          all_approved: v.stakeholders.every((s) => s.has_approved),
+          total_basis_points: v.stakeholders.reduce((sum, s) => sum + s.basis_points, 0),
+        },
+      }));
+    }
+    return [];
+  }
+
+  async getVaultTelemetry(propertyId: string): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/properties/${propertyId}/vault-telemetry`);
+      if (res.ok) {
+        const body = await res.json();
+        return body.telemetry;
+      }
+    } catch {
+      // Fallback
+    }
+    const prop = (await this.getProperties()).find((p) => p.id === propertyId);
+    return {
+      property_id: propertyId,
+      vault_stellar_address: prop?.vault_stellar_address || 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+      contract_name: 'StellarEstatePropertyVault',
+      contract_version: '1.0.0-stellar-estate',
+      standard: 'SEP-0001/SEP-0007/Soroban-v22',
+      vault_status: 'ACTIVE',
+      accepted_asset: {
+        code: 'USDC',
+        contract_id: 'CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZU25LEJ7W89ABCD1234',
+      },
+      financials: {
+        total_revenue_recorded: 16000,
+        total_settled: 8000,
+        unconsumed_pool: 8000,
+        reserve_balance: 2000,
+      },
+      agreement: {
+        agreement_id: `agr-${propertyId}-001`,
+        version: 1,
+        agreement_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+        contract_reference: 'SOROBAN_MERIDIAN_DISTRIB_AGR_V1',
+        stakeholder_count: 3,
+      },
+      explorer_links: {
+        vault: `https://stellar.expert/explorer/testnet/account/${prop?.vault_stellar_address || 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD'}`,
+        asset: 'https://stellar.expert/explorer/testnet/asset/USDC-GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+      },
+      timestamp: new Date().toISOString(),
+    };
+  }
 }
 
 export const apiService = new ApiService();

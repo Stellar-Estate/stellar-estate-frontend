@@ -678,6 +678,19 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(report.audit.status).toBe('RECONCILED');
     expect(typeof report.audit.ledger_checksum).toBe('string');
   });
+
+  it('apiService.getAgreementVersions and getVaultTelemetry should return version metrics and on-chain telemetry', async () => {
+    const versions = await apiService.getAgreementVersions('agr-meridian-001');
+    expect(Array.isArray(versions)).toBe(true);
+    expect(versions.length).toBeGreaterThan(0);
+    expect(versions[0]).toHaveProperty('metrics');
+
+    const telemetry = await apiService.getVaultTelemetry('prop-meridian-abuja');
+    expect(telemetry).toBeDefined();
+    expect(telemetry.contract_name).toBe('StellarEstatePropertyVault');
+    expect(telemetry.financials).toHaveProperty('unconsumed_pool');
+    expect(telemetry.accepted_asset.code).toBe('USDC');
+  });
 });
 
 
