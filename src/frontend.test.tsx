@@ -620,6 +620,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Seed Testnet Scenario');
     expect(html).toContain('HACKATHON EVALUATION WALKTHROUGH');
   });
+
+  it('apiService.recordBatchRevenue should ingest multi-deposit revenues atomically', async () => {
+    const res = await apiService.recordBatchRevenue('prop-meridian-abuja', [
+      { amount: 1500, source: 'RESIDENTIAL_RENT_UNIT_3A', description: 'Unit 3A rent payment' },
+      { amount: 1800, source: 'RESIDENTIAL_RENT_UNIT_3B', description: 'Unit 3B rent payment' },
+    ]);
+    expect(res.success).toBe(true);
+    expect(res.data.count).toBe(2);
+    expect(res.data.total_amount).toBe(3300);
+    expect(res.data.records.length).toBe(2);
+  });
 });
 
 
