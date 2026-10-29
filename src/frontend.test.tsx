@@ -1097,6 +1097,13 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.protocol_version).toBe(22);
     expect(res.data.status).toBe('OPTIMAL');
   });
+
+  it('HackathonJudgeBadge should render quickstart badge for evaluators', async () => {
+    const { HackathonJudgeBadge } = await import('./components/HackathonJudgeBadge');
+    const html = renderToStaticMarkup(<HackathonJudgeBadge />);
+    expect(html).toContain('Judge Quickstart');
+    expect(html).toContain('hackathon-judge-badge');
+  });
 });
 
 
