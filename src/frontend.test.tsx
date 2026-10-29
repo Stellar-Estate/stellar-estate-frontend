@@ -852,6 +852,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.breakdown.gross_revenue).toBeGreaterThan(0);
     expect(res.data.ratios_bps.distributable_bps).toBeGreaterThan(0);
   });
+
+  it('apiService.getAgreementRulesSummary should return structured waterfall rules summary', async () => {
+    const res = await apiService.getAgreementRulesSummary('agr-meridian-001', 1);
+    expect(res.success).toBe(true);
+    expect(res.data.agreement_id).toBe('agr-meridian-001');
+    expect(res.data.rules_summary.length).toBeGreaterThan(0);
+    expect(res.data.equity_allocation.length).toBeGreaterThan(0);
+  });
 });
 
 

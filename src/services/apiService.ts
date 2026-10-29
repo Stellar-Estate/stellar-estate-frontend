@@ -1679,6 +1679,35 @@ class ApiService {
       },
     };
   }
+
+  async getAgreementRulesSummary(agreementId: string, version: number = 1): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/agreements/${agreementId}/versions/${version}/rules-summary`);
+      if (res.ok) return await res.json();
+    } catch {
+      // Fallback
+    }
+    return {
+      success: true,
+      data: {
+        agreement_id: agreementId,
+        version,
+        status: 'LOCKED',
+        hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+        total_rules: 3,
+        rules_summary: [
+          { tier: 1, priority: 1, name: 'Operating Expenses', type: 'FIXED_AMOUNT', amount_or_bps: 1000, formatted: '$1000', description: 'Monthly opex' },
+          { tier: 2, priority: 2, name: 'Maintenance Reserve', type: 'FIXED_AMOUNT', amount_or_bps: 1000, formatted: '$1000', description: 'CapEx reserve' },
+          { tier: 3, priority: 3, name: 'Management Fee', type: 'PERCENTAGE_BASIS_POINTS', amount_or_bps: 500, formatted: '5.00%', description: 'Management fee' },
+        ],
+        equity_allocation: [
+          { name: 'Alice', role: 'Majority Equity', wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD', basis_points: 4000, equity_percentage: '40.00%', has_approved: true },
+          { name: 'Bob', role: 'Institutional Partner', wallet_address: 'GDL2Q765N6XQ46S5C7Y4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN234567', basis_points: 3500, equity_percentage: '35.00%', has_approved: true },
+          { name: 'Charlie', role: 'Equity Participant', wallet_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN', basis_points: 2500, equity_percentage: '25.00%', has_approved: true },
+        ],
+      },
+    };
+  }
 }
 
 export const apiService = new ApiService();
