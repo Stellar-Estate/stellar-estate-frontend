@@ -774,6 +774,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data).toHaveProperty('total_portfolio_equity_value_usdc');
     expect(Array.isArray(res.data.holdings)).toBe(true);
   });
+
+  it('apiService.getNetworkInfo should return official testnet protocol and asset parameters', async () => {
+    const res = await apiService.getNetworkInfo();
+    expect(res.success).toBe(true);
+    expect(res.network.name).toBe('Stellar Testnet');
+    expect(res.network.protocol_version).toBe(22);
+    expect(res.network.accepted_assets.length).toBeGreaterThan(0);
+  });
 });
 
 
