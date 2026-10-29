@@ -13,6 +13,7 @@ import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { Property } from './types/index.ts';
 import { apiService } from './services/apiService.ts';
 import { DemoModeBanner } from './components/DemoModeBanner.tsx';
+import { HackathonJudgeBadge } from './components/HackathonJudgeBadge.tsx';
 import { WifiOff } from 'lucide-react';
 
 export const AppContent: React.FC = () => {
@@ -131,6 +132,7 @@ export const AppContent: React.FC = () => {
       </main>
 
       <Footer />
+      <HackathonJudgeBadge />
     </div>
   );
 };

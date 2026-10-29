@@ -454,6 +454,7 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(markup).toContain('app-container');
     expect(markup).toContain('Stellar Estate');
     expect(markup).toContain('HACKATHON EVALUATION WALKTHROUGH');
+    expect(markup).toContain('hackathon-judge-badge');
   });
 
   it('Web App Manifest should be valid JSON containing application metadata', async () => {
