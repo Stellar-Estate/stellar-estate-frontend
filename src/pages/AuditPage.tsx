@@ -3,6 +3,7 @@ import { Property, RevenueRecord } from '../types/index.ts';
 import { apiService } from '../services/apiService.ts';
 import { STELLAR_EXPERT_EXPLORER } from '../services/stellarService.ts';
 import { ReconciliationAuditModal } from '../components/ReconciliationAuditModal.tsx';
+import { WebhookManagerModal } from '../components/WebhookManagerModal.tsx';
 import {
   ShieldCheck,
   Search,
@@ -15,6 +16,7 @@ import {
   RefreshCw,
   Copy,
   Scale,
+  Radio,
 } from 'lucide-react';
 
 interface AuditPageProps {
@@ -28,6 +30,7 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [copiedHash, setCopiedHash] = useState(false);
   const [isReconModalOpen, setIsReconModalOpen] = useState(false);
+  const [isWebhookModalOpen, setIsWebhookModalOpen] = useState(false);
 
   const loadData = async () => {
     setIsRefreshing(true);
@@ -77,6 +80,13 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
             style={{ fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
           >
             <Scale size={15} /> Vault Reconciliation
+          </button>
+          <button
+            onClick={() => setIsWebhookModalOpen(true)}
+            className="btn-secondary"
+            style={{ fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+          >
+            <Radio size={14} className="text-blue-400" /> Event Webhooks
           </button>
           <button
             onClick={loadData}
@@ -277,6 +287,11 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
         property={targetProperty}
         isOpen={isReconModalOpen}
         onClose={() => setIsReconModalOpen(false)}
+      />
+
+      <WebhookManagerModal
+        isOpen={isWebhookModalOpen}
+        onClose={() => setIsWebhookModalOpen(false)}
       />
     </div>
   );
