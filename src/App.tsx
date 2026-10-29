@@ -12,6 +12,7 @@ import { AgreementsPage } from './pages/AgreementsPage.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { Property } from './types/index.ts';
 import { apiService } from './services/apiService.ts';
+import { DemoModeBanner } from './components/DemoModeBanner.tsx';
 import { WifiOff } from 'lucide-react';
 
 export const AppContent: React.FC = () => {
@@ -52,6 +53,8 @@ export const AppContent: React.FC = () => {
   return (
     <div className="app-container">
       <Navbar currentTab={currentTab} setCurrentTab={setCurrentTab} />
+
+      <DemoModeBanner onNavigateTab={(tab) => setCurrentTab(tab)} currentTab={currentTab} />
 
       {isOffline && (
         <div
