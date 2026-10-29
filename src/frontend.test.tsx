@@ -1,5 +1,8 @@
+import React from 'react';
 import { describe, it, expect } from 'vitest';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { apiService } from './services/apiService.ts';
+import { SkeletonLoader } from './components/SkeletonLoader.tsx';
 
 describe('Stellar Estate Frontend Logic & Data Tests', () => {
   it('apiService.getProperties should return populated property list with vaults', async () => {
@@ -243,6 +246,21 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(earnings.stakeholder_name).toContain('Alice');
     expect(earnings.total_settled).toBeGreaterThan(0);
     expect(earnings.settlements.length).toBeGreaterThan(0);
+  });
+
+  it('SkeletonLoader should render card, table, metrics, and line variants', () => {
+    const cardMarkup = renderToStaticMarkup(<SkeletonLoader variant="card" count={2} />);
+    expect(cardMarkup).toContain('glass-card');
+    expect(cardMarkup).toContain('skeletonPulse');
+
+    const tableMarkup = renderToStaticMarkup(<SkeletonLoader variant="table" count={3} />);
+    expect(tableMarkup).toContain('skeletonPulse');
+
+    const metricsMarkup = renderToStaticMarkup(<SkeletonLoader variant="metrics" count={4} />);
+    expect(metricsMarkup).toContain('glass-card');
+
+    const lineMarkup = renderToStaticMarkup(<SkeletonLoader variant="line" width={120} height={20} />);
+    expect(lineMarkup).toContain('skeletonPulse');
   });
 });
 
