@@ -6,6 +6,7 @@ interface WalletContextType {
   wallet: WalletState;
   connectFreighter: () => Promise<void>;
   connectTestnetKeypair: (secretKey?: string) => Promise<{ publicKey: string; secretKey: string }>;
+  fundCurrentAccountWithFriendbot: () => Promise<string>;
   disconnect: () => void;
   refreshBalance: () => Promise<void>;
   isLoading: boolean;
@@ -124,6 +125,27 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   };
 
+  const fundCurrentAccountWithFriendbot = async (): Promise<string> => {
+    if (!wallet.address) {
+      throw new Error('No connected Stellar account to fund.');
+    }
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await stellarService.fundWithFriendbot(wallet.address);
+      if (!res.success) {
+        throw new Error(res.message);
+      }
+      await refreshBalance();
+      return res.message;
+    } catch (err: any) {
+      setError(err?.message || 'Failed to fund account via Friendbot.');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const disconnect = () => {
     setWallet(initialWalletState);
     setCachedSecretKey(null);
@@ -144,6 +166,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         wallet,
         connectFreighter,
         connectTestnetKeypair,
+        fundCurrentAccountWithFriendbot,
         disconnect,
         refreshBalance,
         isLoading,

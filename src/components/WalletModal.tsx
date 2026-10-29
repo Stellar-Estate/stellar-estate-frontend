@@ -8,9 +8,19 @@ interface WalletModalProps {
 }
 
 export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
-  const { connectFreighter, connectTestnetKeypair, isLoading, error, clearError } = useWallet();
+  const {
+    wallet,
+    connectFreighter,
+    connectTestnetKeypair,
+    fundCurrentAccountWithFriendbot,
+    isLoading,
+    error,
+    clearError,
+  } = useWallet();
   const [customSecret, setCustomSecret] = useState('');
   const [showCustomInput, setShowCustomInput] = useState(false);
+  const [faucetMsg, setFaucetMsg] = useState<string | null>(null);
+  const [faucetLoading, setFaucetLoading] = useState(false);
 
   if (!isOpen) return null;
 
@@ -29,6 +39,19 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
       onClose();
     } catch {
       // Error handled in context
+    }
+  };
+
+  const handleFaucet = async () => {
+    try {
+      setFaucetLoading(true);
+      setFaucetMsg(null);
+      const msg = await fundCurrentAccountWithFriendbot();
+      setFaucetMsg(msg);
+    } catch {
+      // Error handled in context
+    } finally {
+      setFaucetLoading(false);
     }
   };
 
@@ -196,6 +219,39 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
             >
               Import & Connect
             </button>
+          </div>
+        )}
+
+        {wallet.isConnected && wallet.address && (
+          <div
+            style={{
+              marginTop: '1.25rem',
+              padding: '1rem',
+              background: 'rgba(56, 189, 248, 0.05)',
+              border: '1px solid rgba(56, 189, 248, 0.2)',
+              borderRadius: 'var(--radius-sm)',
+            }}
+          >
+            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--accent-cyan)', marginBottom: '0.35rem' }}>
+              Connected Testnet Account
+            </div>
+            <div className="mono-text" style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', wordBreak: 'break-all', marginBottom: '0.75rem' }}>
+              {wallet.address}
+            </div>
+            <button
+              onClick={handleFaucet}
+              disabled={faucetLoading}
+              className="btn-secondary"
+              style={{ width: '100%', fontSize: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+            >
+              <Zap size={15} color="var(--accent-cyan)" />
+              {faucetLoading ? 'Requesting Testnet XLM...' : 'Request 10,000 Testnet XLM (Friendbot)'}
+            </button>
+            {faucetMsg && (
+              <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--accent-emerald)', textAlign: 'center' }}>
+                ✓ {faucetMsg}
+              </div>
+            )}
           </div>
         )}
 
