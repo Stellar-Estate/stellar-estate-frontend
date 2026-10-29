@@ -793,6 +793,16 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Lifetime Payouts');
     expect(html).toContain('Real Estate Asset Holdings');
   });
+
+  it('PropertyAuditTrailModal should render chronological audit events feed', async () => {
+    const { PropertyAuditTrailModal } = await import('./components/PropertyAuditTrailModal');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <PropertyAuditTrailModal property={props[0]} isOpen={true} onClose={() => {}} />
+    );
+    expect(html).toContain('Property Audit Trail &amp; Ledger Events');
+    expect(html).toContain('CHRONOLOGICAL AUDIT LOG');
+  });
 });
 
 
