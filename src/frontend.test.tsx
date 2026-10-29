@@ -887,6 +887,16 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Waterfall Distribution Flow');
     expect(html).toContain('Cryptographically Verified on Soroban Contract');
   });
+
+  it('ReserveHealthCard should render reserve buffer metrics and target ratio selector', async () => {
+    const { ReserveHealthCard } = await import('./components/ReserveHealthCard');
+    const html = renderToStaticMarkup(
+      <ReserveHealthCard propertyId="prop-meridian-abuja" initialReserve={25000} />
+    );
+    expect(html).toContain('Vault Reserve Buffer &amp; Health');
+    expect(html).toContain('Current Reserve');
+    expect(html).toContain('Buffer Funded Ratio');
+  });
 });
 
 
