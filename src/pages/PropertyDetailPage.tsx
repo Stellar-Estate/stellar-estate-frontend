@@ -4,6 +4,7 @@ import { apiService } from '../services/apiService.ts';
 import { STELLAR_EXPERT_EXPLORER } from '../services/stellarService.ts';
 import { RevenueDepositModal } from '../components/RevenueDepositModal.tsx';
 import { FinancialPassportModal } from '../components/FinancialPassportModal.tsx';
+import { UnitBreakdownModal } from '../components/UnitBreakdownModal.tsx';
 import {
   Building2,
   MapPin,
@@ -39,6 +40,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
   const [financials, setFinancials] = useState<any>(null);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [isPassportModalOpen, setIsPassportModalOpen] = useState(false);
+  const [isUnitModalOpen, setIsUnitModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const loadPropertyData = async () => {
@@ -94,6 +96,13 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
               style={{ padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
             >
               <FileText size={18} /> Financial Passport
+            </button>
+            <button
+              onClick={() => setIsUnitModalOpen(true)}
+              className="btn-secondary"
+              style={{ padding: '0.75rem 1.25rem', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <Building2 size={18} /> Unit Roster ({units.length})
             </button>
             {onNavigateToAgreements && (
               <button
@@ -428,6 +437,14 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
         propertyId={property.id}
         isOpen={isPassportModalOpen}
         onClose={() => setIsPassportModalOpen(false)}
+      />
+
+      {/* Unit Breakdown Modal */}
+      <UnitBreakdownModal
+        property={property}
+        units={units}
+        isOpen={isUnitModalOpen}
+        onClose={() => setIsUnitModalOpen(false)}
       />
     </div>
   );

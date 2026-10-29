@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { apiService } from './services/apiService.ts';
 import { SkeletonLoader } from './components/SkeletonLoader.tsx';
 import { QrCodeModal } from './components/QrCodeModal.tsx';
+import { UnitBreakdownModal } from './components/UnitBreakdownModal.tsx';
 
 describe('Stellar Estate Frontend Logic & Data Tests', () => {
   it('apiService.getProperties should return populated property list with vaults', async () => {
@@ -289,6 +290,33 @@ describe('Programmable Settlement Platform Tests', () => {
       />
     );
     expect(closedMarkup).toBe('');
+  });
+
+  it('UnitBreakdownModal should render property rent roll and unit roster', () => {
+    const mockProperty: any = {
+      id: 'prop-test',
+      name: 'Test Meridian Complex',
+    };
+    const mockUnits: any = [
+      { id: 'u1', unit_identifier: 'Unit 101', unit_type: '2-Bedroom Luxury', monthly_rent: 1500, occupancy_status: 'OCCUPIED', metadata: { sqm: 95 } },
+      { id: 'u2', unit_identifier: 'Unit 102', unit_type: '1-Bedroom Standard', monthly_rent: 1000, occupancy_status: 'VACANT', metadata: { sqm: 65 } },
+    ];
+
+    const markup = renderToStaticMarkup(
+      <UnitBreakdownModal
+        isOpen={true}
+        onClose={() => {}}
+        property={mockProperty}
+        units={mockUnits}
+      />
+    );
+
+    expect(markup).toContain('Test Meridian Complex');
+    expect(markup).toContain('Unit 101');
+    expect(markup).toContain('Unit 102');
+    expect(markup).toContain('OCCUPIED');
+    expect(markup).toContain('VACANT');
+    expect(markup).toContain('$2,500 XLM');
   });
 });
 
