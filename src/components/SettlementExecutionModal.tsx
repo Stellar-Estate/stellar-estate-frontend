@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../services/apiService.ts';
 import { useWallet } from '../context/WalletContext.tsx';
+import { useToast } from '../context/ToastContext.tsx';
+import { getStellarExpertUrl } from '../utils/stellarExpert.ts';
 import { Settlement, SettlementPreviewResult } from '../types/index.ts';
 import {
   X,
@@ -32,6 +34,7 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
   onSuccess,
 }) => {
   const { wallet } = useWallet();
+  const { showSuccess, showError } = useToast();
   const [step, setStep] = useState<'PREVIEW' | 'SIGNING' | 'SUBMITTING' | 'CONFIRMING' | 'SUCCESS'>('PREVIEW');
   const [preview, setPreview] = useState<any>(null);
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
@@ -79,9 +82,17 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
 
       setSettlementResult(settlement);
       setStep('SUCCESS');
+      showSuccess(
+        'Settlement Executed & Reconciled',
+        `Distributed ${settlement.distributable_amount.toLocaleString()} XLM to ${settlement.payouts.length} stakeholders with zero discrepancy`,
+        settlement.stellar_transaction_hash ? getStellarExpertUrl('tx', settlement.stellar_transaction_hash) : undefined,
+        'View on StellarExpert'
+      );
       onSuccess(settlement);
     } catch (err: any) {
-      setErrorMessage(err.message || 'Settlement execution failed');
+      const errText = err.message || 'Settlement execution failed';
+      setErrorMessage(errText);
+      showError('Settlement Failed', errText);
       setStep('PREVIEW');
     }
   };
