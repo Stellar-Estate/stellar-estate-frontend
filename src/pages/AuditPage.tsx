@@ -12,6 +12,7 @@ import {
   Database,
   Lock,
   RefreshCw,
+  Copy,
 } from 'lucide-react';
 
 interface AuditPageProps {
@@ -23,6 +24,7 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
   const [selectedRevenue, setSelectedRevenue] = useState<RevenueRecord | null>(null);
   const [reconReport, setReconReport] = useState<any>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [copiedHash, setCopiedHash] = useState(false);
 
   const loadData = async () => {
     setIsRefreshing(true);
@@ -151,16 +153,43 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
             </div>
           </div>
 
-          <div style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
             <a
               href={`${STELLAR_EXPERT_EXPLORER}/${selectedRevenue.transaction_hash}`}
               target="_blank"
               rel="noreferrer"
               className="btn-primary"
-              style={{ fontSize: '0.85rem' }}
+              style={{ fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
             >
-              Verify on Stellar.Expert Explorer <ExternalLink size={14} />
+              <span>Verify on Stellar.Expert</span>
+              <ExternalLink size={14} />
             </a>
+
+            <a
+              href={`https://horizon-testnet.stellar.org/transactions/${selectedRevenue.transaction_hash}`}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-secondary"
+              style={{ fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+            >
+              <span>Horizon Raw JSON</span>
+              <ExternalLink size={14} />
+            </a>
+
+            <button
+              onClick={() => {
+                if (typeof navigator !== 'undefined' && navigator.clipboard) {
+                  navigator.clipboard.writeText(selectedRevenue.transaction_hash);
+                }
+                setCopiedHash(true);
+                setTimeout(() => setCopiedHash(false), 2000);
+              }}
+              className="btn-secondary"
+              style={{ fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+            >
+              <Copy size={14} />
+              <span>{copiedHash ? '✓ Copied Tx Hash' : 'Copy Tx Hash'}</span>
+            </button>
           </div>
         </div>
       )}

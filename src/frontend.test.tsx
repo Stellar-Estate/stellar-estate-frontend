@@ -10,6 +10,7 @@ import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
 import { SettlementExecutionModal } from './components/SettlementExecutionModal.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { AgreementsPage } from './pages/AgreementsPage.tsx';
+import { AuditPage } from './pages/AuditPage.tsx';
 import { AppContent } from './App.tsx';
 import { pollTransactionConfirmation } from './utils/transactionPoller.ts';
 import { WalletProvider } from './context/WalletContext.tsx';
@@ -531,6 +532,16 @@ describe('Programmable Settlement Platform Tests', () => {
     const fees = await apiService.getFeeStats();
     expect(fees).toBeDefined();
     expect(fees.recommended_base_fee || fees.last_ledger_base_fee).toBeGreaterThanOrEqual(100);
+  });
+
+  it('AuditPage should render Stellar.Expert and Horizon explorer links', async () => {
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <WalletProvider>
+        <AuditPage properties={props} />
+      </WalletProvider>
+    );
+    expect(html).toContain('Cryptographic Revenue Provenance');
   });
 });
 
