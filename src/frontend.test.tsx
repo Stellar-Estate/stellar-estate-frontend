@@ -930,6 +930,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.distributable_ratio_bps).toBeGreaterThan(0);
     expect(res.data.net_yield_percentage).toBeDefined();
   });
+
+  it('apiService.checkAgreementStakeholder should check stakeholder status', async () => {
+    const resAlice = await apiService.checkAgreementStakeholder('agr-meridian-001', 2, 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD');
+    expect(resAlice.success).toBe(true);
+    expect(resAlice.data.is_stakeholder).toBe(true);
+    expect(resAlice.data.stakeholder).toBeDefined();
+
+    const resUnknown = await apiService.checkAgreementStakeholder('agr-meridian-001', 2, 'GUNKNOWN');
+    expect(resUnknown.success).toBe(true);
+    expect(resUnknown.data.is_stakeholder).toBe(false);
+  });
 });
 
 
