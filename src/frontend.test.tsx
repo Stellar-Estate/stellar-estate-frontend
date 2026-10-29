@@ -782,6 +782,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.network.protocol_version).toBe(22);
     expect(res.network.accepted_assets.length).toBeGreaterThan(0);
   });
+
+  it('StakeholderPortfolioModal should render equity stats and holdings list', async () => {
+    const { StakeholderPortfolioModal } = await import('./components/StakeholderPortfolioModal');
+    const html = renderToStaticMarkup(
+      <StakeholderPortfolioModal isOpen={true} onClose={() => {}} />
+    );
+    expect(html).toContain('Stakeholder Portfolio &amp; Equity Ledger');
+    expect(html).toContain('Total Equity Value');
+    expect(html).toContain('Lifetime Payouts');
+    expect(html).toContain('Real Estate Asset Holdings');
+  });
 });
 
 
