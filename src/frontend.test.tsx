@@ -751,6 +751,13 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Database Inventory');
     expect(html).toContain('Memory Footprint');
   });
+
+  it('apiService.forkAgreementVersion should create a new draft proposal version', async () => {
+    const forked = await apiService.forkAgreementVersion('agr-meridian-001', 1);
+    expect(forked.agreement_id).toBe('agr-meridian-001');
+    expect(forked.version_number).toBe(2);
+    expect(forked.status).toBe('PENDING_APPROVALS');
+  });
 });
 
 

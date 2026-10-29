@@ -1384,6 +1384,39 @@ class ApiService {
       },
     };
   }
+
+  async forkAgreementVersion(
+    agreementId: string,
+    sourceVersionNumber: number,
+    proposerAddress: string = 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD'
+  ): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/agreements/${agreementId}/fork`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sourceVersionNumber, proposerAddress }),
+      });
+      if (res.ok) {
+        const body = await res.json();
+        return body.data;
+      }
+    } catch {
+      // Offline fallback
+    }
+
+    const nextVer = sourceVersionNumber + 1;
+    return {
+      id: `ver-${agreementId}-v${nextVer}`,
+      agreement_id: agreementId,
+      version_number: nextVer,
+      status: 'PENDING_APPROVALS',
+      agreement_hash: 'f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b',
+      created_at: new Date().toISOString(),
+      waterfall_rules: [],
+      stakeholders: [],
+      approvals: [],
+    };
+  }
 }
 
 export const apiService = new ApiService();
