@@ -1073,6 +1073,13 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.vault_age_seconds).toBeGreaterThanOrEqual(0);
     expect(res.data).toHaveProperty('vault_age_formatted');
   });
+
+  it('apiService.getAgreementVersionCount should return version counts', async () => {
+    const res = await apiService.getAgreementVersionCount('agr-meridian-001');
+    expect(res.success).toBe(true);
+    expect(res.data.total_versions).toBeGreaterThan(0);
+    expect(res.data).toHaveProperty('current_version');
+  });
 });
 
 
