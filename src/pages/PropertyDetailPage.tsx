@@ -8,6 +8,7 @@ import { UnitBreakdownModal } from '../components/UnitBreakdownModal.tsx';
 import { PropertyValuationChart } from '../components/PropertyValuationChart.tsx';
 import { BatchRevenueModal } from '../components/BatchRevenueModal.tsx';
 import { PropertyAuditTrailModal } from '../components/PropertyAuditTrailModal.tsx';
+import { ReserveHealthCard } from '../components/ReserveHealthCard.tsx';
 import {
   Building2,
   MapPin,
@@ -253,6 +254,11 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
             {/* Historical Valuation Trajectory */}
             <div style={{ marginTop: '1.25rem' }}>
               <PropertyValuationChart currentValuation={property.valuation} />
+            </div>
+
+            {/* Reserve Health & Safety Ratio */}
+            <div style={{ marginTop: '1.25rem' }}>
+              <ReserveHealthCard propertyId={property.id} initialReserve={property.reserve_balance} />
             </div>
           </div>
 
