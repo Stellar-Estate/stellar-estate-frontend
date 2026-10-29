@@ -9,6 +9,7 @@ import { VersionCompareModal } from './components/VersionCompareModal.tsx';
 import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { AgreementsPage } from './pages/AgreementsPage.tsx';
+import { AppContent } from './App.tsx';
 import { WalletProvider } from './context/WalletContext.tsx';
 import { CurrencyProvider, useCurrency } from './context/CurrencyContext.tsx';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.ts';
@@ -436,6 +437,18 @@ describe('Programmable Settlement Platform Tests', () => {
       </WalletProvider>
     );
     expect(markup).toContain('Distribution Agreements');
+  });
+
+  it('AppContent should render the primary application structure with navigation and footer', () => {
+    const markup = renderToStaticMarkup(
+      <WalletProvider>
+        <CurrencyProvider>
+          <AppContent />
+        </CurrencyProvider>
+      </WalletProvider>
+    );
+    expect(markup).toContain('app-container');
+    expect(markup).toContain('Stellar Estate');
   });
 });
 

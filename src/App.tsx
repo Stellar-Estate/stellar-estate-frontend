@@ -12,11 +12,26 @@ import { AgreementsPage } from './pages/AgreementsPage.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { Property } from './types/index.ts';
 import { apiService } from './services/apiService.ts';
+import { WifiOff } from 'lucide-react';
 
 export const AppContent: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<string>('home');
   const [properties, setProperties] = useState<Property[]>([]);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const [isOffline, setIsOffline] = useState<boolean>(() => typeof navigator !== 'undefined' && !navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchProps = async () => {
@@ -37,6 +52,30 @@ export const AppContent: React.FC = () => {
   return (
     <div className="app-container">
       <Navbar currentTab={currentTab} setCurrentTab={setCurrentTab} />
+
+      {isOffline && (
+        <div
+          style={{
+            background: 'linear-gradient(90deg, #dc2626, #b91c1c)',
+            color: '#fff',
+            padding: '0.6rem 1rem',
+            textAlign: 'center',
+            fontSize: '0.85rem',
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
+            position: 'sticky',
+            top: 0,
+            zIndex: 9999,
+          }}
+        >
+          <WifiOff size={16} />
+          <span>Internet connection lost. Transactions and live Horizon sync are paused. Auto-reconnecting...</span>
+        </div>
+      )}
 
       <main className="main-content">
         {currentTab === 'home' && (
