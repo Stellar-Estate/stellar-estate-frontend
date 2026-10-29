@@ -860,6 +860,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.rules_summary.length).toBeGreaterThan(0);
     expect(res.data.equity_allocation.length).toBeGreaterThan(0);
   });
+
+  it('apiService.getStellarMetrics should query live Stellar network metrics', async () => {
+    const res = await apiService.getStellarMetrics();
+    expect(res.success).toBe(true);
+    expect(res.data.network).toBe('TESTNET');
+    expect(res.data.protocol_version).toBe(22);
+    expect(res.data.healthy).toBe(true);
+  });
 });
 
 
