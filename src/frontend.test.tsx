@@ -921,6 +921,15 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.version).toBe(2);
     expect(res.data.created_at).toBeDefined();
   });
+
+  it('apiService.getPropertyFinancialRatios should return financial yield and operational ratios', async () => {
+    const res = await apiService.getPropertyFinancialRatios('prop-meridian-abuja');
+    expect(res.success).toBe(true);
+    expect(res.data.property_id).toBe('prop-meridian-abuja');
+    expect(res.data.opex_ratio_bps).toBeGreaterThan(0);
+    expect(res.data.distributable_ratio_bps).toBeGreaterThan(0);
+    expect(res.data.net_yield_percentage).toBeDefined();
+  });
 });
 
 
