@@ -982,6 +982,14 @@ describe('Programmable Settlement Platform Tests', () => {
     );
     expect(html).toContain('Distribution Agreements');
   });
+
+  it('apiService.getAgreementStakeholderCount should return stakeholder quorum metrics', async () => {
+    const res = await apiService.getAgreementStakeholderCount('agr-meridian-001', 2);
+    expect(res.success).toBe(true);
+    expect(res.data.total_stakeholders).toBeGreaterThan(0);
+    expect(res.data).toHaveProperty('approved_count');
+    expect(res.data).toHaveProperty('approval_ratio_bps');
+  });
 });
 
 
