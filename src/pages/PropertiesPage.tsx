@@ -137,8 +137,11 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onSe
                 onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.04)')}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
               />
-              <div style={{ position: 'absolute', top: 12, right: 12 }}>
-                <span className="badge badge-success">Vault Active</span>
+              <div style={{ position: 'absolute', top: 12, right: 12, display: 'flex', gap: '0.4rem' }}>
+                <span className="badge badge-stellar" style={{ fontSize: '0.65rem' }}>
+                  {prop.occupancy_percentage >= 90 ? 'High Yield' : prop.occupancy_percentage >= 70 ? 'Stabilized' : 'Emerging'}
+                </span>
+                <span className="badge badge-success" style={{ fontSize: '0.65rem' }}>Vault Active</span>
               </div>
               <div
                 style={{
@@ -169,6 +172,31 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onSe
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Occupancy</span>
                   <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-emerald)' }}>
                     {prop.occupancy_percentage}%
+                  </div>
+                  <div
+                    style={{
+                      width: '100%',
+                      height: 4,
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      borderRadius: 2,
+                      marginTop: 4,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${Math.min(100, prop.occupancy_percentage)}%`,
+                        height: '100%',
+                        background:
+                          prop.occupancy_percentage >= 90
+                            ? 'var(--accent-emerald)'
+                            : prop.occupancy_percentage >= 70
+                            ? 'var(--accent-gold)'
+                            : 'var(--accent-amber)',
+                        borderRadius: 2,
+                        transition: 'width 0.5s ease',
+                      }}
+                    />
                   </div>
                 </div>
                 <div>
