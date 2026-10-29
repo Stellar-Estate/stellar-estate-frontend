@@ -574,6 +574,8 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('StellarExpert');
     expect(html).toContain('vault-asset-badge');
     expect(html).toContain('Vault Asset: USDC');
+    expect(html).toContain('vault-summary-card');
+    expect(html).toContain('Soroban Treasury Vault');
   });
 
   it('WalletModal should render multi-wallet providers including Freighter, xBull, Albedo, and Rabet', async () => {

@@ -10,6 +10,7 @@ import { BatchRevenueModal } from '../components/BatchRevenueModal.tsx';
 import { PropertyAuditTrailModal } from '../components/PropertyAuditTrailModal.tsx';
 import { ReserveHealthCard } from '../components/ReserveHealthCard.tsx';
 import { VaultAssetBadge } from '../components/VaultAssetBadge.tsx';
+import { VaultSummaryCard } from '../components/VaultSummaryCard.tsx';
 import {
   Building2,
   MapPin,
@@ -261,6 +262,18 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
             {/* Reserve Health & Safety Ratio */}
             <div style={{ marginTop: '1.25rem' }}>
               <ReserveHealthCard propertyId={property.id} initialReserve={property.reserve_balance} />
+            </div>
+
+            {/* Soroban Treasury Vault Summary */}
+            <div style={{ marginTop: '1.25rem' }}>
+              <VaultSummaryCard
+                propertyId={property.id}
+                propertyName={property.name}
+                contractId={property.vault_contract_id || 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH'}
+                totalRevenue={property.total_revenue_pool}
+                distributableBalance={property.distributable_balance}
+                reserveBalance={property.reserve_balance}
+              />
             </div>
           </div>
 
