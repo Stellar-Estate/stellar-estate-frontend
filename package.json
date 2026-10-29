@@ -16,7 +16,7 @@
     "verify:submission": "node ../stellar-estate-core/scripts/pre-submission-check.mjs"
   },
   "dependencies": {
-    "@stellar/freighter-api": "^3.0.0",
+    "@stellar/freighter-api": "^6.0.1",
     "@stellar/stellar-sdk": "^13.0.0",
     "lucide-react": "^1.16.0",
     "react": "^18.3.1",
