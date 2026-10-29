@@ -538,11 +538,14 @@ describe('Programmable Settlement Platform Tests', () => {
   it('AuditPage should render Stellar.Expert and Horizon explorer links', async () => {
     const props = await apiService.getProperties();
     const html = renderToStaticMarkup(
-      <WalletProvider>
-        <AuditPage properties={props} />
-      </WalletProvider>
+      <ToastProvider>
+        <WalletProvider>
+          <AuditPage properties={props} />
+        </WalletProvider>
+      </ToastProvider>
     );
     expect(html).toContain('Cryptographic Revenue Provenance');
+    expect(html).toContain('Vault Reconciliation');
   });
 
   it('PropertyValuationChart should render SVG curve and valuation trajectory metrics', async () => {

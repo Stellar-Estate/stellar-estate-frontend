@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Property, RevenueRecord } from '../types/index.ts';
 import { apiService } from '../services/apiService.ts';
 import { STELLAR_EXPERT_EXPLORER } from '../services/stellarService.ts';
+import { ReconciliationAuditModal } from '../components/ReconciliationAuditModal.tsx';
 import {
   ShieldCheck,
   Search,
@@ -13,6 +14,7 @@ import {
   Lock,
   RefreshCw,
   Copy,
+  Scale,
 } from 'lucide-react';
 
 interface AuditPageProps {
@@ -25,6 +27,7 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
   const [reconReport, setReconReport] = useState<any>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [copiedHash, setCopiedHash] = useState(false);
+  const [isReconModalOpen, setIsReconModalOpen] = useState(false);
 
   const loadData = async () => {
     setIsRefreshing(true);
@@ -67,15 +70,24 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
             Inspect the complete immutable chain: Property → Revenue Event → Stellar Transaction → Independent Verification → Financial Ledger.
           </p>
         </div>
-        <button
-          onClick={loadData}
-          className="btn-secondary"
-          disabled={isRefreshing}
-          style={{ fontSize: '0.85rem' }}
-        >
-          <RefreshCw size={14} style={{ animation: isRefreshing ? 'spin 1s linear infinite' : 'none' }} />
-          Re-Audit State
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <button
+            onClick={() => setIsReconModalOpen(true)}
+            className="btn-outline-gold"
+            style={{ fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+          >
+            <Scale size={15} /> Vault Reconciliation
+          </button>
+          <button
+            onClick={loadData}
+            className="btn-secondary"
+            disabled={isRefreshing}
+            style={{ fontSize: '0.85rem' }}
+          >
+            <RefreshCw size={14} style={{ animation: isRefreshing ? 'spin 1s linear infinite' : 'none' }} />
+            Re-Audit State
+          </button>
+        </div>
       </div>
 
       {/* 5-STAGE PIPELINE VISUALIZER */}
@@ -260,6 +272,12 @@ export const AuditPage: React.FC<AuditPageProps> = ({ properties }) => {
           </table>
         </div>
       </div>
+
+      <ReconciliationAuditModal
+        property={targetProperty}
+        isOpen={isReconModalOpen}
+        onClose={() => setIsReconModalOpen(false)}
+      />
     </div>
   );
 };
