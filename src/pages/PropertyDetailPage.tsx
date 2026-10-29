@@ -178,9 +178,19 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border-subtle)' }}>
                 <span style={{ color: 'var(--text-secondary)' }}>Reserve Provision (15%):</span>
-                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
-                  ${((financials?.total_revenue_confirmed || 16000) * 0.15).toLocaleString()}
-                </span>
+                <div style={{ textAlign: 'right' }}>
+                  <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
+                    ${((financials?.total_revenue_confirmed || 16000) * 0.15).toLocaleString()}
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.25rem' }}>
+                    <div style={{ width: '80px', height: '6px', background: 'rgba(255, 255, 255, 0.1)', borderRadius: '999px', overflow: 'hidden' }}>
+                      <div style={{ width: '75%', height: '100%', background: 'linear-gradient(90deg, #10b981, #06b6d4)', borderRadius: '999px' }} />
+                    </div>
+                    <span style={{ fontSize: '0.7rem', color: '#10b981', fontWeight: 600 }} data-testid="reserve-buffer-gauge">
+                      Optimal (15%)
+                    </span>
+                  </div>
+                </div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--text-secondary)' }}>Net Distributable:</span>

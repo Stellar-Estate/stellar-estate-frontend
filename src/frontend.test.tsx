@@ -554,6 +554,20 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('$1,250,000');
     expect(html).toContain('+25.00%');
   });
+
+  it('PropertyDetailPage should display Reserve safety buffer gauge', async () => {
+    const { PropertyDetailPage } = await import('./pages/PropertyDetailPage');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <ToastProvider>
+        <WalletProvider>
+          <PropertyDetailPage property={props[0]} onBack={() => {}} />
+        </WalletProvider>
+      </ToastProvider>
+    );
+    expect(html).toContain('reserve-buffer-gauge');
+    expect(html).toContain('Optimal (15%)');
+  });
 });
 
 
