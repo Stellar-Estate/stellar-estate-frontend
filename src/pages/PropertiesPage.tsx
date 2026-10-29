@@ -10,6 +10,7 @@ interface PropertiesPageProps {
 export const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onSelectProperty }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('ALL');
+  const [sortBy, setSortBy] = useState<'valuation_desc' | 'valuation_asc' | 'occupancy_desc' | 'revenue_desc'>('valuation_desc');
 
   const propertyTypes = ['ALL', 'Residential / Mixed-Use', 'Commercial Residential', 'Serviced Apartments'];
 
@@ -19,6 +20,20 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onSe
       prop.location.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesType = selectedType === 'ALL' || prop.property_type === selectedType;
     return matchesSearch && matchesType;
+  });
+
+  const sortedProperties = [...filteredProperties].sort((a, b) => {
+    switch (sortBy) {
+      case 'valuation_asc':
+        return a.valuation - b.valuation;
+      case 'occupancy_desc':
+        return b.occupancy_percentage - a.occupancy_percentage;
+      case 'revenue_desc':
+        return (b.financial_summary?.monthly_run_rate || 0) - (a.financial_summary?.monthly_run_rate || 0);
+      case 'valuation_desc':
+      default:
+        return b.valuation - a.valuation;
+    }
   });
 
   return (
@@ -67,23 +82,47 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onSe
           />
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          {propertyTypes.map((type) => (
-            <button
-              key={type}
-              onClick={() => setSelectedType(type)}
-              className={selectedType === type ? 'btn-primary' : 'btn-secondary'}
-              style={{ fontSize: '0.8rem', padding: '0.45rem 0.85rem' }}
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+            {propertyTypes.map((type) => (
+              <button
+                key={type}
+                onClick={() => setSelectedType(type)}
+                className={selectedType === type ? 'btn-primary' : 'btn-secondary'}
+                style={{ fontSize: '0.8rem', padding: '0.45rem 0.85rem' }}
+              >
+                {type === 'ALL' ? 'All Types' : type}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Sort:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as any)}
+              style={{
+                padding: '0.45rem 0.75rem',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-card)',
+                borderRadius: 'var(--radius-sm)',
+                color: 'var(--text-primary)',
+                fontSize: '0.8rem',
+                cursor: 'pointer',
+              }}
             >
-              {type === 'ALL' ? 'All Types' : type}
-            </button>
-          ))}
+              <option value="valuation_desc">Valuation (Highest)</option>
+              <option value="valuation_asc">Valuation (Lowest)</option>
+              <option value="occupancy_desc">Occupancy (Highest)</option>
+              <option value="revenue_desc">Monthly Revenue (Highest)</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* Property Grid */}
       <div className="grid-3">
-        {filteredProperties.map((prop) => (
+        {sortedProperties.map((prop) => (
           <div
             key={prop.id}
             className="glass-card"
