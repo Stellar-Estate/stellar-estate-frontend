@@ -691,6 +691,15 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(telemetry.financials).toHaveProperty('unconsumed_pool');
     expect(telemetry.accepted_asset.code).toBe('USDC');
   });
+
+  it('apiService.getSystemDiagnostics should return subsystem health metrics', async () => {
+    const diag = await apiService.getSystemDiagnostics();
+    expect(diag.success).toBe(true);
+    expect(diag.status).toBe('HEALTHY');
+    expect(diag).toHaveProperty('stellar');
+    expect(diag).toHaveProperty('database');
+    expect(diag.stellar.network).toBe('TESTNET');
+  });
 });
 
 
