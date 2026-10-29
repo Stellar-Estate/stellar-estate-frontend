@@ -8,6 +8,7 @@ import { UnitBreakdownModal } from './components/UnitBreakdownModal.tsx';
 import { WaterfallBuilder } from './components/WaterfallBuilder.tsx';
 import { SettlementsPage } from './pages/SettlementsPage.tsx';
 import { WalletProvider } from './context/WalletContext.tsx';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.ts';
 
 describe('Stellar Estate Frontend Logic & Data Tests', () => {
   it('apiService.getProperties should return populated property list with vaults', async () => {
@@ -358,6 +359,10 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(markup).toContain('10,000 bps');
     expect(markup).toContain('Auto-Balance (10k bps)');
     expect(markup).toContain('Invariant Satisfied (100.00%)');
+  });
+
+  it('useKeyboardShortcuts should be exported as a functional hook', () => {
+    expect(typeof useKeyboardShortcuts).toBe('function');
   });
 });
 

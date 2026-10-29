@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Copy, Check, ExternalLink, QrCode } from 'lucide-react';
 import { useClipboard } from '../utils/clipboard.ts';
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts.ts';
 
 export interface QrCodeModalProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export const QrCodeModal: React.FC<QrCodeModalProps> = ({
   badgeText = 'SEP-0007 URI',
 }) => {
   const { copied, copy } = useClipboard();
+  useKeyboardShortcuts({ onEscape: onClose, enabled: isOpen });
 
   if (!isOpen) return null;
 

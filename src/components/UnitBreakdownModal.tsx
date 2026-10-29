@@ -1,6 +1,7 @@
 import React from 'react';
 import { Property, PropertyUnit } from '../types/index.ts';
 import { X, Building2, CheckCircle2, AlertCircle, DollarSign, Home } from 'lucide-react';
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts.ts';
 
 export interface UnitBreakdownModalProps {
   isOpen: boolean;
@@ -15,6 +16,8 @@ export const UnitBreakdownModal: React.FC<UnitBreakdownModalProps> = ({
   property,
   units,
 }) => {
+  useKeyboardShortcuts({ onEscape: onClose, enabled: isOpen });
+
   if (!isOpen) return null;
 
   const totalMonthlyRollup = units.reduce((acc, u) => acc + (u.monthly_rent || 0), 0);
