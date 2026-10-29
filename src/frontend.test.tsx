@@ -971,6 +971,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Soroban Vault Locking');
     expect(html).toContain('Active &amp; Enforced');
   });
+
+  it('AgreementsPage should embed AgreementTimelineCard component', async () => {
+    const { AgreementsPage } = await import('./pages/AgreementsPage');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <WalletProvider>
+        <AgreementsPage properties={props} selectedProperty={props[0]} />
+      </WalletProvider>
+    );
+    expect(html).toContain('Distribution Agreements');
+  });
 });
 
 

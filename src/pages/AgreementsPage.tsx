@@ -11,6 +11,7 @@ import { AgreementApprovalModal } from '../components/AgreementApprovalModal.tsx
 import { SettlementPreviewModal } from '../components/SettlementPreviewModal.tsx';
 import { VersionCompareModal } from '../components/VersionCompareModal.tsx';
 import { AgreementTimeline } from '../components/AgreementTimeline.tsx';
+import { AgreementTimelineCard } from '../components/AgreementTimelineCard.tsx';
 import {
   FileText,
   Lock,
@@ -380,6 +381,18 @@ export const AgreementsPage: React.FC<AgreementsPageProps> = ({
                 versions={primaryAgreement.versions}
                 selectedVersionId={selectedVersion.id}
                 onSelectVersion={(v) => setSelectedVersion(v)}
+              />
+            )}
+
+            {selectedVersion && (
+              <AgreementTimelineCard
+                agreementId={primaryAgreement ? primaryAgreement.id : selectedVersion.agreement_id}
+                versionNumber={selectedVersion.version_number}
+                status={selectedVersion.status}
+                createdAt={selectedVersion.created_at}
+                lockedAt={selectedVersion.locked_at}
+                approvalCount={(selectedVersion.stakeholders || []).filter((s) => s.has_approved).length}
+                totalStakeholders={(selectedVersion.stakeholders || []).length || 3}
               />
             )}
 
