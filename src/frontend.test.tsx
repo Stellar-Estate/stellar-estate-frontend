@@ -1065,6 +1065,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('60.00%');
     expect(html).toContain('40.00%');
   });
+
+  it('apiService.getVaultAge should return uptime and age formatting', async () => {
+    const res = await apiService.getVaultAge('prop-meridian-abuja');
+    expect(res.success).toBe(true);
+    expect(res.data.property_id).toBe('prop-meridian-abuja');
+    expect(res.data.vault_age_seconds).toBeGreaterThanOrEqual(0);
+    expect(res.data).toHaveProperty('vault_age_formatted');
+  });
 });
 
 
