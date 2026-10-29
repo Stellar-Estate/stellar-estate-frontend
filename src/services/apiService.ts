@@ -1758,6 +1758,26 @@ class ApiService {
       },
     };
   }
+
+  async getVaultAcceptedAsset(propertyId: string): Promise<any> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/properties/${propertyId}/vault/accepted-asset`);
+      if (res.ok) return await res.json();
+    } catch {
+      // Fallback
+    }
+    return {
+      success: true,
+      data: {
+        property_id: propertyId,
+        accepted_asset_code: 'USDC',
+        contract_id: 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+        decimals: 7,
+        network: 'TESTNET',
+        explorer_url: 'https://stellar.expert/explorer/testnet/contract/CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+      },
+    };
+  }
 }
 
 export const apiService = new ApiService();

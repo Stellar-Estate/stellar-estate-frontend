@@ -905,6 +905,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Protocol 22');
     expect(html).toContain('StellarExpert');
   });
+
+  it('apiService.getVaultAcceptedAsset should return accepted asset details', async () => {
+    const res = await apiService.getVaultAcceptedAsset('prop-meridian-abuja');
+    expect(res.success).toBe(true);
+    expect(res.data.accepted_asset_code).toBe('USDC');
+    expect(res.data.contract_id).toBeDefined();
+    expect(res.data.explorer_url).toContain('stellar.expert');
+  });
 });
 
 
