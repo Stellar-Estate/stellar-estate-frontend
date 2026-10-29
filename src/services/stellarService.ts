@@ -184,6 +184,46 @@ export class StellarService {
       ledger: result.ledger,
     };
   }
+
+  /**
+   * Request free testnet XLM funds from SDF Friendbot for a given public key
+   */
+  async fundWithFriendbot(publicKey: string): Promise<{ success: boolean; message: string }> {
+    try {
+      const response = await fetch(
+        `https://friendbot.stellar.org?addr=${encodeURIComponent(publicKey.trim())}`
+      );
+      if (!response.ok) {
+        const errorText = await response.text();
+        return { success: false, message: `Friendbot returned error: ${errorText}` };
+      }
+      return { success: true, message: 'Account successfully funded with 10,000 Testnet XLM from Friendbot.' };
+    } catch (err: any) {
+      return { success: false, message: err?.message || 'Failed to contact Stellar Friendbot.' };
+    }
+  }
+
+  /**
+   * Ping Horizon Testnet to measure round-trip latency and fetch latest ledger
+   */
+  async checkHorizonHealth(): Promise<{ operational: boolean; latencyMs: number; latestLedger: number }> {
+    const start = performance.now();
+    try {
+      const root = await this.server.root();
+      const latencyMs = Math.round(performance.now() - start);
+      return {
+        operational: true,
+        latencyMs,
+        latestLedger: (root as any).core_latest_ledger || (root as any).horizon_latest_ledger || 0,
+      };
+    } catch {
+      return {
+        operational: false,
+        latencyMs: -1,
+        latestLedger: 0,
+      };
+    }
+  }
 }
 
 export const stellarService = new StellarService();
