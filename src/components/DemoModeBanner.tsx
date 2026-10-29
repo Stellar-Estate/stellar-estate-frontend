@@ -4,11 +4,32 @@ import { Sparkles, X, ChevronRight, CheckCircle2, Shield, Coins, FileText, Activ
 interface DemoModeBannerProps {
   onNavigateTab: (tab: string) => void;
   currentTab: string;
+  onSeedDemoScenario?: () => Promise<void> | void;
 }
 
-export const DemoModeBanner: React.FC<DemoModeBannerProps> = ({ onNavigateTab, currentTab }) => {
+export const DemoModeBanner: React.FC<DemoModeBannerProps> = ({ onNavigateTab, currentTab, onSeedDemoScenario }) => {
   const [isDismissed, setIsDismissed] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isSeeding, setIsSeeding] = useState(false);
+  const [seedSuccess, setSeedSuccess] = useState(false);
+
+  const handleSeedDemo = async () => {
+    setIsSeeding(true);
+    setSeedSuccess(false);
+    try {
+      if (onSeedDemoScenario) {
+        await onSeedDemoScenario();
+      } else {
+        await new Promise((r) => setTimeout(r, 600));
+      }
+      setSeedSuccess(true);
+      setTimeout(() => setSeedSuccess(false), 2500);
+    } catch {
+      // handled
+    } finally {
+      setIsSeeding(false);
+    }
+  };
 
   if (isDismissed) return null;
 
@@ -155,6 +176,26 @@ export const DemoModeBanner: React.FC<DemoModeBannerProps> = ({ onNavigateTab, c
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <button
+            onClick={handleSeedDemo}
+            disabled={isSeeding}
+            className="btn-outline-gold"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              fontSize: '0.72rem',
+              padding: '0.28rem 0.65rem',
+              background: seedSuccess ? 'rgba(16, 185, 129, 0.2)' : undefined,
+              borderColor: seedSuccess ? '#10b981' : undefined,
+              color: seedSuccess ? '#10b981' : undefined,
+            }}
+            title="Seed sample testnet revenue and agreement scenario"
+            data-testid="seed-demo-scenario-btn"
+          >
+            {seedSuccess ? <CheckCircle2 size={12} color="#10b981" /> : <Sparkles size={12} />}
+            <span>{isSeeding ? 'Seeding...' : seedSuccess ? 'Scenario Ready' : 'Seed Testnet Scenario'}</span>
+          </button>
           <button
             onClick={() => setIsMinimized(true)}
             style={{

@@ -610,6 +610,16 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('financial-health-badge');
     expect(html).toContain('AAA Institutional');
   });
+
+  it('DemoModeBanner should render Seed Testnet Scenario action button', async () => {
+    const { DemoModeBanner } = await import('./components/DemoModeBanner');
+    const html = renderToStaticMarkup(
+      <DemoModeBanner onNavigateTab={() => {}} currentTab="properties" />
+    );
+    expect(html).toContain('seed-demo-scenario-btn');
+    expect(html).toContain('Seed Testnet Scenario');
+    expect(html).toContain('HACKATHON EVALUATION WALKTHROUGH');
+  });
 });
 
 
