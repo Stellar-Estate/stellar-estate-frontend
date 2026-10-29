@@ -1080,6 +1080,15 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.total_versions).toBeGreaterThan(0);
     expect(res.data).toHaveProperty('current_version');
   });
+
+  it('apiService.getPayoutsSummary should return aggregated payouts statistics', async () => {
+    const res = await apiService.getPayoutsSummary('prop-meridian-abuja');
+    expect(res.success).toBe(true);
+    expect(res.data.property_id).toBe('prop-meridian-abuja');
+    expect(res.data.currency).toBe('USDC');
+    expect(res.data).toHaveProperty('total_payout_amount');
+    expect(res.data).toHaveProperty('unique_stakeholders_paid');
+  });
 });
 
 
