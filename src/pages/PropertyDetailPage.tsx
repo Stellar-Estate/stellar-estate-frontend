@@ -9,6 +9,7 @@ import { PropertyValuationChart } from '../components/PropertyValuationChart.tsx
 import { BatchRevenueModal } from '../components/BatchRevenueModal.tsx';
 import { PropertyAuditTrailModal } from '../components/PropertyAuditTrailModal.tsx';
 import { ReserveHealthCard } from '../components/ReserveHealthCard.tsx';
+import { VaultAssetBadge } from '../components/VaultAssetBadge.tsx';
 import {
   Building2,
   MapPin,
@@ -87,9 +88,10 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.35rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
               <span className="badge badge-stellar">{property.property_type}</span>
               <span className="badge badge-success">Vault Active</span>
+              <VaultAssetBadge assetCode="USDC" contractId={property.vault_contract_id || 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH'} />
             </div>
             <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{property.name}</h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
