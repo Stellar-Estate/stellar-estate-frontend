@@ -1,7 +1,40 @@
-import React from 'react';
-import { ShieldAlert, ExternalLink, Code2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ShieldAlert, ExternalLink, Code2, Activity, CheckCircle2, AlertCircle } from 'lucide-react';
+import { stellarService } from '../services/stellarService';
 
 export const Footer: React.FC = () => {
+  const [networkHealth, setNetworkHealth] = useState<{
+    operational: boolean;
+    latencyMs: number;
+    latestLedger: number;
+    checked: boolean;
+  }>({
+    operational: true,
+    latencyMs: 42,
+    latestLedger: 0,
+    checked: false,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchHealth = async () => {
+      const res = await stellarService.checkHorizonHealth();
+      if (isMounted) {
+        setNetworkHealth({
+          operational: res.operational,
+          latencyMs: res.latencyMs,
+          latestLedger: res.latestLedger,
+          checked: true,
+        });
+      }
+    };
+    fetchHealth();
+    const interval = setInterval(fetchHealth, 30000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
   return (
     <footer
       style={{
@@ -77,8 +110,31 @@ export const Footer: React.FC = () => {
             <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--accent-cyan)', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
               Network & Technical Context
             </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
               <div><strong>Network:</strong> Stellar Testnet</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <strong>Horizon Status:</strong>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    padding: '0.15rem 0.5rem',
+                    borderRadius: '12px',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    background: networkHealth.operational ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                    color: networkHealth.operational ? '#10b981' : '#ef4444',
+                    border: `1px solid ${networkHealth.operational ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+                  }}
+                >
+                  {networkHealth.operational ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
+                  {networkHealth.operational ? `Live (${networkHealth.latencyMs}ms)` : 'Offline'}
+                </span>
+              </div>
+              {networkHealth.latestLedger > 0 && (
+                <div><strong>Latest Ledger:</strong> <span className="mono-text" style={{ fontSize: '0.75rem' }}>#{networkHealth.latestLedger.toLocaleString()}</span></div>
+              )}
               <div><strong>Passphrase:</strong> <span className="mono-text" style={{ fontSize: '0.75rem' }}>Test SDF Network ; September 2015</span></div>
               <div><strong>Protocol Engine:</strong> Stellar Core &amp; Soroban Smart Contracts</div>
             </div>
