@@ -137,9 +137,9 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onSe
                 onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.04)')}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
               />
-              <div style={{ position: 'absolute', top: 12, right: 12, display: 'flex', gap: '0.4rem' }}>
-                <span className="badge badge-stellar" style={{ fontSize: '0.65rem' }}>
-                  {prop.occupancy_percentage >= 90 ? 'High Yield' : prop.occupancy_percentage >= 70 ? 'Stabilized' : 'Emerging'}
+              <div style={{ position: 'absolute', top: 12, right: 12, display: 'flex', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                <span className="badge badge-stellar" data-testid="financial-health-badge" style={{ fontSize: '0.65rem' }}>
+                  {prop.occupancy_percentage >= 90 ? 'AAA Institutional' : prop.occupancy_percentage >= 75 ? 'AA+ Prime' : 'A Stabilized'}
                 </span>
                 <span className="badge badge-success" style={{ fontSize: '0.65rem' }}>Vault Active</span>
               </div>
@@ -169,16 +169,22 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onSe
                   </div>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Occupancy</span>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-emerald)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Occupancy</span>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                      {Math.round((prop.occupancy_percentage / 100) * prop.unit_count)}/{prop.unit_count} Units
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-emerald)', marginTop: '0.1rem' }}>
                     {prop.occupancy_percentage}%
                   </div>
                   <div
+                    data-testid="occupancy-gauge"
                     style={{
                       width: '100%',
-                      height: 4,
+                      height: 6,
                       background: 'rgba(255, 255, 255, 0.08)',
-                      borderRadius: 2,
+                      borderRadius: 3,
                       marginTop: 4,
                       overflow: 'hidden',
                     }}
@@ -189,12 +195,12 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onSe
                         height: '100%',
                         background:
                           prop.occupancy_percentage >= 90
-                            ? 'var(--accent-emerald)'
+                            ? 'linear-gradient(90deg, #10b981, #06b6d4)'
                             : prop.occupancy_percentage >= 70
-                            ? 'var(--accent-gold)'
-                            : 'var(--accent-amber)',
-                        borderRadius: 2,
-                        transition: 'width 0.5s ease',
+                            ? 'linear-gradient(90deg, #f59e0b, #eab308)'
+                            : 'linear-gradient(90deg, #f97316, #ef4444)',
+                        borderRadius: 3,
+                        transition: 'width 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                       }}
                     />
                   </div>

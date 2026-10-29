@@ -599,6 +599,17 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(html).toContain('Permanent Settlement Records');
     expect(html).toContain('All Settlements');
   });
+
+  it('PropertiesPage should render animated occupancy gauge and financial health badges', async () => {
+    const { PropertiesPage } = await import('./pages/PropertiesPage');
+    const props = await apiService.getProperties();
+    const html = renderToStaticMarkup(
+      <PropertiesPage properties={props} onSelectProperty={() => {}} />
+    );
+    expect(html).toContain('occupancy-gauge');
+    expect(html).toContain('financial-health-badge');
+    expect(html).toContain('AAA Institutional');
+  });
 });
 
 
