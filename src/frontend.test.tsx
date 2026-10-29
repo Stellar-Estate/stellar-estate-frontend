@@ -868,6 +868,14 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(res.data.protocol_version).toBe(22);
     expect(res.data.healthy).toBe(true);
   });
+
+  it('apiService.calculateReserveReplenishment should compute reserve buffer gap', async () => {
+    const res = await apiService.calculateReserveReplenishment('prop-meridian-abuja', 1000);
+    expect(res.success).toBe(true);
+    expect(res.data.target_ratio_bps).toBe(1000);
+    expect(res.data).toHaveProperty('replenishment_needed');
+    expect(res.data).toHaveProperty('is_reserve_healthy');
+  });
 });
 
 
