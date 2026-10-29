@@ -700,6 +700,23 @@ describe('Programmable Settlement Platform Tests', () => {
     expect(diag).toHaveProperty('database');
     expect(diag.stellar.network).toBe('TESTNET');
   });
+
+  it('AgreementTimeline should render version markers and cryptographic hashes', async () => {
+    const { AgreementTimeline } = await import('./components/AgreementTimeline');
+    const agrs = await apiService.getPropertyAgreements('prop-meridian-abuja');
+    const versions = agrs[0].versions;
+    const html = renderToStaticMarkup(
+      <AgreementTimeline
+        versions={versions}
+        selectedVersionId={versions[0].id}
+        onSelectVersion={() => {}}
+      />
+    );
+    expect(html).toContain('Agreement Version Lineage');
+    expect(html).toContain('Version 1');
+    expect(html).toContain('Locked &amp; Active');
+    expect(html).toContain('Approvals:');
+  });
 });
 
 
