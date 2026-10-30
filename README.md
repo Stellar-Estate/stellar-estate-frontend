@@ -1,5 +1,9 @@
 # 🏠 Stellar Estate Frontend (`stellar-estate-frontend`)
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Stellar-Estate/stellar-estate-frontend/main/public/assets/stellar_estate_logo.svg" alt="Stellar Estate Brand Logo" width="100%" />
+</p>
+
 > **Programmable Real-World Asset (RWA) Property-Revenue Settlement Web Application — Interactive Trace, Financial Passport & Non-Custodial Stellar Execution**
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bc5fc4fd-0dfb-4954-8a2d-f4fabc7e3402/deploy-status)](https://stellar-estate-app.netlify.app)
@@ -16,7 +20,11 @@
 
 ## Platform Preview
 
-![Stellar Estate Hero Platform](public/assets/stellar_estate_hero.svg)
+<p align="center">
+  <a href="https://stellar-estate-app.netlify.app">
+    <img src="https://raw.githubusercontent.com/Stellar-Estate/stellar-estate-frontend/main/public/assets/stellar_estate_hero.svg" alt="Stellar Estate Hero Platform" width="100%" />
+  </a>
+</p>
 
 ---
 
@@ -31,7 +39,9 @@ The user experience solves the multi-billion dollar opacity problem for property
 
 ### "Where Did My Rent Go?" Visual Lineage Trace
 
-![Where Did My Rent Go Trace](public/assets/where_did_my_rent_go_trace.svg)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Stellar-Estate/stellar-estate-frontend/main/public/assets/where_did_my_rent_go_trace.svg" alt="Where Did My Rent Go Trace" width="100%" />
+</p>
 
 ---
 

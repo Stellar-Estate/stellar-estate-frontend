@@ -41,3 +41,4 @@ Major production release submitted for Stellar Hackathon evaluation. Implements 
 - **GitHub Actions Workflows:**
   - `frontend.yml`: Node 20 & 22 test, lint, and build matrix.
   - `ci.yml`: Monorepo quality check.
+

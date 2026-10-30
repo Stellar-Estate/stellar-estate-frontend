@@ -282,7 +282,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const markup = renderToStaticMarkup(
       <QrCodeModal
         isOpen={true}
-        onClose={() => {}}
+        onClose={() => { }}
         title="Deposit Rental Revenue"
         uri={testUri}
       />
@@ -296,7 +296,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const closedMarkup = renderToStaticMarkup(
       <QrCodeModal
         isOpen={false}
-        onClose={() => {}}
+        onClose={() => { }}
         title="Closed Modal"
         uri={testUri}
       />
@@ -317,7 +317,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const markup = renderToStaticMarkup(
       <UnitBreakdownModal
         isOpen={true}
-        onClose={() => {}}
+        onClose={() => { }}
         property={mockProperty}
         units={mockUnits}
       />
@@ -357,8 +357,8 @@ describe('Programmable Settlement Platform Tests', () => {
       <WalletProvider>
         <WaterfallBuilder
           isOpen={true}
-          onClose={() => {}}
-          onAgreementCreated={() => {}}
+          onClose={() => { }}
+          onAgreementCreated={() => { }}
           property={mockProperty}
         />
       </WalletProvider>
@@ -420,7 +420,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const markup = renderToStaticMarkup(
       <VersionCompareModal
         isOpen={true}
-        onClose={() => {}}
+        onClose={() => { }}
         property={mockProperty}
         versionA={verA}
         versionB={verB}
@@ -522,8 +522,8 @@ describe('Programmable Settlement Platform Tests', () => {
             revenueIds={['rev-meridian-001']}
             grossRevenue={5000}
             isOpen={true}
-            onClose={() => {}}
-            onSuccess={() => {}}
+            onClose={() => { }}
+            onSuccess={() => { }}
           />
         </WalletProvider>
       </ToastProvider>
@@ -568,7 +568,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const html = renderToStaticMarkup(
       <ToastProvider>
         <WalletProvider>
-          <PropertyDetailPage property={props[0]} onBack={() => {}} />
+          <PropertyDetailPage property={props[0]} onBack={() => { }} />
         </WalletProvider>
       </ToastProvider>
     );
@@ -586,7 +586,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const { WalletModal } = await import('./components/WalletModal');
     const html = renderToStaticMarkup(
       <WalletProvider>
-        <WalletModal isOpen={true} onClose={() => {}} />
+        <WalletModal isOpen={true} onClose={() => { }} />
       </WalletProvider>
     );
     expect(html).toContain('Freighter Wallet');
@@ -615,7 +615,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const { PropertiesPage } = await import('./pages/PropertiesPage');
     const props = await apiService.getProperties();
     const html = renderToStaticMarkup(
-      <PropertiesPage properties={props} onSelectProperty={() => {}} />
+      <PropertiesPage properties={props} onSelectProperty={() => { }} />
     );
     expect(html).toContain('occupancy-gauge');
     expect(html).toContain('financial-health-badge');
@@ -625,7 +625,7 @@ describe('Programmable Settlement Platform Tests', () => {
   it('DemoModeBanner should render Seed Testnet Scenario action button', async () => {
     const { DemoModeBanner } = await import('./components/DemoModeBanner');
     const html = renderToStaticMarkup(
-      <DemoModeBanner onNavigateTab={() => {}} currentTab="properties" />
+      <DemoModeBanner onNavigateTab={() => { }} currentTab="properties" />
     );
     expect(html).toContain('seed-demo-scenario-btn');
     expect(html).toContain('Seed Testnet Scenario');
@@ -658,7 +658,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const props = await apiService.getProperties();
     const html = renderToStaticMarkup(
       <ToastProvider>
-        <BatchRevenueModal property={props[0]} isOpen={true} onClose={() => {}} />
+        <BatchRevenueModal property={props[0]} isOpen={true} onClose={() => { }} />
       </ToastProvider>
     );
     expect(html).toContain('Batch Revenue Ingestion');
@@ -673,7 +673,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const html = renderToStaticMarkup(
       <ToastProvider>
         <WalletProvider>
-          <PropertyDetailPage property={props[0]} onBack={() => {}} />
+          <PropertyDetailPage property={props[0]} onBack={() => { }} />
         </WalletProvider>
       </ToastProvider>
     );
@@ -720,7 +720,7 @@ describe('Programmable Settlement Platform Tests', () => {
       <AgreementTimeline
         versions={versions}
         selectedVersionId={versions[0].id}
-        onSelectVersion={() => {}}
+        onSelectVersion={() => { }}
       />
     );
     expect(html).toContain('Agreement Version Lineage');
@@ -734,7 +734,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const props = await apiService.getProperties();
     const html = renderToStaticMarkup(
       <ToastProvider>
-        <ReconciliationAuditModal property={props[0]} isOpen={true} onClose={() => {}} />
+        <ReconciliationAuditModal property={props[0]} isOpen={true} onClose={() => { }} />
       </ToastProvider>
     );
     expect(html).toContain('Cross-Ledger Reconciliation');
@@ -753,7 +753,7 @@ describe('Programmable Settlement Platform Tests', () => {
 
   it('SystemDiagnosticsModal should render live subsystem telemetry', async () => {
     const { SystemDiagnosticsModal } = await import('./components/SystemDiagnosticsModal');
-    const html = renderToStaticMarkup(<SystemDiagnosticsModal isOpen={true} onClose={() => {}} />);
+    const html = renderToStaticMarkup(<SystemDiagnosticsModal isOpen={true} onClose={() => { }} />);
     expect(html).toContain('System Diagnostics &amp; Telemetry');
     expect(html).toContain('Stellar Horizon RPC');
     expect(html).toContain('Database Inventory');
@@ -794,7 +794,7 @@ describe('Programmable Settlement Platform Tests', () => {
   it('StakeholderPortfolioModal should render equity stats and holdings list', async () => {
     const { StakeholderPortfolioModal } = await import('./components/StakeholderPortfolioModal');
     const html = renderToStaticMarkup(
-      <StakeholderPortfolioModal isOpen={true} onClose={() => {}} />
+      <StakeholderPortfolioModal isOpen={true} onClose={() => { }} />
     );
     expect(html).toContain('Stakeholder Portfolio &amp; Equity Ledger');
     expect(html).toContain('Total Equity Value');
@@ -806,7 +806,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const { PropertyAuditTrailModal } = await import('./components/PropertyAuditTrailModal');
     const props = await apiService.getProperties();
     const html = renderToStaticMarkup(
-      <PropertyAuditTrailModal property={props[0]} isOpen={true} onClose={() => {}} />
+      <PropertyAuditTrailModal property={props[0]} isOpen={true} onClose={() => { }} />
     );
     expect(html).toContain('Property Audit Trail &amp; Ledger Events');
     expect(html).toContain('CHRONOLOGICAL AUDIT LOG');
@@ -847,7 +847,7 @@ describe('Programmable Settlement Platform Tests', () => {
   it('WebhookManagerModal should render active webhook list and test dispatch controls', async () => {
     const { WebhookManagerModal } = await import('./components/WebhookManagerModal');
     const html = renderToStaticMarkup(
-      <WebhookManagerModal isOpen={true} onClose={() => {}} />
+      <WebhookManagerModal isOpen={true} onClose={() => { }} />
     );
     expect(html).toContain('Webhook Event Subscriptions &amp; Dispatcher');
     expect(html).toContain('Register New Event Webhook');
@@ -888,7 +888,7 @@ describe('Programmable Settlement Platform Tests', () => {
   it('SettlementBreakdownModal should render waterfall tranche allocations', async () => {
     const { SettlementBreakdownModal } = await import('./components/SettlementBreakdownModal');
     const html = renderToStaticMarkup(
-      <SettlementBreakdownModal settlementId="STL-TEST-01" isOpen={true} onClose={() => {}} />
+      <SettlementBreakdownModal settlementId="STL-TEST-01" isOpen={true} onClose={() => { }} />
     );
     expect(html).toContain('Settlement Financial Breakdown');
     expect(html).toContain('Gross Inflow');
