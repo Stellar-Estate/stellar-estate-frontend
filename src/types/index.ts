@@ -8,6 +8,11 @@ export interface Property {
   unit_count: number;
   occupancy_percentage: number;
   vault_stellar_address: string;
+  vault_contract_id?: string;
+  accepted_asset?: string;
+  total_revenue_pool?: number;
+  distributable_balance?: number;
+  reserve_balance?: number;
   status: 'ACTIVE' | 'PENDING' | 'MAINTENANCE';
   image_url: string;
   metadata?: {
@@ -268,6 +273,7 @@ export interface SettlementSnapshot {
 
 export interface Settlement {
   id: string;
+  settlement_id?: string;
   property_id: string;
   revenue_ids: string[];
   agreement_id: string;
@@ -275,8 +281,12 @@ export interface Settlement {
   agreement_hash: string;
   asset: string;
   gross_revenue: number;
+  total_gross_amount?: number;
+  gross_amount?: number;
   expenses: number;
   reserve: number;
+  reserve_deduction?: number;
+  reserve_amount?: number;
   fees: number;
   distributable_amount: number;
   status: SettlementExecutionStatus;
@@ -284,6 +294,8 @@ export interface Settlement {
   executed_at?: string;
   reconciled_at?: string;
   transaction_hashes: string[];
+  stellar_transaction_hash?: string;
+  transaction_hash?: string;
   payouts: SettlementPayoutRecord[];
   calculation_snapshot: SettlementSnapshot;
   reconciliation_status: 'PENDING' | 'MATCHED' | 'DISCREPANCY';

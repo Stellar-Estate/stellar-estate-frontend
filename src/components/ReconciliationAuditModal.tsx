@@ -168,14 +168,13 @@ export const ReconciliationAuditModal: React.FC<ReconciliationAuditModalProps> =
                 onClick={() =>
                   copy(
                     report?.audit?.ledger_checksum ||
-                      'a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7',
-                    'checksum'
+                      'a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7'
                   )
                 }
                 className="ml-2 p-1 text-stellar-muted hover:text-white shrink-0 transition-colors"
                 title="Copy checksum"
               >
-                {copied === 'checksum' ? (
+                {copied ? (
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
                 ) : (
                   <Copy className="w-3.5 h-3.5" />
@@ -194,7 +193,7 @@ export const ReconciliationAuditModal: React.FC<ReconciliationAuditModalProps> =
               <span className="font-mono text-white mt-0.5 block">{property.vault_stellar_address}</span>
             </div>
             <a
-              href={getStellarExpertUrl(property.vault_stellar_address, 'account')}
+              href={getStellarExpertUrl('account', property.vault_stellar_address)}
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-1.5 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 rounded-lg border border-blue-500/20 flex items-center gap-1.5 transition-colors"

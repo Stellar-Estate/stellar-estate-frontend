@@ -14,7 +14,8 @@ export const AgreementTimeline: React.FC<AgreementTimelineProps> = ({
   selectedVersionId,
   onSelectVersion,
 }) => {
-  const { copy, copied } = useClipboard();
+  const { copy } = useClipboard();
+  const [copiedId, setCopiedId] = React.useState<string | null>(null);
 
   const sortedVersions = [...versions].sort((a, b) => b.version_number - a.version_number);
 
@@ -120,12 +121,14 @@ export const AgreementTimeline: React.FC<AgreementTimelineProps> = ({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      copy(ver.agreement_hash, `hash-${ver.id}`);
+                      copy(ver.agreement_hash);
+                      setCopiedId(ver.id);
+                      setTimeout(() => setCopiedId(null), 2000);
                     }}
                     className="p-1 hover:text-white transition-colors"
                     title="Copy canonical hash"
                   >
-                    {copied === `hash-${ver.id}` ? (
+                    {copiedId === ver.id ? (
                       <Check className="w-3.5 h-3.5 text-emerald-400" />
                     ) : (
                       <Copy className="w-3.5 h-3.5" />
@@ -158,3 +161,4 @@ export const AgreementTimeline: React.FC<AgreementTimelineProps> = ({
     </div>
   );
 };
+

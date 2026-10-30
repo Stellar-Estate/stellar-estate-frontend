@@ -1,126 +1,130 @@
 # 🏠 Stellar Estate Frontend (`stellar-estate-frontend`)
 
-> **Programmable Property-Revenue Settlement Platform — Web Application, Interactive Trace & Financial Passport**
+> **Programmable Real-World Asset (RWA) Property-Revenue Settlement Web Application — Interactive Trace, Financial Passport & Non-Custodial Stellar Execution**
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bc5fc4fd-0dfb-4954-8a2d-f4fabc7e3402/deploy-status)](https://stellar-estate-app.netlify.app)
-**🌐 Live Production Platform:** [https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)
+[![Protocol 22](https://img.shields.io/badge/Stellar-Protocol%2022-08B5E5?logo=stellar&logoColor=white)](https://stellar.org)
+[![React 19](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev)
+[![Automated Tests](https://img.shields.io/badge/Frontend%20Tests-88%2F88%20Passing-brightgreen?logo=vitest&logoColor=white)](https://github.com/Stellar-Estate/stellar-estate-frontend)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-Part of the **Stellar Estate** architecture in organization [`Stellar-Estate`](https://github.com/Stellar-Estate).
-
-```text
-Stellar-Estate/
-├── stellar-estate-frontend   (Web Application, Settlement Execution, Interactive Trace & Financial Passport)
-└── stellar-estate-core       (Backend API, Soroban Contracts, Settlement Engine & Reconciliation Service)
-```
-
----
-
-## 1. Product Thesis
-
-Stellar Estate transforms property revenue into programmable, traceable, and settleable financial flows on the Stellar network.
-
-$$\text{Property} \longrightarrow \text{Revenue} \longrightarrow \text{Vault} \longrightarrow \text{Locked Agreement} \longrightarrow \text{Waterfall} \longrightarrow \text{Multi-Recipient Settlement} \longrightarrow \text{Proof}$$
-
-> **“Every property has a story. We make its money programmable.”**
-
-The user experience empowers property owners, operators, and investors to answer:
-> **“Property revenue came in. According to the locked agreement, where exactly did the money go?”**
+**🌐 Live Production Platform:** [https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)  
+**⚖️ Hackathon Judges Evaluation Guide:** [docs/JUDGES_GUIDE.md](https://github.com/Stellar-Estate/stellar-estate-core/blob/main/docs/JUDGES_GUIDE.md)  
+**🏛️ Core & Smart Contracts Repository:** [`Stellar-Estate/stellar-estate-core`](https://github.com/Stellar-Estate/stellar-estate-core)  
 
 ---
 
-## 2. Key Modules & User Experience
+## Platform Preview
+
+![Stellar Estate Hero Platform](public/assets/stellar_estate_hero.svg)
+
+---
+
+## 1. Product Thesis & Architecture
+
+Stellar Estate turns real-estate rental and operating revenue into programmable, transparent, and instantly settleable financial flows on the Stellar network.
+
+$$\text{Property (RWA)} \longrightarrow \text{Revenue Deposit} \longrightarrow \text{Vault} \longrightarrow \text{Locked Agreement} \longrightarrow \text{Waterfall Engine} \longrightarrow \text{Multi-Recipient Settlement} \longrightarrow \text{Reconciliation Proof}$$
+
+The user experience solves the multi-billion dollar opacity problem for property owners, syndicate operators, and fractional investors:
+> **“Property revenue came in on-chain. According to the locked agreement, where exactly did every single dollar and stroop go?”**
+
+### "Where Did My Rent Go?" Visual Lineage Trace
+
+![Where Did My Rent Go Trace](public/assets/where_did_my_rent_go_trace.svg)
+
+---
+
+## 2. Key Modules & User Capabilities
 
 ### 1. "Where Did My Rent Go?" Interactive Trace (`/settlements`)
-* Complete step-by-step audit trail showing how verified tenant revenue progresses through deterministic waterfall rules into multi-recipient payouts:
-  $$\$10,000 \text{ Rent} \longrightarrow -\$1,000 \text{ OpEx} \longrightarrow -\$1,000 \text{ Reserve} \longrightarrow -\$400 \text{ Mgmt Fee} \longrightarrow \$7,600 \text{ Distributable}$$
+* Complete step-by-step visual audit trail displaying how verified tenant revenue flows through deterministic waterfall rules into stakeholder payouts.
 * Direct links to:
-  * Tenant revenue transaction on Stellar.Expert Explorer
-  * Locked distribution agreement version and canonical SHA-256 hash
-  * Individual recipient payments (Alice: 40%, Bob: 35%, Charlie: 25%) with transaction hashes
-  * On-chain mathematical invariant verification badge
+  * Ingested revenue deposit transaction on StellarExpert Explorer.
+  * Locked distribution agreement version and canonical SHA-256 agreement hash.
+  * Individual recipient payout transactions with on-chain transaction hashes.
+  * On-chain mathematical zero-dust invariant verification badge.
 
 ### 2. Multi-Recipient Settlement Execution
-* Preview deterministic waterfall before money moves.
+* Preview deterministic waterfall calculations before funds move on-chain.
 * Non-custodial execution flow: `PREVIEW` $\rightarrow$ `SIGNING` $\rightarrow$ `SUBMITTING` $\rightarrow$ `CONFIRMING` $\rightarrow$ `SETTLED` $\rightarrow$ `RECONCILED`.
-* Double-spending protection: Revenue records are consumed once and cannot be settled twice.
+* Double-spending protection: Ingested revenue records are consumed once and cannot be re-settled.
 
-### 3. Property Financial Passport
+### 3. Property Financial Passport (`/detail/:id`)
 * Permanent verifiable financial history tracking lifetime statistics:
-  * Total Lifetime Revenue
+  * Total Lifetime Revenue Ingested
   * Total Operating Expenses Deducted
   * Total Maintenance Reserves Held in Vault
   * Total Management Fees Paid
   * Total Distributed to Stakeholders
   * Total Settlements Executed
-  * Active Agreement Version & Canonical Hash
-  * Reconciliation Health (`✓ CURRENT • 100% Balanced`)
+  * Active Agreement Version & Canonical SHA-256 Hash
+  * Cross-Ledger Reconciliation Health (`✓ CURRENT • 100% Balanced`)
 
-### 4. Stakeholder Earnings
-* Granular stakeholder dashboard for equity participants (Alice, Bob, Charlie).
-* Displays current basis points allocation, lifetime revenue allocated, lifetime settled, pending funds, and individual payout receipts with Explorer links.
+### 4. Stakeholder Consensus & Governance (`/agreements`)
+* Propose agreement versions with waterfall deductions and stakeholder basis points ($10,000 \text{ bps} \equiv 100.00\%$).
+* Multi-party cryptographic consensus approvals against canonical 64-character SHA-256 agreement hashes.
+* Immutable contract locking on Soroban once 100% stakeholder consensus is attained.
 
-### 5. Distribution Agreements & Governance (`/agreements`)
-* Propose agreement versions with waterfall deductions and stakeholder basis points ($10,000 \text{ bps} = 100\%$).
-* Multi-stakeholder cryptographic approvals against the exact canonical SHA-256 agreement hash.
-* Immutable locking on Soroban smart contract once all approvals are received.
-
-### 6. Property Profiles & Vault Ingestion (`/properties`, `/detail`)
-* Physical property specs (Valuation, Units, Occupancy rate, Location).
-* Dedicated Stellar Testnet vault addresses.
-* Live revenue deposit modal supporting real payments via Freighter wallet or instant developer test accounts.
+### 5. Audit & Compliance Station (`/audit`)
+* Cross-ledger discrepancy detector comparing local state against Horizon validators.
+* Real-time network protocol health, base fees, and ledger sequencing monitor.
+* Automated audit log with filterable entities and transaction verification proofs.
+* Interactive JSON audit bundle downloader for hackathon judges and auditors.
 
 ---
 
 ## 3. Technology Stack
 
-* **Framework:** React 18, TypeScript, Vite
-* **Styling:** Vanilla CSS design system with custom HSL dark mode, glassmorphism, and micro-animations
-* **Icons & UI:** Lucide React
-* **Stellar Integration:** `@stellar/stellar-sdk` (Testnet Horizon & Soroban RPC)
-* **Testing:** Vitest automated test suite (16/16 passing)
-* **Hosting:** Netlify with automated SPA routing (`_redirects`)
+* **Framework:** React 19, TypeScript, Vite
+* **Styling:** Tailwind CSS + Vanilla glassmorphism design system with custom HSL dark mode
+* **Icons:** Lucide React
+* **Stellar Integration:** `@stellar/stellar-sdk` (Protocol 22 Horizon & Soroban RPC)
+* **Wallet Adapter:** Non-custodial Freighter Wallet integration
+* **Testing:** Vitest automated test suite (**88 / 88 passing**)
+* **Deployment:** Netlify Production with automated SPA routing, caching headers & CSP (`netlify.toml`)
 
 ---
 
-## 4. Local Development & Testing
+## 4. Local Development & Verification
 
+### Prerequisites
+* Node.js v18.0.0 or higher
+* npm v9.0.0 or higher
+* Modern web browser with Freighter wallet extension (configured to Stellar Testnet)
+
+### Commands
 ```bash
 # Install dependencies
 npm install
 
-# Run automated unit and integration tests (16/16 passing)
+# Run Frontend Component & Integration Tests (88/88 Passing)
 npm test
 
-# Typecheck and build production bundle
+# Typecheck TypeScript code
 npm run lint
+
+# Build optimized production bundle
 npm run build
 
-# Start local development server
+# Start local Vite development server (Port 5173)
 npm run dev
 ```
 
 ---
 
-## 5. Live Production Deployment & Smart Contracts
+## 5. Production Netlify Deployment
 
-* **Live Web Application:** [https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)
-* **Deployed Soroban Property Vault:** [`CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL`](https://stellar.expert/explorer/testnet/contract/CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL)
-* **Contract Deployment Tx:** [`9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939`](https://stellar.expert/explorer/testnet/tx/9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939)
-* **Deployer Account:** [`GDBPVECOODV7XMJESSY3QP7ASUBLHIN7BOVK7MSTBEJQJJPRSM3RHSYJ`](https://stellar.expert/explorer/testnet/account/GDBPVECOODV7XMJESSY3QP7ASUBLHIN7BOVK7MSTBEJQJJPRSM3RHSYJ)
-* **Netlify Site ID:** `bc5fc4fd-0dfb-4954-8a2d-f4fabc7e3402`
-
----
-
-## 6. Legal & Prototype Boundary
-
-> **System Notice:** Stellar Estate is a prototype programmable real-estate financial infrastructure. It records financial agreements, waterfall allocations, and cash flows on Stellar Testnet. It does **not** transfer legal title to physical property, represent a regulated securities offering, or constitute financial/investment advice. Physical property title remains governed by jurisdiction-specific real-estate registries.
+The application is deployed on Netlify with automated continuous deployment from `main`:
+* **Live URL:** [https://stellar-estate-app.netlify.app](https://stellar-estate-app.netlify.app)
+* **Configuration:** Defined in `netlify.toml` with strict CSP headers, asset caching, and SPA redirect fallbacks (`/* -> /index.html 200`).
+* **Environment Configuration:**
+  * `VITE_API_URL` — Backend API endpoint
+  * `VITE_STELLAR_NETWORK` — `TESTNET`
+  * `VITE_HORIZON_URL` — `https://horizon-testnet.stellar.org`
 
 ---
 
-## 7. Community, Contributing & License
+## 6. License
 
-* **Contributing:** We welcome contributions! Please review our [Contributing Guidelines](CONTRIBUTING.md) and check out our [Good First Issues](https://github.com/Stellar-Estate/stellar-estate-frontend/issues).
-* **Code of Conduct:** All community participants are expected to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
-* **Security Policy:** For reporting vulnerabilities and non-custodial key safety practices, please consult [SECURITY.md](SECURITY.md).
-* **License:** This project is licensed under the **Apache License 2.0** — see the [LICENSE](LICENSE) file for details.
-
+Licensed under the **Apache License 2.0** — see the [LICENSE](LICENSE) file for details.

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { apiService } from '../services/apiService.ts';
-import { Property } from '../types.ts';
+import { apiService } from '../services/apiService';
+import { Property } from '../types';
 import {
   X,
   History,
@@ -14,7 +14,7 @@ import {
   Clock,
   UserCheck
 } from 'lucide-react';
-import { getStellarExpertUrl } from '../utils/stellarExpert.ts';
+import { getStellarExpertUrl } from '../utils/stellarExpert';
 
 interface PropertyAuditTrailModalProps {
   property: Property;
@@ -179,3 +179,4 @@ export const PropertyAuditTrailModal: React.FC<PropertyAuditTrailModalProps> = (
     </div>
   );
 };
+

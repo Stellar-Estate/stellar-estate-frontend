@@ -154,7 +154,7 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
 
   const filteredSettlements = settlements.filter((s) => {
     if (settlementFilter === 'RECONCILED' && !(s.status === 'RECONCILED' || (s as any).reconciliation_status === 'RECONCILED')) return false;
-    if (settlementFilter === 'SETTLED' && !(s.status === 'SETTLED' || s.status === 'CONFIRMED')) return false;
+    if (settlementFilter === 'SETTLED' && !(s.status === 'SETTLED' || (s.status as any) === 'CONFIRMED')) return false;
     if (settlementFilter === 'IN_PROGRESS' && !['CREATED', 'VALIDATING', 'CALCULATING', 'READY', 'SUBMITTING', 'CONFIRMING'].includes(s.status)) return false;
 
     if (searchQuery.trim()) {
@@ -377,7 +377,7 @@ export const SettlementsPage: React.FC<SettlementsPageProps> = ({
                 const count = settlements.filter((s) => {
                   if (filter === 'ALL') return true;
                   if (filter === 'RECONCILED') return s.status === 'RECONCILED' || (s as any).reconciliation_status === 'RECONCILED';
-                  if (filter === 'SETTLED') return s.status === 'SETTLED' || s.status === 'CONFIRMED';
+                  if (filter === 'SETTLED') return s.status === 'SETTLED' || (s.status as any) === 'CONFIRMED';
                   if (filter === 'IN_PROGRESS') return ['CREATED', 'VALIDATING', 'CALCULATING', 'READY', 'SUBMITTING', 'CONFIRMING'].includes(s.status);
                   return true;
                 }).length;
