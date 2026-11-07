@@ -89,7 +89,7 @@ export const HackathonJudgeBadge: React.FC = () => {
 
           <div className="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
             <span className="text-emerald-400 font-medium">Protocol 22 Ready</span>
-            <span className="text-slate-500 font-mono">186 Verified Tests</span>
+            <span className="text-slate-500 font-mono">200 Verified Tests</span>
           </div>
         </div>
       )}

@@ -12,7 +12,7 @@ All contributors are expected to uphold our [Code of Conduct](CODE_OF_CONDUCT.md
 
 ## Application Architecture
 
-The web application is built with React 18, TypeScript, and Vite:
+The web application is built with React 19, TypeScript, and Vite:
 
 ```text
 stellar-estate-frontend/
@@ -58,7 +58,7 @@ stellar-estate-frontend/
 # 1. Install dependencies
 npm install
 
-# 2. Run unit and integration tests (16/16 Vitest passing)
+# 2. Run unit and integration tests (88/88 Vitest passing)
 npm test
 
 # 3. Validate TypeScript types & production bundle
