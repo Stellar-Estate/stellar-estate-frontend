@@ -31,7 +31,7 @@ export const AgreementApprovalModal: React.FC<AgreementApprovalModalProps> = ({
   onClose,
   onVersionUpdated,
 }) => {
-  const { wallet } = useWallet();
+  const { wallet, cachedSecretKey } = useWallet();
   const { showSuccess, showError } = useToast();
   const [isApproving, setIsApproving] = useState(false);
   const [isLocking, setIsLocking] = useState(false);
@@ -59,9 +59,25 @@ export const AgreementApprovalModal: React.FC<AgreementApprovalModalProps> = ({
     setSuccessMessage(null);
 
     try {
+      let signatureOrProof: string | undefined;
+      if (cachedSecretKey) {
+        try {
+          const { Keypair } = await import('@stellar/stellar-sdk');
+          const kp = Keypair.fromSecret(cachedSecretKey);
+          const cleanHex = version.agreement_hash.startsWith('0x') ? version.agreement_hash.slice(2) : version.agreement_hash;
+          const match = cleanHex.match(/.{1,2}/g);
+          const hashBytes = new Uint8Array(match ? match.map((byte) => parseInt(byte, 16)) : []);
+          const sigUint8: Uint8Array = kp.sign(hashBytes);
+          signatureOrProof = Array.from(sigUint8, (b) => b.toString(16).padStart(2, '0')).join('');
+        } catch {
+          // Continue if standalone signature derivation fails
+        }
+      }
+
       await apiService.approveAgreementVersion(version.id, {
         stakeholderAddress: wallet.address,
         agreementHash: version.agreement_hash,
+        signatureOrProof,
       });
 
       const succMsg = 'Cryptographic approval successfully registered for this exact canonical agreement hash.';

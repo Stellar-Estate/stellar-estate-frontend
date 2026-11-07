@@ -33,7 +33,7 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
   onClose,
   onSuccess,
 }) => {
-  const { wallet } = useWallet();
+  const { wallet, cachedSecretKey } = useWallet();
   const { showSuccess, showError } = useToast();
   const [step, setStep] = useState<'PREVIEW' | 'SIGNING' | 'SUBMITTING' | 'CONFIRMING' | 'SUCCESS'>('PREVIEW');
   const [preview, setPreview] = useState<any>(null);
@@ -70,20 +70,33 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
     setStep('SIGNING');
 
     try {
-      // Simulate cryptographic wallet signing step
-      await new Promise((r) => setTimeout(r, 900));
+      const executor = wallet.address || 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD';
+      let signature: string | undefined;
+
+      // Cryptographic signature if session keypair is available
+      if (cachedSecretKey) {
+        try {
+          const { Keypair } = await import('@stellar/stellar-sdk');
+          const kp = Keypair.fromSecret(cachedSecretKey);
+          const messageBytes = new TextEncoder().encode(`settle:${propertyId}:${revenueIds.join(',')}`);
+          const sigUint8: Uint8Array = kp.sign(messageBytes);
+          signature = Array.from(sigUint8, (b) => b.toString(16).padStart(2, '0')).join('');
+        } catch {
+          // Continue if standalone signature derivation unavailable
+        }
+      }
+
       setStep('SUBMITTING');
 
       // Submit to backend & Soroban contracts
-      await new Promise((r) => setTimeout(r, 900));
-      setStep('CONFIRMING');
-
-      const executor = wallet.address || 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD';
       const settlement = await apiService.executeSettlement({
         propertyId,
         revenueIds: revenueIds.length > 0 ? revenueIds : ['rev-meridian-001'],
         executorAddress: executor,
+        signature,
       });
+
+      setStep('CONFIRMING');
 
       setSettlementResult(settlement);
       setStep('SUCCESS');

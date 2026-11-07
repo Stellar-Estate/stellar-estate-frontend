@@ -35,9 +35,15 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   // Restore session
   useEffect(() => {
+    // Security Hardening: Immediately purge any legacy secret keys from localStorage
+    try {
+      localStorage.removeItem('se_wallet_secret');
+    } catch {
+      // Ignore if localStorage unavailable
+    }
+
     const savedType = localStorage.getItem('se_wallet_type');
     const savedAddress = localStorage.getItem('se_wallet_address');
-    const savedSecret = localStorage.getItem('se_wallet_secret');
 
     if (savedAddress && savedType) {
       setWallet({
@@ -48,9 +54,6 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         isTestnet: true,
         walletType: savedType as any,
       });
-      if (savedSecret) {
-        setCachedSecretKey(savedSecret);
-      }
       stellarService.fetchLiveBalance(savedAddress).then((bal) => {
         setWallet((prev) => ({ ...prev, balanceXlm: bal }));
       });
@@ -112,10 +115,15 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         isTestnet: true,
         walletType: 'KEYPAIR_TESTNET',
       });
+      // Store secret key exclusively in-memory for the active session (never in localStorage)
       setCachedSecretKey(sec);
       localStorage.setItem('se_wallet_type', 'KEYPAIR_TESTNET');
       localStorage.setItem('se_wallet_address', pub);
-      localStorage.setItem('se_wallet_secret', sec);
+      try {
+        localStorage.removeItem('se_wallet_secret');
+      } catch {
+        // Ignore
+      }
 
       return { publicKey: pub, secretKey: sec };
     } catch (err: any) {
