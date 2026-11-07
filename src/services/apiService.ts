@@ -331,7 +331,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/revenue/initiate`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify(params),
       });
       if (res.ok) {
@@ -358,7 +361,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/revenue/verify`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify(params),
       });
       const body = await res.json();
@@ -475,7 +481,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/agreements`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify(params),
       });
       const body = await res.json();
@@ -527,7 +536,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/agreements/${agreementId}/versions`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify(params),
       });
       const body = await res.json();
@@ -543,7 +555,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/agreements/versions/${versionId}/approve`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify(params),
       });
       const body = await res.json();
@@ -579,7 +594,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/agreements/versions/${versionId}/lock`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ callerAddress }),
       });
       const body = await res.json();
@@ -608,7 +626,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/agreements/versions/${versionId}/preview`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ sampleRevenue }),
       });
       const body = await res.json();
@@ -781,7 +802,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/settlements/preview`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ propertyId, revenueIds }),
       });
       const body = await res.json();
@@ -829,7 +853,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/settlements/execute`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify(params),
       });
       const body = await res.json();
@@ -1158,7 +1185,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/revenue/batch`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ property_id: propertyId, deposits }),
       });
       const body = await res.json();
@@ -1206,7 +1236,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/blockchain/simulate-settlement`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({
           property_id: propertyId,
           simulated_gross: simulatedGross,
@@ -1410,7 +1443,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/agreements/${agreementId}/fork`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ sourceVersionNumber, proposerAddress }),
       });
       if (res.ok) {
@@ -1622,7 +1658,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/webhooks`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ url, events }),
       });
       if (res.ok) return await res.json();
@@ -1645,7 +1684,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/webhooks/test-dispatch`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ url, event, payload }),
       });
       if (res.ok) return await res.json();
@@ -1798,7 +1840,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/properties/${propertyId}/reserves/calculate-replenishment`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ target_ratio_bps: targetBps }),
       });
       if (res.ok) return await res.json();
@@ -1889,7 +1934,10 @@ class ApiService {
     try {
       const res = await fetch(`${API_BASE_URL}/agreements/${agreementId}/versions/${version}/check-stakeholder`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': (import.meta as any).env?.VITE_ADMIN_KEY || 'stellar-estate-admin-key-2026',
+        },
         body: JSON.stringify({ address }),
       });
       if (res.ok) return await res.json();
