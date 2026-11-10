@@ -92,7 +92,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
               <span className="badge badge-stellar">{property.property_type}</span>
               <span className="badge badge-success">Vault Active</span>
-              <VaultAssetBadge assetCode="USDC" contractId={property.vault_contract_id || 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH'} />
+              <VaultAssetBadge assetCode="USDC" contractId={property.vault_contract_id || 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL'} />
             </div>
             <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{property.name}</h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
@@ -269,7 +269,7 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({
               <VaultSummaryCard
                 propertyId={property.id}
                 propertyName={property.name}
-                contractId={property.vault_contract_id || 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH'}
+                contractId={property.vault_contract_id || 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL'}
                 totalRevenue={property.total_revenue_pool}
                 distributableBalance={property.distributable_balance}
                 reserveBalance={property.reserve_balance}

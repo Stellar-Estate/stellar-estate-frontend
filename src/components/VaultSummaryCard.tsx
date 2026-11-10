@@ -16,7 +16,7 @@ export interface VaultSummaryCardProps {
 export const VaultSummaryCard: React.FC<VaultSummaryCardProps> = ({
   propertyId,
   propertyName = 'Property Vault',
-  contractId = 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+  contractId = 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL',
   totalRevenue = 250000,
   distributableBalance = 175000,
   reserveBalance = 25000,

@@ -10,7 +10,7 @@ interface VaultAssetBadgeProps {
 
 export const VaultAssetBadge: React.FC<VaultAssetBadgeProps> = ({
   assetCode = 'USDC',
-  contractId = 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+  contractId = 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL',
   className = '',
 }) => {
   const [copied, setCopied] = useState(false);

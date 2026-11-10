@@ -70,7 +70,7 @@ export const SettlementExecutionModal: React.FC<SettlementExecutionModalProps> =
     setStep('SIGNING');
 
     try {
-      const executor = wallet.address || 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD';
+      const executor = wallet.address || 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV';
       let signature: string | undefined;
 
       // Cryptographic signature if session keypair is available

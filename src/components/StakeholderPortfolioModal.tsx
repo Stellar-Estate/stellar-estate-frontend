@@ -22,7 +22,7 @@ interface StakeholderPortfolioModalProps {
 export const StakeholderPortfolioModal: React.FC<StakeholderPortfolioModalProps> = ({
   isOpen,
   onClose,
-  walletAddress = 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+  walletAddress = 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
 }) => {
   const [portfolio, setPortfolio] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);

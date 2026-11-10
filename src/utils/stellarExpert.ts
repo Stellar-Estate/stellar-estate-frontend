@@ -29,7 +29,7 @@ export function getStellarExpertUrl(
 
 /**
  * Truncates a Stellar G... public key or C... contract ID for compact UI presentation
- * e.g., 'GBTY4...ABCD'
+ * e.g., 'GDO45...BYVV'
  */
 export function formatStellarAddress(address: string, sliceLength = 4): string {
   if (!address || address.length < sliceLength * 2 + 3) {

@@ -54,19 +54,19 @@ export const WaterfallBuilder: React.FC<WaterfallBuilderProps> = ({
     Omit<AgreementStakeholder, 'id' | 'agreement_version_id' | 'has_approved' | 'approved_at'>[]
   >([
     {
-      wallet_address: wallet.address || 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+      wallet_address: wallet.address || 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
       name: 'Alice (Meridian Capital)',
       role: 'Majority Equity',
       basis_points: 4000, // 40.00%
     },
     {
-      wallet_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ',
+      wallet_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU',
       name: 'Bob (Apex Property Mgmt)',
       role: 'Operating Partner',
       basis_points: 3500, // 35.00%
     },
     {
-      wallet_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN',
+      wallet_address: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU',
       name: 'Charlie (Strategic Investor)',
       role: 'Equity Participant',
       basis_points: 2500, // 25.00%

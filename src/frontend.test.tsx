@@ -49,12 +49,12 @@ describe('Stellar Estate Frontend Logic & Data Tests', () => {
 
     expect(intent.propertyName).toBe('The Meridian');
     expect(intent.suggestedAmount).toBe(100.0);
-    expect(intent.destinationVaultAddress).toBe('GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD');
+    expect(intent.destinationVaultAddress).toBe('GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC');
     expect(intent.network).toBe('TESTNET');
   });
 
   it('apiService.verifyDeposit should persist verified revenue on client-side', async () => {
-    const hash = 'a1b2c3d4e5f60718293a4b5c6d7e8f901234567890abcdef1234567890abcdef';
+    const hash = '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35';
     const result = await apiService.verifyDeposit({
       propertyId: 'prop-meridian-abuja',
       transactionHash: hash,
@@ -189,7 +189,7 @@ describe('Property Distribution Agreements & Waterfall Tests', () => {
 
     const lockedVer = await apiService.lockAgreementVersion(
       v2.id,
-      'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD'
+      'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV'
     );
     expect(lockedVer.status).toBe('LOCKED');
     expect(lockedVer.locked_at).toBeDefined();
@@ -223,7 +223,7 @@ describe('Programmable Settlement Platform Tests', () => {
     const settlement = await apiService.executeSettlement({
       propertyId: 'prop-meridian-abuja',
       revenueIds: ['rev-01'],
-      executorAddress: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+      executorAddress: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
     });
 
     expect(settlement.id).toContain('STL-MERIDIAN');
@@ -254,7 +254,7 @@ describe('Programmable Settlement Platform Tests', () => {
   });
 
   it('apiService.getStakeholderEarnings should return verified earnings for Alice', async () => {
-    const alice = 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD';
+    const alice = 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV';
     const earnings = await apiService.getStakeholderEarnings(alice);
     expect(earnings.wallet_address).toBe(alice);
     expect(earnings.stakeholder_name).toContain('Alice');
@@ -278,7 +278,7 @@ describe('Programmable Settlement Platform Tests', () => {
   });
 
   it('QrCodeModal should render SEP-0007 modal with qr image and raw uri', () => {
-    const testUri = 'web+stellar:pay?destination=GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD&amount=250.00';
+    const testUri = 'web+stellar:pay?destination=GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV&amount=250.00';
     const markup = renderToStaticMarkup(
       <QrCodeModal
         isOpen={true}
@@ -289,7 +289,7 @@ describe('Programmable Settlement Platform Tests', () => {
     );
     expect(markup).toContain('SEP-0007 URI');
     expect(markup).toContain('Deposit Rental Revenue');
-    expect(markup).toContain('web+stellar:pay?destination=GBTY42VFL');
+    expect(markup).toContain('web+stellar:pay?destination=GDO45IXJT');
     expect(markup).toContain('amount=250.00');
     expect(markup).toContain('api.qrserver.com');
 
@@ -776,7 +776,7 @@ describe('Programmable Settlement Platform Tests', () => {
   });
 
   it('apiService.getStakeholderPortfolio should return aggregated equity and lifetime payouts', async () => {
-    const res = await apiService.getStakeholderPortfolio('GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD');
+    const res = await apiService.getStakeholderPortfolio('GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV');
     expect(res.success).toBe(true);
     expect(res.data).toHaveProperty('total_properties_invested');
     expect(res.data).toHaveProperty('total_portfolio_equity_value_usdc');
@@ -940,7 +940,7 @@ describe('Programmable Settlement Platform Tests', () => {
   });
 
   it('apiService.checkAgreementStakeholder should check stakeholder status', async () => {
-    const resAlice = await apiService.checkAgreementStakeholder('agr-meridian-001', 2, 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD');
+    const resAlice = await apiService.checkAgreementStakeholder('agr-meridian-001', 2, 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV');
     expect(resAlice.success).toBe(true);
     expect(resAlice.data.is_stakeholder).toBe(true);
     expect(resAlice.data.stakeholder).toBeDefined();
@@ -953,10 +953,10 @@ describe('Programmable Settlement Platform Tests', () => {
   it('VaultAssetBadge should render accepted asset and StellarExpert explorer link', async () => {
     const { VaultAssetBadge } = await import('./components/VaultAssetBadge');
     const html = renderToStaticMarkup(
-      <VaultAssetBadge assetCode="USDC" contractId="CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH" />
+      <VaultAssetBadge assetCode="USDC" contractId="CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL" />
     );
     expect(html).toContain('Vault Asset: USDC');
-    expect(html).toContain('CAQCFV...4KLCPH');
+    expect(html).toContain('CA3JRB...BWMUAL');
     expect(html).toContain('StellarExpert');
   });
 
@@ -1052,8 +1052,8 @@ describe('Programmable Settlement Platform Tests', () => {
   it('StakeholderConsensusCard should render multi-sig approval progress and stakeholder list', async () => {
     const { StakeholderConsensusCard } = await import('./components/StakeholderConsensusCard');
     const mockStakeholders: any[] = [
-      { id: '1', name: 'Alice', role: 'Majority Equity', basis_points: 6000, has_approved: true, wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD' },
-      { id: '2', name: 'Bob', role: 'Operating Partner', basis_points: 4000, has_approved: false, wallet_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ' },
+      { id: '1', name: 'Alice', role: 'Majority Equity', basis_points: 6000, has_approved: true, wallet_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV' },
+      { id: '2', name: 'Bob', role: 'Operating Partner', basis_points: 4000, has_approved: false, wallet_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU' },
     ];
     const html = renderToStaticMarkup(
       <StakeholderConsensusCard

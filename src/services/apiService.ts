@@ -28,7 +28,7 @@ const FALLBACK_PROPERTIES: Property[] = [
     valuation: 500000.0,
     unit_count: 10,
     occupancy_percentage: 90.0,
-    vault_stellar_address: 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+    vault_stellar_address: 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
     status: 'ACTIVE',
     image_url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
     metadata: {
@@ -57,7 +57,7 @@ const FALLBACK_PROPERTIES: Property[] = [
     valuation: 1800000.0,
     unit_count: 24,
     occupancy_percentage: 95.8,
-    vault_stellar_address: 'GBVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDEKOT',
+    vault_stellar_address: 'GDQLJOX777NDD3B7QMRY2THYFTFTLT45M5X5G54VJRN3DFSO6UGJNM4M',
     status: 'ACTIVE',
     image_url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
     metadata: {
@@ -65,7 +65,7 @@ const FALLBACK_PROPERTIES: Property[] = [
       gross_floor_area_sqm: 4200,
       energy_rating: 'A+',
       accepted_revenue_assets: ['XLM', 'USDC'],
-      soroban_vault_contract: 'CBVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5EKOVAULT',
+      soroban_vault_contract: 'CAO5DKIK63JJ2M7INJ6QZ5CMCBTHQ3TS534366QZQL6UV5HD6LRQ5BTT',
     },
     financial_summary: {
       total_revenue_recorded: 24500.0,
@@ -85,7 +85,7 @@ const FALLBACK_PROPERTIES: Property[] = [
     valuation: 750000.0,
     unit_count: 16,
     occupancy_percentage: 87.5,
-    vault_stellar_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN',
+    vault_stellar_address: 'GB2PPB7FPBH3MRGKU6UPAIBDEZUOPLMQWXIMNJQVYPWB2VYQ46F7SM6T',
     status: 'ACTIVE',
     image_url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
     metadata: {
@@ -93,7 +93,7 @@ const FALLBACK_PROPERTIES: Property[] = [
       gross_floor_area_sqm: 2100,
       energy_rating: 'B+',
       accepted_revenue_assets: ['XLM', 'USDC'],
-      soroban_vault_contract: 'CCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5KLMVAULT',
+      soroban_vault_contract: 'CCQL2W4NJ5O4WIN4727NVQ6UZPRWLBUCST7DEHI3VFBMJ3BXF6VDTVF5',
     },
     financial_summary: {
       total_revenue_recorded: 11200.0,
@@ -119,12 +119,12 @@ class ApiService {
         source: 'RENTAL_REVENUE',
         amount: 8000.0,
         asset: 'XLM',
-        transaction_hash: '3f6c8d76a5b4e3c2d1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8',
-        depositor_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
-        destination_address: 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+        transaction_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
+        depositor_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
+        destination_address: 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
         status: 'CONFIRMED',
         verified_at: '2026-09-01T10:00:00Z',
-        metadata: { ledger: 1042345, explorerUrl: 'https://stellar.expert/explorer/testnet/tx/3f6c8d76a5b4e3c2d1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8' },
+        metadata: { ledger: 1042345, explorerUrl: 'https://stellar.expert/explorer/testnet/tx/9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939' },
         created_at: '2026-09-01T10:00:00Z',
       },
       {
@@ -134,8 +134,8 @@ class ApiService {
         amount: 8000.0,
         asset: 'XLM',
         transaction_hash: '9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b',
-        depositor_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
-        destination_address: 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+        depositor_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
+        destination_address: 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
         status: 'CONFIRMED',
         verified_at: '2026-10-01T10:00:00Z',
         metadata: { ledger: 1084512, explorerUrl: 'https://stellar.expert/explorer/testnet/tx/9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b' },
@@ -151,9 +151,9 @@ class ApiService {
     ];
 
     const v1Stakeholders: AgreementStakeholder[] = [
-      { id: 's1', agreement_version_id: 'v1', wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD', name: 'Alice (Meridian Capital)', role: 'Majority Equity', basis_points: 4000, has_approved: true, approved_at: '2026-09-15T10:00:00Z' },
-      { id: 's2', agreement_version_id: 'v1', wallet_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ', name: 'Bob (Apex Property Mgmt)', role: 'Operating Partner', basis_points: 3500, has_approved: true, approved_at: '2026-09-15T10:45:00Z' },
-      { id: 's3', agreement_version_id: 'v1', wallet_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN', name: 'Charlie (Strategic Investor)', role: 'Equity Participant', basis_points: 2500, has_approved: true, approved_at: '2026-09-15T11:30:00Z' },
+      { id: 's1', agreement_version_id: 'v1', wallet_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV', name: 'Alice (Meridian Capital)', role: 'Majority Equity', basis_points: 4000, has_approved: true, approved_at: '2026-09-15T10:00:00Z' },
+      { id: 's2', agreement_version_id: 'v1', wallet_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU', name: 'Bob (Apex Property Mgmt)', role: 'Operating Partner', basis_points: 3500, has_approved: true, approved_at: '2026-09-15T10:45:00Z' },
+      { id: 's3', agreement_version_id: 'v1', wallet_address: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU', name: 'Charlie (Strategic Investor)', role: 'Equity Participant', basis_points: 2500, has_approved: true, approved_at: '2026-09-15T11:30:00Z' },
     ];
 
     const v1: DistributionAgreementVersion = {
@@ -164,7 +164,7 @@ class ApiService {
       accepted_asset: 'USDC',
       effective_date: '2026-09-01',
       canonical_representation: '{"property_id":"prop-meridian-abuja","version":1}',
-      agreement_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+      agreement_hash: '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35',
       status: 'LOCKED',
       contract_reference: 'SOROBAN_MERIDIAN_DISTRIB_AGR_V1',
       created_at: '2026-09-10T09:00:00Z',
@@ -172,9 +172,9 @@ class ApiService {
       waterfall_rules: v1Rules,
       stakeholders: v1Stakeholders,
       approvals: [
-        { id: 'ap1', agreement_version_id: 'v1', wallet_address: v1Stakeholders[0].wallet_address, agreement_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', approval_type: 'STELLAR_WALLET', signature_or_proof: 'sig1', timestamp: '2026-09-15T10:00:00Z' },
-        { id: 'ap2', agreement_version_id: 'v1', wallet_address: v1Stakeholders[1].wallet_address, agreement_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', approval_type: 'STELLAR_WALLET', signature_or_proof: 'sig2', timestamp: '2026-09-15T10:45:00Z' },
-        { id: 'ap3', agreement_version_id: 'v1', wallet_address: v1Stakeholders[2].wallet_address, agreement_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', approval_type: 'STELLAR_WALLET', signature_or_proof: 'sig3', timestamp: '2026-09-15T11:30:00Z' },
+        { id: 'ap1', agreement_version_id: 'v1', wallet_address: v1Stakeholders[0].wallet_address, agreement_hash: '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35', approval_type: 'STELLAR_WALLET', signature_or_proof: 'sig1', timestamp: '2026-09-15T10:00:00Z' },
+        { id: 'ap2', agreement_version_id: 'v1', wallet_address: v1Stakeholders[1].wallet_address, agreement_hash: '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35', approval_type: 'STELLAR_WALLET', signature_or_proof: 'sig2', timestamp: '2026-09-15T10:45:00Z' },
+        { id: 'ap3', agreement_version_id: 'v1', wallet_address: v1Stakeholders[2].wallet_address, agreement_hash: '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35', approval_type: 'STELLAR_WALLET', signature_or_proof: 'sig3', timestamp: '2026-09-15T11:30:00Z' },
       ],
     };
 
@@ -185,9 +185,9 @@ class ApiService {
     ];
 
     const v2Stakeholders: AgreementStakeholder[] = [
-      { id: 's21', agreement_version_id: 'v2', wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD', name: 'Alice (Meridian Capital)', role: 'Majority Equity', basis_points: 4500, has_approved: true, approved_at: '2026-10-06T14:00:00Z' },
-      { id: 's22', agreement_version_id: 'v2', wallet_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ', name: 'Bob (Apex Property Mgmt)', role: 'Operating Partner', basis_points: 3000, has_approved: false },
-      { id: 's23', agreement_version_id: 'v2', wallet_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN', name: 'Charlie (Strategic Investor)', role: 'Equity Participant', basis_points: 2500, has_approved: false },
+      { id: 's21', agreement_version_id: 'v2', wallet_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV', name: 'Alice (Meridian Capital)', role: 'Majority Equity', basis_points: 4500, has_approved: true, approved_at: '2026-10-06T14:00:00Z' },
+      { id: 's22', agreement_version_id: 'v2', wallet_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU', name: 'Bob (Apex Property Mgmt)', role: 'Operating Partner', basis_points: 3000, has_approved: false },
+      { id: 's23', agreement_version_id: 'v2', wallet_address: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU', name: 'Charlie (Strategic Investor)', role: 'Equity Participant', basis_points: 2500, has_approved: false },
     ];
 
     const v2: DistributionAgreementVersion = {
@@ -214,7 +214,7 @@ class ApiService {
       agreement_identifier: 'MERIDIAN-REV-001',
       current_version: 2,
       status: 'LOCKED',
-      created_by: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+      created_by: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
       created_at: '2026-09-10T09:00:00Z',
       updated_at: '2026-10-06T14:00:00Z',
       versions: [v1, v2],
@@ -279,7 +279,7 @@ class ApiService {
         role: 'Majority Equity Holder',
         participant: {
           id: 'p-01',
-          wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+          wallet_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
           display_name: 'Meridian Capital Partners (Alice)',
           role: 'OWNER',
         },
@@ -292,7 +292,7 @@ class ApiService {
         role: 'Operating Partner',
         participant: {
           id: 'p-02',
-          wallet_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ',
+          wallet_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU',
           display_name: 'Apex Property Management (Bob)',
           role: 'OPERATOR',
         },
@@ -396,7 +396,7 @@ class ApiService {
         asset: 'XLM',
         transaction_hash: params.transactionHash,
         depositor_address: params.depositorAddress || 'G_TESTNET_DEPOSITOR',
-        destination_address: 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+        destination_address: 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
         status: 'CONFIRMED',
         verified_at: new Date().toISOString(),
         metadata: {
@@ -496,7 +496,7 @@ class ApiService {
       // Fallback creation
       const agrId = `agr-${Date.now()}`;
       const verId = `ver-${agrId}-v1`;
-      const hash = 'a1b2c3d4e5f60718293a4b5c6d7e8f901234567890abcdef1234567890abcdef';
+      const hash = '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35';
 
       const version: DistributionAgreementVersion = {
         id: verId,
@@ -645,7 +645,7 @@ class ApiService {
         property_id: 'prop-meridian-abuja',
         agreement_id: 'agr-meridian-001',
         version: 1,
-        agreement_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+        agreement_hash: '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35',
         gross_revenue_input: sampleRevenue,
         asset: 'USDC',
         total_waterfall_deductions: deductions,
@@ -656,9 +656,9 @@ class ApiService {
           { name: 'Management Fee', category: 'FEE', rule_type: 'PERCENTAGE_BASIS_POINTS', rate_or_amount: '5.00% (500 bps)', deducted_amount: 400, recipient_or_destination: 'Property Operator' },
         ],
         stakeholder_allocations: [
-          { wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD', name: 'Alice (Meridian Capital)', role: 'Majority Equity', basis_points: 4000, percentage: '40.00%', allocated_amount: distributable * 0.4 },
-          { wallet_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ', name: 'Bob (Apex Property Mgmt)', role: 'Operating Partner', basis_points: 3500, percentage: '35.00%', allocated_amount: distributable * 0.35 },
-          { wallet_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN', name: 'Charlie (Strategic Investor)', role: 'Equity Participant', basis_points: 2500, percentage: '25.00%', allocated_amount: distributable * 0.25 },
+          { wallet_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV', name: 'Alice (Meridian Capital)', role: 'Majority Equity', basis_points: 4000, percentage: '40.00%', allocated_amount: distributable * 0.4 },
+          { wallet_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU', name: 'Bob (Apex Property Mgmt)', role: 'Operating Partner', basis_points: 3500, percentage: '35.00%', allocated_amount: distributable * 0.35 },
+          { wallet_address: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU', name: 'Charlie (Strategic Investor)', role: 'Equity Participant', basis_points: 2500, percentage: '25.00%', allocated_amount: distributable * 0.25 },
         ],
         accounting_balanced: true,
         precision_model: 'Safe Integer (Basis Points / Cents Arithmetic)',
@@ -696,7 +696,7 @@ class ApiService {
       revenue_ids: ['rev-01'],
       agreement_id: 'agr-meridian-001',
       agreement_version: 1,
-      agreement_hash: 'a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0',
+      agreement_hash: 'b458ed0e05a63c7545b95943dd406245d2a5de94dcf44d5db09896d34da582b3',
       asset: 'USDC',
       gross_revenue: 10000.0,
       expenses: 1000.0,
@@ -708,42 +708,42 @@ class ApiService {
       executed_at: '2026-10-06T12:01:00Z',
       reconciled_at: '2026-10-06T12:02:00Z',
       transaction_hashes: [
-        'e8f7a6b5c4d3e2f10123456789abcdef0123456789abcdef0123456789abcdef',
-        'f9a8b7c6d5e4f3a20123456789abcdef0123456789abcdef0123456789abcdef',
-        '0a1b2c3d4e5f6a7b0123456789abcdef0123456789abcdef0123456789abcdef',
+        '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
+        '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
+        '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
       ],
       payouts: [
         {
-          recipient_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+          recipient_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
           recipient_name: 'Alice (Meridian Capital)',
           role: 'Majority Equity',
           basis_points: 4000,
           expected_amount: 3040.0,
           actual_amount: 3040.0,
           status: 'CONFIRMED',
-          transaction_hash: 'e8f7a6b5c4d3e2f10123456789abcdef0123456789abcdef0123456789abcdef',
+          transaction_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
           reconciled: true,
         },
         {
-          recipient_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ',
+          recipient_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU',
           recipient_name: 'Bob (Apex Property Mgmt)',
           role: 'Operating Partner',
           basis_points: 3500,
           expected_amount: 2660.0,
           actual_amount: 2660.0,
           status: 'CONFIRMED',
-          transaction_hash: 'f9a8b7c6d5e4f3a20123456789abcdef0123456789abcdef0123456789abcdef',
+          transaction_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
           reconciled: true,
         },
         {
-          recipient_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN',
+          recipient_address: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU',
           recipient_name: 'Charlie (Strategic Investor)',
           role: 'Equity Participant',
           basis_points: 2500,
           expected_amount: 1900.0,
           actual_amount: 1900.0,
           status: 'CONFIRMED',
-          transaction_hash: '0a1b2c3d4e5f6a7b0123456789abcdef0123456789abcdef0123456789abcdef',
+          transaction_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
           reconciled: true,
         },
       ],
@@ -752,7 +752,7 @@ class ApiService {
         revenue_amounts: [10000.0],
         agreement_id: 'agr-meridian-001',
         agreement_version: 1,
-        agreement_hash: 'a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0',
+        agreement_hash: 'b458ed0e05a63c7545b95943dd406245d2a5de94dcf44d5db09896d34da582b3',
         waterfall_rules: [],
         stakeholder_allocations: [],
         calculated_expenses: 1000.0,
@@ -760,9 +760,9 @@ class ApiService {
         calculated_fees: 400.0,
         distributable_amount: 7600.0,
         expected_payouts: [
-          { recipient: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD', name: 'Alice', amount: 3040.0, bps: 4000 },
-          { recipient: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ', name: 'Bob', amount: 2660.0, bps: 3500 },
-          { recipient: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN', name: 'Charlie', amount: 1900.0, bps: 2500 },
+          { recipient: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV', name: 'Alice', amount: 3040.0, bps: 4000 },
+          { recipient: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU', name: 'Bob', amount: 2660.0, bps: 3500 },
+          { recipient: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU', name: 'Charlie', amount: 1900.0, bps: 2500 },
         ],
         dust_remainder: 0,
         timestamp: '2026-10-06T12:00:00Z',
@@ -819,7 +819,7 @@ class ApiService {
         property_id: propertyId,
         agreement_id: 'agr-meridian-001',
         agreement_version: 1,
-        agreement_hash: 'a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0',
+        agreement_hash: 'b458ed0e05a63c7545b95943dd406245d2a5de94dcf44d5db09896d34da582b3',
         asset: 'USDC',
         gross_revenue: 10000.0,
         revenue_ids: revenueIds,
@@ -833,9 +833,9 @@ class ApiService {
           { name: 'Management Fee', category: 'FEE', rule_type: 'PERCENTAGE_BASIS_POINTS', rate_or_amount: '4.00% (400 bps)', deducted_amount: 400, recipient_or_destination: 'Operator Fee Account' },
         ],
         stakeholder_allocations: [
-          { wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD', name: 'Alice (Meridian Capital)', role: 'Majority Equity', basis_points: 4000, percentage: '40.00%', allocated_amount: 3040.0 },
-          { wallet_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ', name: 'Bob (Apex Property Mgmt)', role: 'Operating Partner', basis_points: 3500, percentage: '35.00%', allocated_amount: 2660.0 },
-          { wallet_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN', name: 'Charlie (Strategic Investor)', role: 'Equity Participant', basis_points: 2500, percentage: '25.00%', allocated_amount: 1900.0 },
+          { wallet_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV', name: 'Alice (Meridian Capital)', role: 'Majority Equity', basis_points: 4000, percentage: '40.00%', allocated_amount: 3040.0 },
+          { wallet_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU', name: 'Bob (Apex Property Mgmt)', role: 'Operating Partner', basis_points: 3500, percentage: '35.00%', allocated_amount: 2660.0 },
+          { wallet_address: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU', name: 'Charlie (Strategic Investor)', role: 'Equity Participant', basis_points: 2500, percentage: '25.00%', allocated_amount: 1900.0 },
         ],
         accounting_balanced: true,
         ready_for_execution: true,
@@ -874,7 +874,7 @@ class ApiService {
         revenue_ids: params.revenueIds,
         agreement_id: 'agr-meridian-001',
         agreement_version: 1,
-        agreement_hash: 'a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0',
+        agreement_hash: 'b458ed0e05a63c7545b95943dd406245d2a5de94dcf44d5db09896d34da582b3',
         asset: 'USDC',
         gross_revenue: 10000.0,
         expenses: 1000.0,
@@ -886,42 +886,42 @@ class ApiService {
         executed_at: now,
         reconciled_at: now,
         transaction_hashes: [
-          'a8b7c6d5e4f3a2b10123456789abcdef0123456789abcdef0123456789abcdef',
-          'b9a8b7c6d5e4f3a20123456789abcdef0123456789abcdef0123456789abcdef',
-          'c0a1b2c3d4e5f6a70123456789abcdef0123456789abcdef0123456789abcdef',
+          '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
+          '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
+          '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
         ],
         payouts: [
           {
-            recipient_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+            recipient_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
             recipient_name: 'Alice (Meridian Capital)',
             role: 'Majority Equity',
             basis_points: 4000,
             expected_amount: 3040.0,
             actual_amount: 3040.0,
             status: 'CONFIRMED',
-            transaction_hash: 'a8b7c6d5e4f3a2b10123456789abcdef0123456789abcdef0123456789abcdef',
+            transaction_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
             reconciled: true,
           },
           {
-            recipient_address: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ',
+            recipient_address: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU',
             recipient_name: 'Bob (Apex Property Mgmt)',
             role: 'Operating Partner',
             basis_points: 3500,
             expected_amount: 2660.0,
             actual_amount: 2660.0,
             status: 'CONFIRMED',
-            transaction_hash: 'b9a8b7c6d5e4f3a20123456789abcdef0123456789abcdef0123456789abcdef',
+            transaction_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
             reconciled: true,
           },
           {
-            recipient_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN',
+            recipient_address: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU',
             recipient_name: 'Charlie (Strategic Investor)',
             role: 'Equity Participant',
             basis_points: 2500,
             expected_amount: 1900.0,
             actual_amount: 1900.0,
             status: 'CONFIRMED',
-            transaction_hash: 'c0a1b2c3d4e5f6a70123456789abcdef0123456789abcdef0123456789abcdef',
+            transaction_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
             reconciled: true,
           },
         ],
@@ -930,7 +930,7 @@ class ApiService {
           revenue_amounts: [10000.0],
           agreement_id: 'agr-meridian-001',
           agreement_version: 1,
-          agreement_hash: 'a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0',
+          agreement_hash: 'b458ed0e05a63c7545b95943dd406245d2a5de94dcf44d5db09896d34da582b3',
           waterfall_rules: [],
           stakeholder_allocations: [],
           calculated_expenses: 1000.0,
@@ -938,9 +938,9 @@ class ApiService {
           calculated_fees: 400.0,
           distributable_amount: 7600.0,
           expected_payouts: [
-            { recipient: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD', name: 'Alice', amount: 3040.0, bps: 4000 },
-            { recipient: 'GCDZ42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5WXYZ', name: 'Bob', amount: 2660.0, bps: 3500 },
-            { recipient: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN', name: 'Charlie', amount: 1900.0, bps: 2500 },
+            { recipient: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV', name: 'Alice', amount: 3040.0, bps: 4000 },
+            { recipient: 'GB6TTFIWACAGYBNLTZ7SD3KN4CPGA5FKELGFOTGWUXIIHIZOOGB6NDZU', name: 'Bob', amount: 2660.0, bps: 3500 },
+            { recipient: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU', name: 'Charlie', amount: 1900.0, bps: 2500 },
           ],
           dust_remainder: 0,
           timestamp: now,
@@ -985,7 +985,7 @@ class ApiService {
         id: stl.property_id,
         name: 'The Meridian',
         location: 'Maitama, Abuja, Nigeria',
-        vault_address: 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+        vault_address: 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
       },
       agreement: {
         id: stl.agreement_id,
@@ -1055,7 +1055,7 @@ class ApiService {
       settlement_count: this.fallbackSettlements.length,
       active_agreement_id: 'MERIDIAN-REV-001',
       active_agreement_version: 1,
-      active_agreement_hash: 'a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0',
+      active_agreement_hash: 'b458ed0e05a63c7545b95943dd406245d2a5de94dcf44d5db09896d34da582b3',
       last_settlement_date: '2026-10-06T12:01:00Z',
       reconciliation_status: 'CURRENT',
       recent_settlements: this.fallbackSettlements,
@@ -1088,7 +1088,7 @@ class ApiService {
           property_id: 'prop-meridian-abuja',
           date: '2026-10-06T12:01:00Z',
           amount: 3040.0,
-          tx_hash: 'e8f7a6b5c4d3e2f10123456789abcdef0123456789abcdef0123456789abcdef',
+          tx_hash: '9d5fbb8fc2e44366555cc3afcf621ef82a09e99d7096fb675d4720db10a46939',
           status: 'RECONCILED',
         },
       ],
@@ -1203,8 +1203,8 @@ class ApiService {
         amount: d.amount,
         asset: 'USDC',
         transaction_hash: `batch_${Date.now()}_${idx}_${Math.random().toString(36).substring(2, 9)}`,
-        depositor_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
-        destination_address: 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+        depositor_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
+        destination_address: 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
         status: 'CONFIRMED',
         verified_at: new Date().toISOString(),
         metadata: {
@@ -1298,7 +1298,7 @@ class ApiService {
     return {
       property_id: propertyId,
       property_name: prop ? prop.name : 'The Meridian',
-      vault_stellar_address: prop ? prop.vault_stellar_address : 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+      vault_stellar_address: prop ? prop.vault_stellar_address : 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
       metrics: {
         total_revenue_records: revs.length,
         total_gross_revenue: totalGross,
@@ -1362,7 +1362,7 @@ class ApiService {
     const prop = (await this.getProperties()).find((p) => p.id === propertyId);
     return {
       property_id: propertyId,
-      vault_stellar_address: prop?.vault_stellar_address || 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+      vault_stellar_address: prop?.vault_stellar_address || 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
       contract_name: 'StellarEstatePropertyVault',
       contract_version: '1.0.0-stellar-estate',
       standard: 'SEP-0001/SEP-0007/Soroban-v22',
@@ -1380,13 +1380,13 @@ class ApiService {
       agreement: {
         agreement_id: `agr-${propertyId}-001`,
         version: 1,
-        agreement_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+        agreement_hash: '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35',
         contract_reference: 'SOROBAN_MERIDIAN_DISTRIB_AGR_V1',
         stakeholder_count: 3,
       },
       explorer_links: {
-        vault: `https://stellar.expert/explorer/testnet/account/${prop?.vault_stellar_address || 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD'}`,
-        asset: 'https://stellar.expert/explorer/testnet/asset/USDC-GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+        vault: `https://stellar.expert/explorer/testnet/account/${prop?.vault_stellar_address || 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC'}`,
+        asset: 'https://stellar.expert/explorer/testnet/asset/USDC-GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5',
       },
       timestamp: new Date().toISOString(),
     };
@@ -1438,7 +1438,7 @@ class ApiService {
   async forkAgreementVersion(
     agreementId: string,
     sourceVersionNumber: number,
-    proposerAddress: string = 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD'
+    proposerAddress: string = 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV'
   ): Promise<any> {
     try {
       const res = await fetch(`${API_BASE_URL}/agreements/${agreementId}/fork`, {
@@ -1493,7 +1493,7 @@ class ApiService {
           event_type: 'SETTLEMENT_EXECUTED',
           entity_type: 'SETTLEMENT',
           entity_id: 'STL-MERIDIAN-001',
-          actor_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+          actor_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
           payload: { grossRevenue: 10000, distributableAmount: 7600 },
           created_at: new Date(Date.now() - 86400000).toISOString(),
         },
@@ -1502,8 +1502,8 @@ class ApiService {
           event_type: 'AGREEMENT_LOCKED',
           entity_type: 'DISTRIBUTION_AGREEMENT_VERSION',
           entity_id: 'ver-meridian-001-v1',
-          actor_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
-          payload: { version: 1, agreementHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+          actor_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV',
+          payload: { version: 1, agreementHash: '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35' },
           created_at: new Date(Date.now() - 172800000).toISOString(),
         },
         {
@@ -1511,7 +1511,7 @@ class ApiService {
           event_type: 'REVENUE_CONFIRMED',
           entity_type: 'REVENUE_RECORD',
           entity_id: 'rev-001',
-          actor_address: 'GAU6PZRLYQZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD',
+          actor_address: 'GDWIPNYBR4DNUTT27XZ54OPNZRHSAH2NEXHJICFHLLU7ZJ3JQJJDNZPC',
           payload: { amount: 10000, asset: 'USDC' },
           created_at: new Date(Date.now() - 259200000).toISOString(),
         },
@@ -1583,7 +1583,7 @@ class ApiService {
           {
             code: 'USDC',
             issuer: 'GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5',
-            contract_id: 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+            contract_id: 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL',
             decimals: 7,
           },
           {
@@ -1796,7 +1796,7 @@ class ApiService {
         agreement_id: agreementId,
         version,
         status: 'LOCKED',
-        hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+        hash: '68caa9d397658fa2fa0baf530b50018204cfc0bde56435c494b37100217e1c35',
         total_rules: 3,
         rules_summary: [
           { tier: 1, priority: 1, name: 'Operating Expenses', type: 'FIXED_AMOUNT', amount_or_bps: 1000, formatted: '$1000', description: 'Monthly opex' },
@@ -1804,9 +1804,9 @@ class ApiService {
           { tier: 3, priority: 3, name: 'Management Fee', type: 'PERCENTAGE_BASIS_POINTS', amount_or_bps: 500, formatted: '5.00%', description: 'Management fee' },
         ],
         equity_allocation: [
-          { name: 'Alice', role: 'Majority Equity', wallet_address: 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD', basis_points: 4000, equity_percentage: '40.00%', has_approved: true },
+          { name: 'Alice', role: 'Majority Equity', wallet_address: 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV', basis_points: 4000, equity_percentage: '40.00%', has_approved: true },
           { name: 'Bob', role: 'Institutional Partner', wallet_address: 'GDL2Q765N6XQ46S5C7Y4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN234567', basis_points: 3500, equity_percentage: '35.00%', has_approved: true },
-          { name: 'Charlie', role: 'Equity Participant', wallet_address: 'GCVRQYZCRG6E4V7P6E4J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCDKLMN', basis_points: 2500, equity_percentage: '25.00%', has_approved: true },
+          { name: 'Charlie', role: 'Equity Participant', wallet_address: 'GCTU5IKE7MAWNKETN62ZPDYQPPOFHVVJ3N4EH7X73NFURSVHENBVBTPU', basis_points: 2500, equity_percentage: '25.00%', has_approved: true },
         ],
       },
     };
@@ -1877,10 +1877,10 @@ class ApiService {
       data: {
         property_id: propertyId,
         accepted_asset_code: 'USDC',
-        contract_id: 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+        contract_id: 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL',
         decimals: 7,
         network: 'TESTNET',
-        explorer_url: 'https://stellar.expert/explorer/testnet/contract/CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+        explorer_url: 'https://stellar.expert/explorer/testnet/contract/CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL',
       },
     };
   }
@@ -1944,7 +1944,7 @@ class ApiService {
     } catch {
       // Fallback
     }
-    const isMockStakeholder = address.toUpperCase().includes('GBTY') || address.toUpperCase().includes('ALICE');
+    const isMockStakeholder = address.toUpperCase().includes('GDO45') || address.toUpperCase().includes('ALICE');
     return {
       success: true,
       data: {
@@ -2038,7 +2038,7 @@ class ApiService {
       data: {
         property_id: propertyId,
         property_name: 'The Meridian Luxury Residences',
-        contract_id: 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+        contract_id: 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL',
         status: 'ACTIVE',
         accepted_asset: 'USDC',
         contract_version: '1.0.0',
@@ -2063,7 +2063,7 @@ class ApiService {
       data: {
         property_id: propertyId,
         property_name: 'The Meridian Luxury Residences',
-        contract_id: 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH',
+        contract_id: 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL',
         initialized_at: '2026-10-01T00:00:00.000Z',
         init_timestamp_seconds: 1790812800,
         vault_age_seconds: 2500000,

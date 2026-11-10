@@ -5,8 +5,8 @@ export const HackathonJudgeBadge: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [copiedKey, setCopiedKey] = useState(false);
 
-  const testAccount = 'GBTY42VFL7XJ6Q7L35R62L4J7J5J67U4F26C6DVEOD6DGEGZ6E6DDEE5ABCD';
-  const vaultContract = 'CAQCFV2AUUXA2RFYGI4HD4KSGYYEB5Q5OC54ZAWU4HBPWZ7AL64KLCPH';
+  const testAccount = 'GDO45IXJTKZ337DL4IEPLZDOIGZDPA2RJ5EOTI4SHLI36V54NKW2BYVV';
+  const vaultContract = 'CA3JRBKPQ7V5FZBXT3KUR6HQIZBPQGOWZ7J3WSOUM7LCMUHLJKBWMUAL';
 
   const handleCopy = (text: string) => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
